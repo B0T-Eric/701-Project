@@ -7,9 +7,19 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ArcheryProjectApp">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Profile" Icon="">
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"/>
+        </Tab>
+        <Tab Title="Rounds" Icon="">
+            <ShellContent ContentTemplate="{DataTemplate local:RoundsPage}"/>
+        </Tab>
+        <Tab Title="Stats" Icon="">
+            <ShellContent ContentTemplate="{DataTemplate local:StatisticsPage}"/>
+        </Tab>
+    </TabBar>
+    
+    
+    
 
 </Shell>
