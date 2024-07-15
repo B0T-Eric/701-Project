@@ -12,71 +12,71 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ArcheryProjectApp
-build_property.ProjectDir = D:\GitRepos\701-Project\Mobile App\ArcheryProjectApp\ArcheryProjectApp\
+build_property.ProjectDir = C:\Projects\701-Project\Mobile App\ArcheryProjectApp\ArcheryProjectApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/App.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/AppShell.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/MainPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/ProfilePage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/ProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.ProfilePage.xaml
 build_metadata.AdditionalFiles.TargetPath = ProfilePage.xaml
 build_metadata.AdditionalFiles.RelativePath = ProfilePage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/Resources/Styles/Colors.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/Resources/Styles/Styles.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/RoundsPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/RoundsPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.RoundsPage.xaml
 build_metadata.AdditionalFiles.TargetPath = RoundsPage.xaml
 build_metadata.AdditionalFiles.RelativePath = RoundsPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SigninPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SigninPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SigninPage.xaml
 build_metadata.AdditionalFiles.TargetPath = SigninPage.xaml
 build_metadata.AdditionalFiles.RelativePath = SigninPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupAltPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupAltPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignupAltPage.xaml
 build_metadata.AdditionalFiles.TargetPath = SignupAltPage.xaml
 build_metadata.AdditionalFiles.RelativePath = SignupAltPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignupPage.xaml
 build_metadata.AdditionalFiles.TargetPath = SignupPage.xaml
 build_metadata.AdditionalFiles.RelativePath = SignupPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/StatisticsPage.xaml]
+[C:/Projects/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/StatisticsPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.StatisticsPage.xaml
 build_metadata.AdditionalFiles.TargetPath = StatisticsPage.xaml
