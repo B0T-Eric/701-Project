@@ -16,9 +16,9 @@ namespace API.Models
         public int Ends {get;set;}
         public int Round {get;set;}
         public int UserID {get;set;}       
-        [ForeignKey(nameof(User))] public User? Users {get; init;}
+        [ForeignKey(nameof(UserID))] public User? Users {get; init;}
         public int EventID {get;set;}       
-        [ForeignKey(nameof(Event))] public Event? Events {get; set;}
+        [ForeignKey(nameof(EventID))] public Event? Events {get; set;}
         public List<User_Details> UserDetails {get; set;} = [];
     }
 }

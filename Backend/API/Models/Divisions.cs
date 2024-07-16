@@ -17,7 +17,7 @@ namespace API.Models
         public required string Division {get;set;}
         public required string Division_Style {get;set;}
         public int UserID {get;set;}       
-        [ForeignKey(nameof(User))] public User? User {get; init;}
+        [ForeignKey(nameof(UserID))] public User? User {get; init;}
         public List<User_Details> UserDetails {get; set;} = [];
     }
 }

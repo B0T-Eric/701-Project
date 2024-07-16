@@ -14,12 +14,12 @@ namespace API.Models
         public bool Fee_Paid {get;set;}
         [DataType(DataType.Date)] public DateTime Fee_Paid_Date {get;set;}
         public int UserID {get;set;}       
-        [ForeignKey(nameof(User))] public User? Users {get; init;}
+        [ForeignKey(nameof(UserID))] public User? Users {get; init;}
         public int DivisionsID {get;set;}       
-        [ForeignKey(nameof(Divisions))] public Divisions? Divisions {get; init;}
+        [ForeignKey(nameof(DivisionsID))] public Divisions? Divisions {get; init;}
         public int ClubID {get;set;}       
-        [ForeignKey(nameof(Club))] public Club? Clubs {get; init;}
+        [ForeignKey(nameof(ClubID))] public Club? Clubs {get; init;}
         public int ScoreID {get;set;}       
-        [ForeignKey(nameof(Score))] public Score? Scores {get; init;}
+        [ForeignKey(nameof(ScoreID))] public Score? Scores {get; init;}
     }
 }

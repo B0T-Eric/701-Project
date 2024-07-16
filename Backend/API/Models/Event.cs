@@ -12,7 +12,7 @@ namespace API.Models
         [Key] public int EventID {get;set;}        
         public required string Event_Name {get;set;}
         public int ClubID {get;set;}       
-        [ForeignKey(nameof(Club))] public Club? Clubs {get; init;}
+        [ForeignKey(nameof(ClubID))] public Club? Clubs {get; init;}
         public List<Score> Scores {get; set;} = new List<Score>();
     }
 }

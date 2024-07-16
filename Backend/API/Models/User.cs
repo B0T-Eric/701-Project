@@ -18,7 +18,7 @@ namespace API.Models
        [Phone] public string? Phone { get; set; }
        public required string Emergency_Contact {get;set;}
        public int ClubID {get;set;}       
-       [ForeignKey(nameof(Club))] public Club? Club {get; init;}
+       [ForeignKey(nameof(ClubID))] public Club? Club {get; init;}
        public List<Divisions> Divisions {get; set;} = [];
        public List<User_Details> UserDetails {get; set;} = [];
        public List<Score> Scores {get; set;} = new List<Score>();
