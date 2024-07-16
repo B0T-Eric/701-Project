@@ -28,12 +28,6 @@ build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.AppShell
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/MainPage.xaml]
-build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.MainPage.xaml
-build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
-build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
-
 [D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/ProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.ProfilePage.xaml
@@ -64,17 +58,17 @@ build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SigninPa
 build_metadata.AdditionalFiles.TargetPath = SigninPage.xaml
 build_metadata.AdditionalFiles.RelativePath = SigninPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupAltPage.xaml]
+[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignUpAltPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignupAltPage.xaml
-build_metadata.AdditionalFiles.TargetPath = SignupAltPage.xaml
-build_metadata.AdditionalFiles.RelativePath = SignupAltPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignUpAltPage.xaml
+build_metadata.AdditionalFiles.TargetPath = SignUpAltPage.xaml
+build_metadata.AdditionalFiles.RelativePath = SignUpAltPage.xaml
 
-[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignupPage.xaml]
+[D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/SignUpPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignupPage.xaml
-build_metadata.AdditionalFiles.TargetPath = SignupPage.xaml
-build_metadata.AdditionalFiles.RelativePath = SignupPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = ArcheryProjectApp.SignUpPage.xaml
+build_metadata.AdditionalFiles.TargetPath = SignUpPage.xaml
+build_metadata.AdditionalFiles.RelativePath = SignUpPage.xaml
 
 [D:/GitRepos/701-Project/Mobile App/ArcheryProjectApp/ArcheryProjectApp/StatisticsPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArcheryProjectApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+97b9cd99e016de09c01eb40b146b3942e9333e75")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0916ebe695168775e867512015985a5d81fabd79")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArcheryProjectApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArcheryProjectApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

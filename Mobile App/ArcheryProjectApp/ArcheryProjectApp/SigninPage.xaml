@@ -5,8 +5,46 @@
              Title="SigninPage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to Apollo Archery Scoring App"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            FontSize="20"/>
+        
+        <Button
+            Text="Sign-in"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="OnSigninClick"
+            />
+        <Label
+            Text="Sign-up With Club Affilitation"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="16"
+        />
+        <Button
+            Text="Sign-up With Club Affiliation"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="OnClubSignUpClick"
+            />
+        <Label
+            Text="Sign-up Without Club Affilitation"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="16"
+            />
+        <Button 
+            Text="Sign-up"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="OnAltSignUpClick"
+            />
     </VerticalStackLayout>
 </ContentPage>

@@ -1,9 +1,14 @@
 namespace ArcheryProjectApp;
 
-public partial class SignupAltPage : ContentPage
+public partial class SignUpAltPage : ContentPage
 {
-	public SignupAltPage()
+	public SignUpAltPage()
 	{
 		InitializeComponent();
 	}
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Main");
+    }
 }
