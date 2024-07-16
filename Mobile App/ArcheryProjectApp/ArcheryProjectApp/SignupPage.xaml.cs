@@ -1,8 +1,8 @@
 namespace ArcheryProjectApp;
 
-public partial class SignupPage : ContentPage
+public partial class SignUpPage : ContentPage
 {
-	public SignupPage()
+	public SignUpPage()
 	{
 		InitializeComponent();
 	}

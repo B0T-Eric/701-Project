@@ -2,8 +2,10 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
-    <ActiveDebugFramework>net8.0-windows10.0.19041.0</ActiveDebugFramework>
-    <ActiveDebugProfile>Windows Machine</ActiveDebugProfile>
+    <ActiveDebugFramework>net8.0-android</ActiveDebugFramework>
+    <ActiveDebugProfile>Pixel 6 - API 30 (Android 11.0 - API 30)</ActiveDebugProfile>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
+    <DefaultDevice>pixel_6_-_api_30</DefaultDevice>
   </PropertyGroup>
   <ItemGroup>
     <MauiXaml Update="ProfilePage.xaml">
@@ -15,10 +17,10 @@
     <MauiXaml Update="SigninPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SignupAltPage.xaml">
+    <MauiXaml Update="SignUpAltPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SignupPage.xaml">
+    <MauiXaml Update="SignUpPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="StatisticsPage.xaml">
@@ -30,9 +32,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Update="AppShell.xaml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Update="MainPage.xaml">
       <SubType>Designer</SubType>
     </None>
     <None Update="Platforms\Windows\App.xaml">
