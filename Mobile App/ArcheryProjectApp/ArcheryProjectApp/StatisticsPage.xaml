@@ -4,9 +4,12 @@
              x:Class="ArcheryProjectApp.StatisticsPage"
              Title="StatisticsPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Weekly Round Average"/>
+        <Label Text="Monthly Round Average"/>
+        <Label Text="Yearly Round Average"/>
+        <Label Text="Total Round Scores"/>
+        <Label Text="Highest Round Score"/>
+        <Label Text="Lowest Round Average"/>
+        <Label Text="Lowest Round Score"/>
     </VerticalStackLayout>
 </ContentPage>

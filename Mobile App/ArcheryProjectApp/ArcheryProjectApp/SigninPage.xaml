@@ -9,7 +9,10 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             FontSize="20"/>
-        
+        <Label Text="Username" FontSize="16"/>
+        <Editor x:Name="usernameEditor" Placeholder="Enter Username" FontSize="14" />
+        <Label Text="Password" FontSize="16"/>
+        <Editor x:Name="passwordEditor" Placeholder="Enter Password" FontSize="14" />
         <Button
             Text="Sign-in"
             VerticalOptions="Center" 

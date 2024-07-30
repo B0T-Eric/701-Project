@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArcheryLibrary
 {
-    internal class User
+    public class User
     {
         public string ArcherName { get; set; }
         public string ClubName { get; set; }

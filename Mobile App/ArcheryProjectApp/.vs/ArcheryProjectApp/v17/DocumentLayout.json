@@ -3,44 +3,56 @@
   "WorkspaceRootPath": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signupaltpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signupaltpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signupaltpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signupaltpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signinpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signinpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signinpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signinpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signuppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signuppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\roundspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\roundspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\statisticspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\statisticspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signuppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signuppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\rounddisplayitems.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\rounddisplayitems.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\roundspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\roundspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\roundspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\roundspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signupaltpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signupaltpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signinpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signinpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\signupaltpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\signupaltpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|d:\\gitrepos\\701-project\\mobile app\\archeryprojectapp\\archeryprojectapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F44871EA-E726-4E2B-8E00-BBF30BD4C187}|ArcheryProjectApp\\ArcheryProjectApp.csproj|solutionrelative:archeryprojectapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,111 +62,131 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SignUpAltPage.xaml.cs",
-              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml.cs",
-              "RelativeDocumentMoniker": "ArcheryProjectApp\\SignUpAltPage.xaml.cs",
-              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml.cs",
-              "RelativeToolTip": "ArcheryProjectApp\\SignUpAltPage.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABBAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-15T08:40:05.883Z",
+              "DocumentIndex": 3,
+              "Title": "RoundDisplayItems.xaml",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundDisplayItems.xaml",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\RoundDisplayItems.xaml",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundDisplayItems.xaml",
+              "RelativeToolTip": "ArcheryProjectApp\\RoundDisplayItems.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-27T23:20:52.535Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "SignUpAltPage.xaml",
               "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml",
               "RelativeDocumentMoniker": "ArcheryProjectApp\\SignUpAltPage.xaml",
               "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml",
               "RelativeToolTip": "ArcheryProjectApp\\SignUpAltPage.xaml",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABcAAAAnAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-07-09T01:59:38.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-09T01:59:38.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "SignUpPage.xaml",
               "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpPage.xaml",
               "RelativeDocumentMoniker": "ArcheryProjectApp\\SignUpPage.xaml",
               "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpPage.xaml",
               "RelativeToolTip": "ArcheryProjectApp\\SignUpPage.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAdAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-07-09T01:59:03.967Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SigninPage.xaml.cs",
-              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml.cs",
-              "RelativeDocumentMoniker": "ArcheryProjectApp\\SigninPage.xaml.cs",
-              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml.cs",
-              "RelativeToolTip": "ArcheryProjectApp\\SigninPage.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T01:32:37.719Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AppShell.xaml",
-              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\AppShell.xaml",
-              "RelativeDocumentMoniker": "ArcheryProjectApp\\AppShell.xaml",
-              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\AppShell.xaml",
-              "RelativeToolTip": "ArcheryProjectApp\\AppShell.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAdAAAA",
+              "DocumentIndex": 1,
+              "Title": "StatisticsPage.xaml",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\StatisticsPage.xaml",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\StatisticsPage.xaml",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\StatisticsPage.xaml",
+              "RelativeToolTip": "ArcheryProjectApp\\StatisticsPage.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-20T22:42:00.794Z",
+              "WhenOpened": "2024-06-20T23:54:28.109Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "SigninPage.xaml",
               "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml",
               "RelativeDocumentMoniker": "ArcheryProjectApp\\SigninPage.xaml",
               "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml",
               "RelativeToolTip": "ArcheryProjectApp\\SigninPage.xaml",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAAsAAAAIAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-06-20T23:02:02.026Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RoundsPage.xaml",
-              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml",
-              "RelativeDocumentMoniker": "ArcheryProjectApp\\RoundsPage.xaml",
-              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml",
-              "RelativeToolTip": "ArcheryProjectApp\\RoundsPage.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-20T23:50:58.577Z",
-              "EditorCaption": ""
+              "DocumentIndex": 7,
+              "Title": "SignUpAltPage.xaml.cs",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml.cs",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\SignUpAltPage.xaml.cs",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SignUpAltPage.xaml.cs",
+              "RelativeToolTip": "ArcheryProjectApp\\SignUpAltPage.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T08:40:05.883Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "ProfilePage.xaml",
               "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\ProfilePage.xaml",
               "RelativeDocumentMoniker": "ArcheryProjectApp\\ProfilePage.xaml",
               "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\ProfilePage.xaml",
               "RelativeToolTip": "ArcheryProjectApp\\ProfilePage.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-20T23:49:06.325Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T23:49:06.325Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\App.xaml",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\App.xaml",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\App.xaml",
+              "RelativeToolTip": "ArcheryProjectApp\\App.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-07-27T23:35:11.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SigninPage.xaml.cs",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml.cs",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\SigninPage.xaml.cs",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\SigninPage.xaml.cs",
+              "RelativeToolTip": "ArcheryProjectApp\\SigninPage.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T01:32:37.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppShell.xaml",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\AppShell.xaml",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\AppShell.xaml",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\AppShell.xaml",
+              "RelativeToolTip": "ArcheryProjectApp\\AppShell.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-06-20T22:42:00.794Z"
             },
             {
               "$type": "Document",
@@ -167,18 +199,37 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-20T23:04:52.564Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoundsPage.xaml.cs",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml.cs",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\RoundsPage.xaml.cs",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml.cs",
+              "RelativeToolTip": "ArcheryProjectApp\\RoundsPage.xaml.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAtwCAAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T02:02:16.281Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "StatisticsPage.xaml",
-              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\StatisticsPage.xaml",
-              "RelativeDocumentMoniker": "ArcheryProjectApp\\StatisticsPage.xaml",
-              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\StatisticsPage.xaml",
-              "RelativeToolTip": "ArcheryProjectApp\\StatisticsPage.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 4,
+              "Title": "RoundsPage.xaml",
+              "DocumentMoniker": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml",
+              "RelativeDocumentMoniker": "ArcheryProjectApp\\RoundsPage.xaml",
+              "ToolTip": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\RoundsPage.xaml",
+              "RelativeToolTip": "ArcheryProjectApp\\RoundsPage.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-20T23:54:28.109Z"
+              "WhenOpened": "2024-06-20T23:50:58.577Z",
+              "EditorCaption": ""
             }
           ]
         }

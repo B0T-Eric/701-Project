@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArcheryLibrary
 {
-    internal class Target
+    public class Target
     {
         public List<int> ZoneValues { get; set; }
         public string Face { get; set; }

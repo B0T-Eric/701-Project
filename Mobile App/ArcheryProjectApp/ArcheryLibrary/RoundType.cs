@@ -1,6 +1,6 @@
 ﻿namespace ArcheryLibrary
 {
-    internal class RoundType
+    public class RoundType
     {
         public string Type { get; set; }
 

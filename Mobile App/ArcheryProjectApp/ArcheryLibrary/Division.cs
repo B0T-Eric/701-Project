@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArcheryLibrary
 {
-    internal class Division
+    public class Division
     {
         public int Age { get; set; }
         public string ShootingStyle { get; set; }

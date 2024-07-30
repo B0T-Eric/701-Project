@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArcheryLibrary
 {
-    internal class Equipment
+    public class Equipment
     {
         public string Bow { get; set; }
         public string Arrows { get; set; }
