@@ -16,7 +16,7 @@
         </HorizontalStackLayout>
     </Shell.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource=""/>
+        <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="add.png"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
