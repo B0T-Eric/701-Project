@@ -8,20 +8,22 @@ public partial class RoundsPage : ContentPage
 	public ObservableCollection<ScoreCardItem> Items { get; set; }
 	public RoundsPage()
 	{
-		InitializeComponent();
 
-		Items = new ObservableCollection<ScoreCardItem>
-		{
-            new ScoreCardItem("name",new DateOnly(2022,20,20),"target",100.00f,10.00f,"Indoor"),
-		};
-        var collectionView = new CollectionView
+        InitializeComponent();
+
+        Items = new ObservableCollection<ScoreCardItem>
         {
-            ItemsSource = Items,
-            ItemTemplate = Application.Current.Resources["ItemTemplate"] as DataTemplate
+            new ScoreCardItem("Round One",new DateOnly(2022,12,20),"Target One",100,10,"Indoor"),
+            new ScoreCardItem("Round Two",new DateOnly(2022,12,21),"Target Two",10,1,"Indoor"),
+            new ScoreCardItem("Round Three",new DateOnly(2022,12,22),"Target Three",300,30,"Indoor"),
+            new ScoreCardItem("Round Four",new DateOnly(2022,12,23),"Target Four",89,22,"Indoor"),
         };
-        Content = collectionView;
-}
-	public class ScoreCardItem
+        BindingContext = this;
+
+    }
+
+
+    public class ScoreCardItem
 	{
 		public string EventName { get; set; }
 		public DateOnly Date { get; set; }
@@ -39,6 +41,11 @@ public partial class RoundsPage : ContentPage
             EndAverage = endAverage;
             Environment = environment;
         }
+    }
+
+    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    {
+
     }
 }
 

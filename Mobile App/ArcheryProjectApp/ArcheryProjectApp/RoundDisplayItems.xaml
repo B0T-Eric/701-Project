@@ -3,18 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.RoundDisplayItems">
     <DataTemplate x:Key="ItemTemplate">
-        <HorizontalStackLayout>
+        <Frame BorderColor="Gray" CornerRadius="4" Background="Yellow">
+        <HorizontalStackLayout HorizontalOptions="FillAndExpand">
             <VerticalStackLayout>
-                <Label Text="{Binding EventName}"/>
-                <Label Text="{Binding Date}"/>
-                <Label Text="{Binding Target}"/>
-            </VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
+                    <Label Text="{Binding EventName}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
+                    <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Target: " FontSize="16" TextColor="Black" Padding="3"/>
+                    <Label Text="{Binding Target}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
+                </VerticalStackLayout>
             <VerticalStackLayout>
-                <Label Text="{Binding Score}"/>
-                <Label Text="{Binding EndAverage}"/>
-                <Label Text="{Binding Environment}"/>
+                <HorizontalStackLayout>
+                    <Label Text="Total Score:" FontSize="16" Padding="3" TextColor="Black"/>
+                    <Label Text="{Binding TotalScore}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="End Average: " FontSize="16" Padding="3" TextColor="Black"/>
+                    <Label Text="{Binding EndAverage}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
+                    <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </HorizontalStackLayout>
+        </Frame>
     </DataTemplate>
-
 </ResourceDictionary>
