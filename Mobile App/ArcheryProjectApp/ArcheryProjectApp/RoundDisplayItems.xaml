@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.RoundDisplayItems">
     <DataTemplate x:Key="ItemTemplate">
-        <Frame BorderColor="Gray" CornerRadius="4" Background="Yellow">
+        <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
             <VerticalStackLayout>
                 <HorizontalStackLayout>

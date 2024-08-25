@@ -9,8 +9,7 @@
 
     <ShellContent Route="SignIn" Title="Sign-in" ContentTemplate="{DataTemplate local:SigninPage}"/>
     <ShellContent Route="SignUp" Title="Sign-Up" ContentTemplate="{DataTemplate local:SignUpPage}"/>
-    <ShellContent Route="SignUpAlt" Title="Sign-Up No Club" ContentTemplate="{DataTemplate local:SignUpAltPage}"/>
-    
+
     <TabBar Route="Main">
         <Tab Title="Profile">
             <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"/>

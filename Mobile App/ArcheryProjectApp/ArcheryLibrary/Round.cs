@@ -8,53 +8,23 @@ namespace ArcheryLibrary
 {
     public class Round
     {
-        public string Type { get; set; }
-        public string EventName { get; set; }
-        public string EventType { get; set; }
-        public DateOnly EventDate { get; set; }
+        //Targets Per End, if flint round assign a target to each end
+        public List<Target>? TargetsPerEnd { get; set; }
+        //Distance Per End, if flint round assign distance to each end
+        public List<double>? DistancePerEnd { get; set; }
+        //a toggle for whether you walk up each arrow or not
+        public bool? WalkUp { get; set; }
+        //a toggle for whether you walk back each arrow or not
+        public bool? WalkBack { get; set; }
+        //a toggle whether or not you stand still or not.
+        public bool? Stationary { get; set; }
+        //Round Type - Flint or Standard
+        public string? Type { get; set; }
+        //End Count, This property determines how many ends inside of the rounds. set on creation.
         public int EndCount { get; set; }
+        //Shots Per End, The amount of shots per end. set on creation.
         public int ShotsPerEnd { get; set; }
-        public Target Target { get; set; }
-        public string Environment { get; set; }
-        public string? Weather { get; set; }
-        public Division Division { get; set; }
-        public List<List<int>> Ends { get; set; } = new List<List<int>>();
-        //template creation
-        public Round(string type, string eventName, string eventType, DateOnly date, string environment, string? weather, Division division, int ends, int shots, Target target)
-        {
-            Type = type;
-            EventName = eventName;
-            EventDate = date;
-            EventType = eventType;
-            Environment = environment;
-            if(weather != null) 
-            {
-                Weather = weather;
-            }
-            Division = division;
-            EndCount = ends;
-            ShotsPerEnd = shots;
-            Target = target;
-        }
-
-        protected Round(string type, string eventName, string eventType, DateOnly eventDate, int endCount, int shotsPerEnd, Target target, string environment, string? weather, Division division, List<List<int>> ends)
-        {
-            Type = type;
-            EventName = eventName;
-            EventType = eventType;
-            EventDate = eventDate;
-            EndCount = endCount;
-            ShotsPerEnd = shotsPerEnd;
-            Target = target;
-            Environment = environment;
-            if(weather != null)
-            {
-                Weather = weather;
-            }
-            Division = division;
-            Ends = ends;
-        }
-        //load round
+        
 
     }
 }

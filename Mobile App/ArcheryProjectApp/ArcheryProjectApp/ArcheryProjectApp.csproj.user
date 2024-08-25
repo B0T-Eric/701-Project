@@ -11,25 +11,28 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <MauiXaml Update="ProfilePage.xaml">
+    <MauiXaml Update="Pages\CreateRoundPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Pages\NewPage1.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="RoundDisplayItems.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="RoundsPage.xaml">
+    <MauiXaml Update="Pages\RoundsPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SigninPage.xaml">
+    <MauiXaml Update="Pages\SigninPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SignUpAltPage.xaml">
+    <MauiXaml Update="Pages\SignUpPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SignUpPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="StatisticsPage.xaml">
+    <MauiXaml Update="Pages\StatisticsPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

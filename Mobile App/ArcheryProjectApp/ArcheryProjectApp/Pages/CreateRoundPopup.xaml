@@ -1,0 +1,13 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="ArcheryProjectApp.Pages.CreateRoundPopup">
+
+    <VerticalStackLayout>
+        <Label Text="Create A Round Template" />
+        <Picker Title="Select Event Type"
+                ItemsSource="{Binding EventTypes}"
+                />
+    </VerticalStackLayout>
+
+</toolkit:Popup>

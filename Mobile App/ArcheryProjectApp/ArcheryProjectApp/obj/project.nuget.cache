@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5OsR2wAg87cZg/ilXHUiFrYiI5d1rA9YappqY82GZ0JhKvR+dlCIh066wLLuLN6CJerxZN1nqRXaPI5WDyJc2A==",
+  "dgSpecHash": "WtYYeB8HFCfQWy2hvyDdG0A7c0J68SBZE9Ss/CfJ6ZbddhOCmiZoWFGa2oLmC024OHT8RlVlAm96Z9exXgZUKQ==",
   "success": true,
   "projectFilePath": "D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\ArcheryProjectApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\e0229\\.nuget\\packages\\communitytoolkit.maui\\9.0.3\\communitytoolkit.maui.9.0.3.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\communitytoolkit.maui.core\\9.0.3\\communitytoolkit.maui.core.9.0.3.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
@@ -14,20 +16,22 @@
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.extensions.logging.debug\\8.0.0\\microsoft.extensions.logging.debug.8.0.0.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.graphics.win2d\\1.0.5.1\\microsoft.graphics.win2d.1.0.5.1.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls\\8.0.7\\microsoft.maui.controls.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.build.tasks\\8.0.7\\microsoft.maui.controls.build.tasks.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.compatibility\\8.0.7\\microsoft.maui.controls.compatibility.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.core\\8.0.7\\microsoft.maui.controls.core.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.xaml\\8.0.7\\microsoft.maui.controls.xaml.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.core\\8.0.7\\microsoft.maui.core.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.essentials\\8.0.7\\microsoft.maui.essentials.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.graphics\\8.0.7\\microsoft.maui.graphics.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\8.0.7\\microsoft.maui.graphics.win2d.winui.desktop.8.0.7.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.resizetizer\\8.0.7\\microsoft.maui.resizetizer.8.0.7.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.graphics.win2d\\1.2.0\\microsoft.graphics.win2d.1.2.0.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.io.recyclablememorystream\\3.0.1\\microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls\\8.0.80\\microsoft.maui.controls.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.build.tasks\\8.0.80\\microsoft.maui.controls.build.tasks.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.compatibility\\8.0.80\\microsoft.maui.controls.compatibility.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.core\\8.0.80\\microsoft.maui.controls.core.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.controls.xaml\\8.0.80\\microsoft.maui.controls.xaml.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.core\\8.0.80\\microsoft.maui.core.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.essentials\\8.0.80\\microsoft.maui.essentials.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.graphics\\8.0.80\\microsoft.maui.graphics.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\8.0.80\\microsoft.maui.graphics.win2d.winui.desktop.8.0.80.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.maui.resizetizer\\8.0.80\\microsoft.maui.resizetizer.8.0.80.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.3\\microsoft.net.illink.tasks.8.0.3.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512",
-    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.windowsappsdk\\1.3.230724000\\microsoft.windowsappsdk.1.3.230724000.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\microsoft.windowsappsdk\\1.5.240627000\\microsoft.windowsappsdk.1.5.240627000.nupkg.sha512",
+    "C:\\Users\\e0229\\.nuget\\packages\\system.speech\\8.0.0\\system.speech.8.0.0.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\xamarin.android.glide\\4.15.1.2\\xamarin.android.glide.4.15.1.2.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\xamarin.android.glide.annotations\\4.15.1.2\\xamarin.android.glide.annotations.4.15.1.2.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\xamarin.android.glide.disklrucache\\4.15.1.2\\xamarin.android.glide.disklrucache.4.15.1.2.nupkg.sha512",
@@ -113,12 +117,5 @@
     "C:\\Users\\e0229\\.nuget\\packages\\xamarin.kotlinx.coroutines.core.jvm\\1.7.2.1\\xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512",
     "C:\\Users\\e0229\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.31\\microsoft.windows.sdk.net.ref.10.0.19041.31.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\GitRepos\\701-Project\\Mobile App\\ArcheryProjectApp\\ArcheryProjectApp\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArcheryProjectApp.SigninPage"
+             Title="SigninPage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to Apollo Archery Scoring App"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="20"/>
+        <Label Text="Username" FontSize="16"/>
+        <Editor x:Name="usernameEditor" Placeholder="Enter Username" FontSize="14" />
+        <Label Text="Password" FontSize="16"/>
+        <Editor x:Name="passwordEditor" Placeholder="Enter Password" FontSize="14" />
+        <Button
+            Text="Sign-in"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="OnSigninClick"
+            />
+        <Label
+            Text="Sign-up"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="16"
+        />
+        <Button
+            Text="Sign-up"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="OnClubSignUpClick"
+            />
+        <Label
+            Text="No account? Sign-in as guest!"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="16"
+            
+            />
+        <Button
+            Text="Guest Sign-in"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="15"
+            FontSize="14"
+            Clicked="GuestSignInClick"
+        />
+    </VerticalStackLayout>
+</ContentPage>
