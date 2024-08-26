@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArcheryProjectApp.SignUpPage"
+             Shell.BackgroundColor="Red"
+             Title="Sign Up">
+    <VerticalStackLayout>
+        <Label
+            Text="Username"/>
+        <Editor x:Name="usernameEditor"
+            Placeholder="Enter Username"
+        />
+        <Label
+            Text="Password"/>
+        <Editor x:Name="passwordEditor"
+            Placeholder="Enter Password"
+        />
+        <Label
+            Text="Confirm Password"/>
+        <Editor x:Name="passwordConfirmEditor"
+                Placeholder="Enter Password Again"
+                />
+        <Label 
+            Text="Club Verification"/>
+        <Editor x:Name="clubEditor"
+        Placeholder="Enter Club ID"
+        />
+        <Button
+            Text="Sign-up"/>
+    </VerticalStackLayout>
+</ContentPage>

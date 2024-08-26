@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArcheryProjectApp.StatisticsPage"
+             Title="Statistics">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+        <Label Text="Weekly Round Average:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+        <Label Text="Monthly Round Average:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Yearly Round Average:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Total Round Scores:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Highest Round Score:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Lowest Round Average:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+        <Label Text="Lowest Round Score:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
+        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
