@@ -1,2 +1,0 @@
-values\colors;values\colors
-xml\microsoft_maui_essentials_fileprovider_file_paths;resources\xml\microsoft_maui_essentials_fileprovider_file_paths
