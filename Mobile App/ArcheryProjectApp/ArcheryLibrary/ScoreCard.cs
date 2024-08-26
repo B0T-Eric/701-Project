@@ -9,15 +9,15 @@ namespace ArcheryLibrary
     public class ScoreCard
     {
         //Event Name, This property is a name of the event set by user or admin on creation, editable
-        public string EventName { get; set; }
+        //public string EventName { get; set; }
         //Event Type, This property will be set on creation which determines whether it's not the event is a practice or competition
-        public string EventType { get; set; }
+        //public string EventType { get; set; }
         //Event Date, This property is set for the day of the event. set on creation.
-        public DateOnly EventDate { get; set; }
+        //public DateOnly EventDate { get; set; }
         //Round Count, This property determines how many rounds in this event. set on creation.
         public int RoundCount { get; set; }
         //Target, Target Face used in each round. set on creation.
-        public Target Target { get; set; }
+        //public Target? Target { get; set; }
         //Environment, Indoor or Outdoor set on creation.
         public string Environment { get; set; }
         //Weather, If outdoor use weather to describe weather conditions.
@@ -27,13 +27,9 @@ namespace ArcheryLibrary
         //Rounds.
         public List<Round> Rounds { get; set; }
 
-        public ScoreCard(string eventName, string eventType, DateOnly eventDate, int roundCount, Target target, string environment, string? weather, Division division)
+        public ScoreCard( int roundCount, string environment, string? weather, Division division)
         {
-            EventName = eventName;
-            EventType = eventType;
-            EventDate = eventDate;
             RoundCount = roundCount;
-            Target = target;
             Environment = environment;
             Weather = weather;
             Division = division;

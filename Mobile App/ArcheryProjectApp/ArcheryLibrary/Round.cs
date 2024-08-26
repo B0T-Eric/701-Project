@@ -24,7 +24,11 @@ namespace ArcheryLibrary
         public int EndCount { get; set; }
         //Shots Per End, The amount of shots per end. set on creation.
         public int ShotsPerEnd { get; set; }
-        
+        //target
+        public List<Target> targets { get; set; }
+        //distance
+        public float Distance { get; set; }
+
 
     }
 }

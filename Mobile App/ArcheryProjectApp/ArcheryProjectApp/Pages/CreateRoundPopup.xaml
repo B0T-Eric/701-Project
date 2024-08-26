@@ -3,11 +3,36 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="ArcheryProjectApp.Pages.CreateRoundPopup">
 
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="TemplatePopupLayout">
         <Label Text="Create A Round Template" />
-        <Picker Title="Select Event Type"
+        <Picker x:Name="EventTypePicker"
+            Title="Select Event Type"
                 ItemsSource="{Binding EventTypes}"
                 />
+        <Editor x:Name="EventNameEditor" Placeholder="Enter Event Name"/>
+        <Editor x:Name="EventDescriptionEditor" Placeholder="Enter Event Description"/>
+        <Button x:Name="DateButton" Text="Select Date" Clicked="OnDateButtonClicked"/>
+
+        <VerticalStackLayout x:Name="ScoreCardContainer">
+            <Editor x:Name="RoundCountEditor" Placeholder="Enter Desired Round Count"/>
+            <Picker x:Name="DivisionPicker"
+                    Title="Select Division"
+                    ItemsSource="{Binding DivisionSelection}"/>
+            <Picker x:Name="Environment"
+                    Title="Select Environment">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:String}">
+                        <x:String>Outdoor</x:String>
+                        <x:String>Indoor</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Editor x:Name="WeatherEditor" Placeholder="Enter Weather Conditions, If Applicable" />
+        </VerticalStackLayout>
+        <HorizontalStackLayout>
+        <Button x:Name="SaveButton" Text="Save" Clicked="OnSaveButtonClicked"/>
+        <Button x:Name="CancelButton" Text="Cancel" Clicked="OnCancelButtonClicked"/>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 
 </toolkit:Popup>
