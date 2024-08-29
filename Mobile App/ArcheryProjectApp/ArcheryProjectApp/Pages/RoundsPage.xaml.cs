@@ -7,47 +7,82 @@ namespace ArcheryProjectApp;
 
 public partial class RoundsPage : ContentPage
 {
-	public ObservableCollection<ScoreCardItem> Items { get; set; }
+    public ObservableCollection<EventItemModel> EventItems { get; set; }
 	public RoundsPage()
 	{
 
         InitializeComponent();
-
-        Items = new ObservableCollection<ScoreCardItem>
-        {
-            new ScoreCardItem("Round One",new DateOnly(2022,12,20),"Target One",100,10,"Indoor"),
-            new ScoreCardItem("Round Two",new DateOnly(2022,12,21),"Target Two",10,1,"Indoor"),
-            new ScoreCardItem("Round Three",new DateOnly(2022,12,22),"Target Three",300,30,"Indoor"),
-            new ScoreCardItem("Round Four",new DateOnly(2022,12,23),"Target Four",89,22,"Indoor"),
-        };
+        EventItems = GetDisplayItems();
+        ChangeTitle();
+        RoundsCollectionView.ItemsSource = EventItems;
         BindingContext = this;
-
+        
     }
 
-
-    public class ScoreCardItem
-	{
-		public string EventName { get; set; }
-		public DateOnly Date { get; set; }
-        public string Target { get; set; }
-        public float TotalScore { get; set; }
-        public float EndAverage { get; set; }
-		public string Environment { get; set; }
-
-        public ScoreCardItem(string eventName, DateOnly date, string target, float totalScore, float endAverage, string environment)
+    private void ChangeTitle()
+    {
+        if (EventItems.Count > 0)
         {
-            EventName = eventName;
-            Date = date;
-            Target = target;
-            TotalScore = totalScore;
-            EndAverage = endAverage;
-            Environment = environment;
+            Rounds.Text = "Saved Rounds";
+        }
+        else
+        {
+            Rounds.Text = "Create Rounds by clicking the plus to the top right!";
         }
     }
 
+    private ObservableCollection<EventItemModel> GetDisplayItems()
+    {
+        ObservableCollection<EventItemModel> eventItemModels = new ObservableCollection<EventItemModel>();
+        if(ProfilePage.UserInstance.Events != null)
+        {
+            foreach (Event e in ProfilePage.UserInstance.Events)
+            {
+                EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.ScoreCard.Environment, e);
+                eventItemModels.Add(model);
+            }
+        }
+        return eventItemModels;
+    }
     private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-        this.ShowPopup(new CreateRoundPopup());
+        var createRoundPopup = new CreateRoundPopup();
+        createRoundPopup.RoundCreated += OnRoundCreated;
+        this.ShowPopup(createRoundPopup);
+    }
+    private void OnRoundCreated(Event newEvent)
+    {
+        var newEventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.ScoreCard.Environment, newEvent);
+        EventItems.Add(newEventItemModel);
+        ChangeTitle();
+    }
+    private async void OnItemTapped(object sender, EventArgs e)
+    {
+        var frame = (Frame)sender;
+        var tappedItem = frame.BindingContext as EventItemModel;
+        if(tappedItem != null)
+        {
+            this.ShowPopup(new ScoreCardPopup(tappedItem.UserEvent));
+        }
+        
+    }
+    
+}
+public class EventItemModel
+{
+    public string Name { get; set; }
+    public DateOnly Date { get; set; }
+    public string Type { get; set; }
+    public string Environment { get; set; }
+    public Event UserEvent { get; set; }
+    public EventItemModel(string name, DateOnly date, string type, string environment, Event userEvent)
+    {
+        Name = name;
+        Date = date;
+        Type = type;
+        Environment = environment;
+        UserEvent = userEvent;
     }
 }
+
 

@@ -1,8 +1,8 @@
 namespace ArcheryProjectApp.Pages;
 
-public partial class NewPage1 : ContentPage
+public partial class ScoresPage : ContentPage
 {
-	public NewPage1()
+	public ScoresPage()
 	{
 		InitializeComponent();
 	}

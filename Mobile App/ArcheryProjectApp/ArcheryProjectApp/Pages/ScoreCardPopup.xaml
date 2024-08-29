@@ -6,16 +6,24 @@
     <VerticalStackLayout>
         <HorizontalStackLayout>
             <Button x:Name="NextRoundButton"  Text="Next Round" Clicked="OnNextRoundClicked"/>
-            <Label x:Name="CurrentRoundLabel" Text="Round:"/>
+            <Label x:Name="CurrentRoundLabel" Text="Round:" FontSize="20" FontAttributes="Bold" Padding="10"/>
             <Button x:Name="PreviousRoundButton" Text="Previous Round" Clicked="OnPreviousRoundClicked"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout>
-            <StackLayout>
+            <Label Text="Ends: " x:Name="EndsLabel" Padding="6"/>
+            <Slider x:Name="EndSlider" Minimum="3" Maximum="12" Value="3" ValueChanged="OnEndSliderChange" WidthRequest="320"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Arrows: " x:Name="ArrowsLabel" Padding="6"/>
+            <Slider x:Name="ArrowSlider" Minimum="3" Maximum="12" Value="3" ValueChanged="OnArrowSliderChange" WidthRequest="320"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <StackLayout Padding="10">
                 <Label Text="Select Round Type"/>
                 <RadioButton x:Name="FlintRadioButton" Content="Flint"/>
                 <RadioButton x:Name="StandardRadioButton" Content="Standard"/>
             </StackLayout>
-            <StackLayout>
+            <StackLayout Padding="10" >
                 <!--What is this called?-->
                 <Label Text="Select Distance Type?"/>
                 <RadioButton x:Name="StationaryRadioButton"  Content="Stationary"/>
@@ -26,7 +34,9 @@
         <Label Text="Same Target For All Ends?" />
         <CheckBox x:Name="SameTargetCheckBox"/>
         <ListView x:Name="Targets"
+                  MaximumHeightRequest="300"
             ItemsSource="{Binding TargetItems}"/>
-        
+        <Button x:Name="ContinueButton" Text="Continue" Clicked="OnContinueButtonClick"/>
+
     </VerticalStackLayout>
 </toolkit:Popup>

@@ -19,11 +19,10 @@ namespace ArcheryLibrary
         public int AffiliationNumber { get; set; }
         
         public DateOnly DateOfBirth { get; set; }
-        
-        public List<ScoreCard> ScoreCards { get; set; }
+        //list of events, which can contain empty or full scorecards
+        public List<Event> Events { get; set; }
 
         public Division division {  get; set; }
-        public List<Event> RegisteredEvents { get; set; }
         //new users
         public User(string firstname, string lastname, string club, int nzfaa, int affilitaion, Division division, DateOnly DOB) 
         {
@@ -36,28 +35,29 @@ namespace ArcheryLibrary
             isGuest = false;
         }
         //existing user loading
-        public User(string archerName, string clubName, int nZFAANumber, int affiliationNumber, DateOnly dateOfBirth, List<ScoreCard> scoreCards, Division division)
+        public User(string archerName, string clubName, int nZFAANumber, int affiliationNumber, DateOnly dateOfBirth, List<Event> events, Division division)
         {
             ArcherName = archerName;
             ClubName = clubName;
             NZFAANumber = nZFAANumber;
             AffiliationNumber = affiliationNumber;
             DateOfBirth = dateOfBirth;
-            ScoreCards = scoreCards;
+            Events = events;
             this.division = division;
             isGuest = false;
         }
         //guest loading
-        public User( List<ScoreCard> scoreCards)
+        public User( List<Event> events)
         {
             ArcherName = "Guest";
-            ScoreCards = scoreCards;
+            Events = events;
             isGuest = true;
         }
         //guest first login
         public User()
         {
             ArcherName = "Guest";
+            Events = new List<Event>();
             isGuest = true;
         }
 

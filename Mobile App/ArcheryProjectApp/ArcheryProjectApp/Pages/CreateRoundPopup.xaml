@@ -4,21 +4,176 @@
                x:Class="ArcheryProjectApp.Pages.CreateRoundPopup">
 
     <VerticalStackLayout x:Name="TemplatePopupLayout">
-        <Label Text="Create A Round Template" />
+        <Label Text="Create An Event Template" />
         <Picker x:Name="EventTypePicker"
-            Title="Select Event Type"
-                ItemsSource="{Binding EventTypes}"
-                />
+            Title="Select Event Type">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Practice</x:String>
+                    <x:String>Competition</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
         <Editor x:Name="EventNameEditor" Placeholder="Enter Event Name"/>
         <Editor x:Name="EventDescriptionEditor" Placeholder="Enter Event Description"/>
-        <Button x:Name="DateButton" Text="Select Date" Clicked="OnDateButtonClicked"/>
+        <DatePicker x:Name="EventDatePicker"/>
 
         <VerticalStackLayout x:Name="ScoreCardContainer">
-            <Editor x:Name="RoundCountEditor" Placeholder="Enter Desired Round Count"/>
+            <Picker x:Name="RoundCountPicker"
+                    Title="Select Amount of Rounds"
+                    >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:Int16}">
+                        <x:Int16>1</x:Int16>
+                        <x:Int16>2</x:Int16>
+                        <x:Int16>3</x:Int16>
+                        <x:Int16>4</x:Int16>
+                        <x:Int16>5</x:Int16>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
             <Picker x:Name="DivisionPicker"
-                    Title="Select Division"
-                    ItemsSource="{Binding DivisionSelection}"/>
-            <Picker x:Name="Environment"
+                    Title="Select Division">
+                <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>CFBB-R</x:String>
+                    <x:String>CFBB-C</x:String>
+                    <x:String>CFFS-R</x:String>
+                    <x:String>CFFS-C</x:String>
+                    <x:String>CFFU</x:String>
+                    <x:String>CFBH-R</x:String>
+                    <x:String>CFBH-C</x:String>
+                    <x:String>CFBL</x:String>
+                    <x:String>CFBU</x:String>
+                    <x:String>CFTR</x:String>
+                    <x:String>CFLB</x:String>
+                    <x:String>CFHB</x:String>
+                    <x:String>CMBB-R</x:String>
+                    <x:String>CMBB-C</x:String>
+                    <x:String>CMFS-R</x:String>
+                    <x:String>CMFS-C</x:String>
+                    <x:String>CMFU</x:String>
+                    <x:String>CMBH-R</x:String>
+                    <x:String>CMBH-C</x:String>
+                    <x:String>CMBL</x:String>
+                    <x:String>CMBU</x:String>
+                    <x:String>CMTR</x:String>
+                    <x:String>CMLB</x:String>
+                    <x:String>CMHB</x:String>
+                    <x:String>JFBB-R</x:String>
+                    <x:String>JFBB-C</x:String>
+                    <x:String>JFFFS-R</x:String>
+                    <x:String>JFFFS-C</x:String>
+                    <x:String>JFFU</x:String>
+                    <x:String>JFBH-R</x:String>
+                    <x:String>JFBH-C</x:String>
+                    <x:String>JFBL</x:String>
+                    <x:String>JFBU</x:String>
+                    <x:String>JFTR</x:String>
+                    <x:String>JFLB</x:String>
+                    <x:String>JFHB</x:String>
+                    <x:String>JMBB-R</x:String>
+                    <x:String>JMBB-C</x:String>
+                    <x:String>JMFS-R</x:String>
+                    <x:String>JMFS-C</x:String>
+                    <x:String>JMFU</x:String>
+                    <x:String>JMBH-R</x:String>
+                    <x:String>JMBH-C</x:String>
+                    <x:String>JMBL</x:String>
+                    <x:String>JMBU</x:String>
+                    <x:String>JMTR</x:String>
+                    <x:String>JMLB</x:String>
+                    <x:String>JMHB</x:String>
+                    <x:String>YAFBB-R</x:String>
+                    <x:String>YAFBB-C</x:String>
+                    <x:String>YAFFS-R</x:String>
+                    <x:String>YAFFS-C</x:String>
+                    <x:String>YAFFU</x:String>
+                    <x:String>YAFBH-R</x:String>
+                    <x:String>YAFBH-C</x:String>
+                    <x:String>YAFBL</x:String>
+                    <x:String>YAFBU</x:String>
+                    <x:String>YAFTR</x:String>
+                    <x:String>YAFLB</x:String>
+                    <x:String>YAFHB</x:String>
+                    <x:String>YAMBB-R</x:String>
+                    <x:String>YAMBB-C</x:String>
+                    <x:String>YAMFS-R</x:String>
+                    <x:String>YAMFS-C</x:String>
+                    <x:String>YAMFU</x:String>
+                    <x:String>YAMBH-R</x:String>
+                    <x:String>YAMBH-C</x:String>
+                    <x:String>YAMBL</x:String>
+                    <x:String>YAMBU</x:String>
+                    <x:String>YAMTR</x:String>
+                    <x:String>YAMLB</x:String>
+                    <x:String>YAMHB</x:String>
+                    <x:String>AFBB-R</x:String>
+                    <x:String>AFBB-C</x:String>
+                    <x:String>AFFS-R</x:String>
+                    <x:String>AFFS-C</x:String>
+                    <x:String>AFFU</x:String>
+                    <x:String>AFBH-R</x:String>
+                    <x:String>AFBH-C</x:String>
+                    <x:String>AFBL</x:String>
+                    <x:String>AFBU</x:String>
+                    <x:String>AFTR</x:String>
+                    <x:String>AFLB</x:String>
+                    <x:String>AFHB</x:String>
+                    <x:String>AMBB-R</x:String>
+                    <x:String>AMBB-C</x:String>
+                    <x:String>AMFS-R</x:String>
+                    <x:String>AMFS-C</x:String>
+                    <x:String>AMFU</x:String>
+                    <x:String>AMBH-R</x:String>
+                    <x:String>AMBH-C</x:String>
+                    <x:String>AMBL</x:String>
+                    <x:String>AMBU</x:String>
+                    <x:String>AMTR</x:String>
+                    <x:String>AMLB</x:String>
+                    <x:String>AMHB</x:String>
+                    <x:String>VFBB-R</x:String>
+                    <x:String>VFBB-C</x:String>
+                    <x:String>VFFS-R</x:String>
+                    <x:String>VFFS-C</x:String>
+                    <x:String>VFFU</x:String>
+                    <x:String>VFBH-R</x:String>
+                    <x:String>VFBH-C</x:String>
+                    <x:String>VFBL</x:String>
+                    <x:String>VFBU</x:String>
+                    <x:String>VFTR</x:String>
+                    <x:String>VFLB</x:String>
+                    <x:String>VFHB</x:String>
+                    <x:String>VMBB-R</x:String>
+                    <x:String>VMBB-C</x:String>
+                    <x:String>VMFS-R</x:String>
+                    <x:String>VMFS-C</x:String>
+                    <x:String>VMFU</x:String>
+                    <x:String>VMBH-R</x:String>
+                    <x:String>VMBH-C</x:String>
+                    <x:String>VMBL</x:String>
+                    <x:String>VMBU</x:String>
+                    <x:String>VMTR</x:String>
+                    <x:String>VMLB</x:String>
+                    <x:String>VMHB</x:String>
+                    <x:String>SFFS-R</x:String>
+                    <x:String>SFFS-C</x:String>
+                    <x:String>SFFU</x:String>
+                    <x:String>SFBB-R</x:String>
+                    <x:String>SFBB-C</x:String>
+                    <x:String>SFBH-R</x:String>
+                    <x:String>SFBH-C</x:String>
+                    <x:String>SFBL</x:String>
+                    <x:String>SFBU</x:String>
+                    <x:String>SFTR</x:String>
+                    <x:String>SFLB</x:String>
+                    <x:String>SFHB</x:String>
+                    <x:String>SMHB</x:String>
+                </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Picker x:Name="EnvironmentPicker"
                     Title="Select Environment">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">

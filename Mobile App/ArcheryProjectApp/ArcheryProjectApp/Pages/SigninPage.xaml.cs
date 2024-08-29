@@ -11,22 +11,16 @@ public partial class SigninPage : ContentPage
     private async void OnSigninClick(object sender, EventArgs e)
     {
 		LoginType loginType = LoginType.RegisteredUser;
+        await Shell.Current.GoToAsync($"///Main");
     }
 	private async void OnClubSignUpClick(object sender, EventArgs e)
 	{
-		
+		await Navigation.PushAsync(new SignUpPage());
 	}
 	private async void GuestSignInClick(object sender, EventArgs e)
 	{
 		LoginType loginType = LoginType.Guest;
-		try
-		{
-            await Shell.Current.GoToAsync($"///Main?loginType={loginType}");
-        }
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message + "Navigation Failure");
-		}
-		
-	}
+		string loginTypeString = loginType.ToString();
+        await Shell.Current.GoToAsync($"///Main?loginType={loginTypeString}");
+    }
 }

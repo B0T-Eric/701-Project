@@ -2,20 +2,22 @@ using ArcheryLibrary;
 using static ArcheryProjectApp.SigninPage;
 
 namespace ArcheryProjectApp;
-[QueryProperty(nameof(LoginType), "loginType")]
+
+[QueryProperty(nameof(LoginType),"loginType")]
 public partial class ProfilePage : ContentPage
-{
+{ 
     public static User UserInstance;
 
     private string _loginType;
+
     public string LoginType
     {
         get => _loginType;
-        set
-        {
-            _loginType = value;
+        set 
+        { 
+            _loginType = value; 
             OnPropertyChanged();
-            if (!string.IsNullOrEmpty(_loginType) && Enum.TryParse(value, out LoginType loginTypeEnum))
+            if(Enum.TryParse(_loginType, out LoginType loginTypeEnum))
             {
                 HandleLoginType(loginTypeEnum);
             }
@@ -24,11 +26,11 @@ public partial class ProfilePage : ContentPage
 
     private void HandleLoginType(LoginType loginTypeEnum)
     {
-        if (loginTypeEnum == SigninPage.LoginType.RegisteredUser)
+        if(loginTypeEnum == SigninPage.LoginType.RegisteredUser)
         {
-            
+            //do registered user data handling?????
         }
-        else if(loginTypeEnum == SigninPage.LoginType.Guest)
+        else
         {
             UserInstance = new User();
         }
@@ -36,10 +38,15 @@ public partial class ProfilePage : ContentPage
 
     public ProfilePage()
     {
-        InitializeComponent();  
-        if (UserInstance.isGuest && UserInstance != null)
+        InitializeComponent();
+        BindingContext = this;
+        if (UserInstance != null)
         {
-            ModifyButtonText();
+            if(UserInstance.isGuest)
+            {
+                ModifyButtonText();
+            }
+            
         }
     }
 

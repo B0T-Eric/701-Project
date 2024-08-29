@@ -2,16 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.RoundsPage"
-             Title="Rounds">
+             Title="Events">
     <Shell.TitleView>
         <HorizontalStackLayout VerticalOptions="Fill">
-            <Label Text="Rounds"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   FontSize="Large"
-                   HeightRequest="50"
+            <Label x:Name="Title" 
+                   Text="Events"
                    VerticalOptions="Center"
-                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   TextColor="Black"
                    />
         </HorizontalStackLayout>
     </Shell.TitleView>
@@ -19,11 +19,35 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="add.png"/>
     </ContentPage.ToolbarItems>
-    
+    <StackLayout>
+        <Label x:Name="Rounds" Text="Saved Rounds!"/>
+        <CollectionView x:Name="RoundsCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
+                        <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                            <VerticalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
+                                    <Label Text="{Binding Name}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
+                                    <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    <Label Text="Type: " FontSize="16" Padding="3" TextColor="Black"/>
+                                    <Label Text="{Binding Type}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
+                                    <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
+                                </HorizontalStackLayout>
 
-    <CollectionView x:Name="RoundsCollectionView"
-                        ItemsSource="{Binding Items}"
-                        ItemTemplate="{StaticResource ItemTemplate}">
-    </CollectionView>
+                            </VerticalStackLayout>
 
+                        </HorizontalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnItemTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+    </StackLayout>
 </ContentPage>
