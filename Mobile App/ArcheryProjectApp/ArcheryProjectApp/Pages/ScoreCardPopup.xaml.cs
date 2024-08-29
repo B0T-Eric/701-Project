@@ -79,5 +79,6 @@ public partial class ScoreCardPopup : Popup
 	private async void OnContinueButtonClick()
 	{
 
+		await NavigationPage.PushAsync(new ScoresPage());
 	}
 }

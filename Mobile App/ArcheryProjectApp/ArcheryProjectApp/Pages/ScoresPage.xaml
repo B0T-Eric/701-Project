@@ -4,9 +4,8 @@
              x:Class="ArcheryProjectApp.Pages.ScoresPage"
              Title="ScoresPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <CollectionView>
+            
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
