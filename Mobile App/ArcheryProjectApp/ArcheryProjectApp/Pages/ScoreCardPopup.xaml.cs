@@ -3,13 +3,20 @@ using CommunityToolkit.Maui.Views;
 using ArcheryLibrary;
 public partial class ScoreCardPopup : Popup
 {
-	private List<Round> rounds;
+	private INavigation _navigation;
+	private List<Round> rounds = new List<Round>();
+	private Event _eventItem;
 	private Round currentRound;
 	private int current;
-	public ScoreCardPopup(Event eventItem)
+	public ScoreCardPopup(Event eventItem, INavigation navigation)
 	{
 		InitializeComponent();
-		rounds = eventItem.ScoreCard.Rounds;
+		_navigation = navigation;
+		_eventItem = eventItem;
+		for (int i = 0; i < eventItem.ScoreCard.RoundCount; i++)
+		{
+			rounds.Add(new Round());
+		}
 		PreviousRoundButton.IsEnabled = false;
 		PreviousRoundButton.IsVisible = false;
 		currentRound = rounds[0];
@@ -77,8 +84,10 @@ public partial class ScoreCardPopup : Popup
 
 	}
 	private async void OnContinueButtonClick()
-	{
-
-		await NavigationPage.PushAsync(new ScoresPage());
+	{ 
+		_eventItem.ScoreCard.Rounds = rounds;
+		Close();
+		await _navigation.PushAsync(new ScoresPage());
 	}
+	
 }

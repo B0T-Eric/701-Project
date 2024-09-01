@@ -62,7 +62,7 @@ public partial class RoundsPage : ContentPage
         var tappedItem = frame.BindingContext as EventItemModel;
         if(tappedItem != null)
         {
-            this.ShowPopup(new ScoreCardPopup(tappedItem.UserEvent));
+            this.ShowPopup(new ScoreCardPopup(tappedItem.UserEvent, Navigation));
         }
         
     }
