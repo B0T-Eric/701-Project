@@ -20,22 +20,31 @@
         <HorizontalStackLayout>
             <StackLayout Padding="10">
                 <Label Text="Select Round Type"/>
-                <RadioButton x:Name="FlintRadioButton" Content="Flint"/>
-                <RadioButton x:Name="StandardRadioButton" Content="Standard"/>
+                <RadioButton x:Name="FlintRadioButton" Content="Flint" CheckedChanged="OnFlintCheckChanged"/>
+                <RadioButton x:Name="StandardRadioButton" Content="Standard" CheckedChanged="OnStandardCheckedChanged"/>
             </StackLayout>
             <StackLayout Padding="10" >
-                <!--What is this called?-->
-                <Label Text="Select Distance Type?"/>
-                <RadioButton x:Name="StationaryRadioButton"  Content="Stationary"/>
-                <RadioButton x:Name="WalkUpRadioButton" Content="Walk-Up"/>
-                <RadioButton x:Name="WalkBackRadioButton" Content="Walk-Back"/>
+                <Label Text="Select Shooting Position Type"/>
+                <RadioButton x:Name="StationaryRadioButton" Content="Stationary" CheckedChanged="OnStationaryCheckedChanged"/>
+                <RadioButton x:Name="WalkUpRadioButton" Content="Walk-Up" CheckedChanged="OnWalkUpCheckedChanged"/>
+                <RadioButton x:Name="WalkBackRadioButton" Content="Walk-Back" CheckedChanged="OnWalkBackCheckedChanged"/>
             </StackLayout>
         </HorizontalStackLayout>
-        <Label Text="Same Target For All Ends?" />
-        <CheckBox x:Name="SameTargetCheckBox"/>
-        <ListView x:Name="Targets"
-                  MaximumHeightRequest="300"
-            ItemsSource="{Binding TargetItems}"/>
+
+        <VerticalStackLayout x:Name="FlintDetailsLayout">
+            <!-- Target Pickers Go Here (Made in c#)  -->
+            <!-- Distance Sliders Go Here (Made in c#) -->
+        </VerticalStackLayout>
+        
+
+        <VerticalStackLayout x:Name="StandardDetailsLayout">
+            <HorizontalStackLayout>
+                <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
+                <Editor x:Name="StandardDistanceUnitEditor" Placeholder="Enter Distance Unit"/>
+                <Picker x:Name="StandardTargetPicker" Title="Select Target" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
         <Button x:Name="ContinueButton" Text="Continue" Clicked="OnContinueButtonClick"/>
 
     </VerticalStackLayout>

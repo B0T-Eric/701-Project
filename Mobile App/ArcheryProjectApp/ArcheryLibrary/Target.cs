@@ -10,7 +10,17 @@ namespace ArcheryLibrary
     {
         public List<int> ZoneValues { get; set; }
         public string Face { get; set; }
-        public string FaceImage { get; set; }
+        public string FaceImageURL { get; set; }
         public Target() { }
+        public Target(List<int> zoneValues, string face, string faceImageURL)
+        {
+            ZoneValues = zoneValues;
+            Face = face;
+            FaceImageURL = faceImageURL;
+        }
+        public override string ToString()
+        {
+            return Face;
+        }
     }
 }
