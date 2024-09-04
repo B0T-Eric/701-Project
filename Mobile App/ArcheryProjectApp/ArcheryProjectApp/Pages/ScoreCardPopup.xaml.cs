@@ -2,6 +2,7 @@ namespace ArcheryProjectApp.Pages;
 using CommunityToolkit.Maui.Views;
 using ArcheryLibrary;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 public partial class ScoreCardPopup : Popup
 {
@@ -65,6 +66,23 @@ public partial class ScoreCardPopup : Popup
 
 			container.Children.Add(label);
 			container.Children.Add(picker);
+			FlintDetailsLayout.Children.Add(container);
+		}
+		for(int i = 0;i < count; i++)
+		{
+			var container = new HorizontalStackLayout();
+			var distEditor = new Editor
+			{
+				Placeholder = "Enter Distance (20/10)",
+				AutomationId = $"DistEditor_{i}"
+			};
+			var unitEditor = new Editor
+			{
+				Placeholder = "Enter Unit (m/yd/f)",
+				AutomationId = $"UnitEditor_{i}"
+			};
+			container.Children.Add(distEditor);
+			container.Children.Add(unitEditor);
 			FlintDetailsLayout.Children.Add(container);
 		}
 		
@@ -196,8 +214,76 @@ public partial class ScoreCardPopup : Popup
 	}
 	private void SaveRound()
 	{
+		if(currentRound.Type == "Flint")
+		{
+			currentRound.TargetsPerEnd = GetListFromChildren();
+			currentRound.DistancePerEnd = GetDictFromChildren();
+		}
+		else
+		{
 
+		}
 	}
+    private Dictionary<double, string> GetDictFromChildren()
+    {
+        Dictionary<double, string> keyValuePairs = new Dictionary<double, string>();
+
+		foreach (var child in FlintDetailsLayout.Children)
+		{
+			if (child is HorizontalStackLayout layout)
+			{
+				double key = 0;
+				string value = null;
+				foreach (var child2 in layout.Children)
+				{
+					if (child2 is Editor editor)
+					{
+						if (editor.AutomationId.StartsWith("DistEditor_"))
+						{
+							if (double.TryParse(editor.Text, out key))
+							{
+								Console.WriteLine($"Successful Parse of {key}");
+							}
+						}
+						else if (editor.AutomationId.StartsWith("UnitEditor_"))
+						{
+							value = editor.Text;
+						}
+					}
+				}
+				// After both key and value are set, add them to the dictionary
+				if (!string.IsNullOrEmpty(value))
+				{
+					keyValuePairs[key] = value;
+				}
+			}
+		}
+        // Return populated dictionary
+        return keyValuePairs;
+    }
+
+    private List<Target> GetListFromChildren()
+	{
+		List<Target> list = new List<Target>();
+        foreach (var child in FlintDetailsLayout.Children)
+        {
+            if (child is HorizontalStackLayout layout)
+            {
+                foreach (var child2 in layout.Children)
+                {
+					if(child2 is Picker picker)
+					{
+						if (picker.SelectedItem is Target target)
+						{
+							list.Add(target);
+						}
+					}
+                }
+            }
+        }
+		//return populated list of targets
+		return list;
+    }
 	private async void OnContinueButtonClick()
 	{ 
 		_eventItem.ScoreCard.Rounds = rounds;
