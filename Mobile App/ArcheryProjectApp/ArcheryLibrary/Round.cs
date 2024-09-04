@@ -11,8 +11,8 @@ namespace ArcheryLibrary
     {
         //Targets Per End, if flint round assign a target to each end
         public List<Target>? TargetsPerEnd { get; set; }
-        //Distance Per End, if flint round assign distance to each end
-        public List<double>? DistancePerEnd { get; set; }
+        //Distance Per End, if flint round assign distance to each end (distance and unit)
+        public Dictionary<double, string>? DistancePerEnd { get; set; }
         //shooting Position of each end
         public ShootingPosition PositionType { get; set; }
         //Round Type - Flint or Standard
@@ -25,7 +25,10 @@ namespace ArcheryLibrary
         public Target? Target { get; set; }
         //distance for standard round
         public float? Distance { get; set; }
+        public string Unit { get; set; }
+        public Round()
+        {
 
-
+        }
     }
 }

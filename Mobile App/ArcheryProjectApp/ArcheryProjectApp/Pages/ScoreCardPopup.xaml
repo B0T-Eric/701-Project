@@ -34,6 +34,8 @@
         <VerticalStackLayout x:Name="FlintDetailsLayout">
             <!-- Target Pickers Go Here (Made in c#)  -->
             <!-- Distance Sliders Go Here (Made in c#) -->
+            
+            
         </VerticalStackLayout>
         
 
@@ -41,8 +43,8 @@
             <HorizontalStackLayout>
                 <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
                 <Editor x:Name="StandardDistanceUnitEditor" Placeholder="Enter Distance Unit"/>
-                <Picker x:Name="StandardTargetPicker" Title="Select Target" />
             </HorizontalStackLayout>
+            <Picker x:Name="StandardTargetPicker" Title="Select Target" />
         </VerticalStackLayout>
         
         <Button x:Name="ContinueButton" Text="Continue" Clicked="OnContinueButtonClick"/>
