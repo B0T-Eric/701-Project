@@ -3,51 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.Pages.ScoreCardPopup"
              >
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Button x:Name="NextRoundButton"  Text="Next Round" Clicked="OnNextRoundClicked"/>
-            <Label x:Name="CurrentRoundLabel" Text="Round:" FontSize="20" FontAttributes="Bold" Padding="10"/>
-            <Button x:Name="PreviousRoundButton" Text="Previous Round" Clicked="OnPreviousRoundClicked"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Ends: " x:Name="EndsLabel" Padding="6"/>
-            <Slider x:Name="EndSlider" Minimum="3" Maximum="12" Value="3" ValueChanged="OnEndSliderChange" WidthRequest="320"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Arrows: " x:Name="ArrowsLabel" Padding="6"/>
-            <Slider x:Name="ArrowSlider" Minimum="3" Maximum="12" Value="3" ValueChanged="OnArrowSliderChange" WidthRequest="320"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <StackLayout Padding="10">
-                <Label Text="Select Round Type"/>
-                <RadioButton x:Name="FlintRadioButton" Content="Flint" CheckedChanged="OnFlintCheckChanged"/>
-                <RadioButton x:Name="StandardRadioButton" Content="Standard" CheckedChanged="OnStandardCheckedChanged"/>
-            </StackLayout>
-            <StackLayout Padding="10" >
-                <Label Text="Select Shooting Position Type"/>
-                <RadioButton x:Name="StationaryRadioButton" Content="Stationary" CheckedChanged="OnStationaryCheckedChanged"/>
-                <RadioButton x:Name="WalkUpRadioButton" Content="Walk-Up" CheckedChanged="OnWalkUpCheckedChanged"/>
-                <RadioButton x:Name="WalkBackRadioButton" Content="Walk-Back" CheckedChanged="OnWalkBackCheckedChanged"/>
-            </StackLayout>
-        </HorizontalStackLayout>
-
-        <VerticalStackLayout x:Name="FlintDetailsLayout">
-            <!-- Target Pickers Go Here (Made in c#)  -->
-            <!-- Distance Sliders Go Here (Made in c#) -->
-            
-            
-        </VerticalStackLayout>
-        
-
-        <VerticalStackLayout x:Name="StandardDetailsLayout">
+    <ScrollView BackgroundColor="White" >
+        <VerticalStackLayout>
             <HorizontalStackLayout>
-                <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
-                <Editor x:Name="StandardDistanceUnitEditor" Placeholder="Enter Distance Unit"/>
+                <Button x:Name="NextRoundButton"  Text="Next Round" Clicked="OnNextRoundClicked"/>
+                <Label x:Name="CurrentRoundLabel" Text="Round:" FontSize="20" FontAttributes="Bold" Padding="10"/>
+                <Button x:Name="PreviousRoundButton" Text="Previous Round" Clicked="OnPreviousRoundClicked"/>
             </HorizontalStackLayout>
-            <Picker x:Name="StandardTargetPicker" Title="Select Target" />
-        </VerticalStackLayout>
-        
-        <Button x:Name="ContinueButton" Text="Continue" Clicked="OnContinueButtonClick"/>
+            <HorizontalStackLayout>
+                <Label Text="Ends: " x:Name="EndsLabel"/>
+                <Slider x:Name="EndSlider" Minimum="3" Maximum="9" Value="3" ValueChanged="OnEndSliderChange" WidthRequest="320"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Arrows: " x:Name="ArrowsLabel"/>
+                <Slider x:Name="ArrowSlider" Minimum="3" Maximum="6" Value="3" ValueChanged="OnArrowSliderChange" WidthRequest="320"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <StackLayout Padding="10">
+                    <Label Text="Select Round Type"/>
+                    <RadioButton x:Name="FlintRadioButton" Content="Flint" CheckedChanged="OnFlintCheckedChanged"/>
+                    <RadioButton x:Name="StandardRadioButton" Content="Standard" CheckedChanged="OnStandardCheckedChanged"/>
+                </StackLayout>
+                <StackLayout Padding="10" >
+                    <Label Text="Select Shooting Position Type"/>
+                    <RadioButton x:Name="StationaryRadioButton" Content="Stationary" CheckedChanged="OnStationaryCheckedChanged"/>
+                    <RadioButton x:Name="WalkUpRadioButton" Content="Walk-Up" CheckedChanged="OnWalkUpCheckedChanged"/>
+                    <RadioButton x:Name="WalkBackRadioButton" Content="Walk-Back" CheckedChanged="OnWalkBackCheckedChanged"/>
+                </StackLayout>
+            </HorizontalStackLayout>
 
-    </VerticalStackLayout>
+            <VerticalStackLayout x:Name="FlintDetailsLayout">
+                <!-- Target Pickers Go Here (Made in c#)  -->
+                <!-- Distance Sliders Go Here (Made in c#) -->
+
+
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout x:Name="StandardDetailsLayout">
+                <HorizontalStackLayout>
+                    <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
+                    <Editor x:Name="StandardDistanceUnitEditor" Placeholder="Enter Distance Unit"/>
+                </HorizontalStackLayout>
+                <Picker x:Name="StandardTargetPicker" Title="Select Target" />
+            </VerticalStackLayout>
+
+            <Button x:Name="ContinueButton" Text="Continue" Clicked="ContinueButton_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </toolkit:Popup>
