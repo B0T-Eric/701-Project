@@ -43,7 +43,6 @@
             <VerticalStackLayout x:Name="StandardDetailsLayout">
                 <HorizontalStackLayout>
                     <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
-                    <Editor x:Name="StandardDistanceUnitEditor" Placeholder="Enter Distance Unit"/>
                 </HorizontalStackLayout>
                 <Picker x:Name="StandardTargetPicker" Title="Select Target" />
             </VerticalStackLayout>

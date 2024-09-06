@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using ArcheryLibrary;
 using System.Collections.ObjectModel;
 
+//To Do: Have loading of round information from existing information, Have Saving of Round Data, Fix Navigation Buttons, Fix Targets Stuff
 public partial class ScoreCardPopup : Popup
 {
 	private INavigation _navigation;
@@ -24,12 +25,12 @@ public partial class ScoreCardPopup : Popup
 		currentRound = rounds[0];
 		current = 0;
 		StandardTargetPicker.ItemsSource = App.targets;
+		//Check for existing round data and update display fields if possible
 		UpdateDisplay();
 	}
 	public class FlintEnd
 	{
-		public double Distance { get; set; }
-        public string? Unit { get; set; }
+		public string Distance { get; set; }
 		public Target? EndTarget { get; set; }
 
     }
@@ -57,7 +58,7 @@ public partial class ScoreCardPopup : Popup
 		{
 			for (int i = flintEnds.Count; i < count; i++)
 			{
-				flintEnds.Add(new FlintEnd { Distance = 0, Unit = "", EndTarget = null });
+				flintEnds.Add(new FlintEnd { Distance = "", EndTarget = null });
 			}
 		}
 		//check if removal required
@@ -81,9 +82,6 @@ public partial class ScoreCardPopup : Popup
 				ItemTemplate = new DataTemplate(() =>
 				{
                     var container = new HorizontalStackLayout();
-                    //var label = new Label();
-                    //label.SetBinding(Label.TextProperty, new Binding("Text", source: $"End"));
-
                     // Picker for target selection
                     var picker = new Picker { Title = "Select End Target" };
                     picker.ItemsSource = App.targets;
@@ -92,12 +90,8 @@ public partial class ScoreCardPopup : Popup
                     // Editors for distance and unit
                     var distEditor = new Editor { Placeholder = "Enter Distance" };
 					distEditor.SetBinding(Editor.TextProperty, new Binding("Distance"));
-                    var unitEditor = new Editor { Placeholder = "Enter Unit" };
-                    unitEditor.SetBinding(Editor.TextProperty, new Binding("Unit"));
 
                     container.Children.Add(distEditor);
-                    container.Children.Add(unitEditor);
-                    //container.Children.Add(label);
                     container.Children.Add(picker);
                     Console.WriteLine("Container Returned Successfully To Collection View!");
                     return container;
@@ -140,7 +134,7 @@ public partial class ScoreCardPopup : Popup
 				{
 					return false;
 				}
-				else if(round.Distance == 0 && round.Unit == null && round.Target == null) 
+				else if(round.Distance == null  && round.Target == null) 
 				{
 					return false;
 				}
@@ -151,6 +145,7 @@ public partial class ScoreCardPopup : Popup
 		}
 		else return false;
 	}
+	//create methods for loading existing round data
 	private void UpdateDisplay()
 	{
 		CurrentRoundLabel.Text = $"Round: {current + 1}";
@@ -158,18 +153,19 @@ public partial class ScoreCardPopup : Popup
 		{
 			if (currentRound.Type.Equals("Standard"))
 			{
+				//populated standard round input
 				StandardRadioButton.IsChecked = true;
 				FlintRadioButton.IsChecked = false;
                 StandardDetailsLayout.IsEnabled = true;
                 StandardDetailsLayout.IsVisible = true;
                 FlintDetailsLayout.IsVisible = false;
                 FlintDetailsLayout.IsEnabled = false;
-				StandardDistanceEditor.Text = currentRound.Distance.ToString();
-				StandardDistanceUnitEditor.Text = currentRound.Unit.ToString();
-				//StandardTargetPicker.SelectedItem = ;
+				StandardDistanceEditor.Text = currentRound.Distance;
+				
             }
 			else
 			{
+				//flint round stuff
 				StandardRadioButton.IsChecked = false;
 				FlintRadioButton.IsChecked = true;
                 StandardDetailsLayout.IsEnabled = false;
@@ -178,7 +174,7 @@ public partial class ScoreCardPopup : Popup
                 FlintDetailsLayout.IsEnabled = true;
                 StandardTargetPicker.SelectedIndex = -1;
                 StandardDistanceEditor.Text = "";
-                StandardDistanceUnitEditor.Text = "";
+
             }
 			EndSlider.Value = currentRound.EndCount;
 			ArrowSlider.Value = currentRound.ShotsPerEnd;
@@ -203,6 +199,7 @@ public partial class ScoreCardPopup : Popup
 		}
 		else
 		{
+			//default empty views
 			StandardRadioButton.IsChecked=true;
 			FlintRadioButton.IsChecked=false;
 			EndsLabel.Text = "Ends: ";
@@ -211,7 +208,6 @@ public partial class ScoreCardPopup : Popup
 			ArrowSlider.Value = 3;
 			StandardTargetPicker.SelectedIndex = -1;
 			StandardDistanceEditor.Text = "";
-			StandardDistanceUnitEditor.Text = "";
 			StandardDetailsLayout.IsEnabled = true;
 			StandardDetailsLayout.IsVisible = true;
 			FlintDetailsLayout.IsVisible = false;
@@ -226,13 +222,14 @@ public partial class ScoreCardPopup : Popup
 		if(currentRound.Type == "Flint")
 		{
 			currentRound.TargetsPerEnd = GetListFromChildren();
-			currentRound.DistancePerEnd = GetDictFromChildren();
+			
 		}
 		else
 		{
 
 		}
 	}
+	//To Do: recreate this method
     private Dictionary<double, string> GetDictFromChildren()
     {
         Dictionary<double, string> keyValuePairs = new Dictionary<double, string>();
@@ -270,7 +267,7 @@ public partial class ScoreCardPopup : Popup
         // Return populated dictionary
         return keyValuePairs;
     }
-
+	//to do: recreate this method
     private List<Target> GetListFromChildren()
 	{
 		List<Target> list = new List<Target>();

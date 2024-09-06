@@ -3,6 +3,8 @@ using static ArcheryProjectApp.SigninPage;
 
 namespace ArcheryProjectApp;
 
+//To Do: Fix Guest Logging In Parameters, Add Method for accepting event
+
 [QueryProperty(nameof(LoginType),"loginType")]
 public partial class ProfilePage : ContentPage
 { 
