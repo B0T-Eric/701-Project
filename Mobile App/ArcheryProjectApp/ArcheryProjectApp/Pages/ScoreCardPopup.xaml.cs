@@ -9,7 +9,6 @@ public partial class ScoreCardPopup : Popup
 	private INavigation _navigation;
 	private List<Round> rounds = new List<Round>();
 	private Event _eventItem;
-	private Round currentRound;
 	private int current;
 	private ObservableCollection<FlintEnd> flintEnds = new ObservableCollection<FlintEnd>();
 	public ScoreCardPopup(Event eventItem, INavigation navigation)
@@ -17,12 +16,19 @@ public partial class ScoreCardPopup : Popup
 		InitializeComponent();
 		_navigation = navigation;
 		_eventItem = eventItem;
-		for (int i = 0; i < eventItem.ScoreCard.RoundCount; i++)
+		if(eventItem.ScoreCard.Rounds == null)
 		{
-			rounds.Add(new Round());
+            for (int i = 0; i < eventItem.ScoreCard.RoundCount; i++)
+            {
+                rounds.Add(new Round());
+            }
+        }
+		else
+		{
+			rounds = eventItem.ScoreCard.Rounds;
 		}
+		
 		ToggleNavButtons();
-		currentRound = rounds[0];
 		current = 0;
 		StandardTargetPicker.ItemsSource = App.targets;
 		//Check for existing round data and update display fields if possible
@@ -51,7 +57,10 @@ public partial class ScoreCardPopup : Popup
 		slider.Value = Math.Round(e.NewValue);
 		ArrowsLabel.Text = $"Arrows: {ArrowSlider.Value}";
 	}
-	private async void PopulateFlintLayout(int count)
+
+    [Obsolete]
+	//this is super buggy idk why
+    private async void PopulateFlintLayout(int count)
 	{
 		//Check if more are required
 		if(count > flintEnds.Count)
@@ -61,20 +70,37 @@ public partial class ScoreCardPopup : Popup
 				flintEnds.Add(new FlintEnd { Distance = "", EndTarget = null });
 			}
 		}
-		//check if removal required
-		else if( count < flintEnds.Count)
-		{
-			for(int i = flintEnds.Count - 1; i >= count; i--)
-			{
-				if(FlintDetailsLayout.Children.Count > i)
+        // Check if removal is required
+        else if (count < flintEnds.Count)
+        {
+            for (int i = flintEnds.Count - 1; i >= count; i--)
+            {
+				if (FlintDetailsLayout.Children.Count > i)
 				{
-					FlintDetailsLayout.Children.RemoveAt(i);
+					var childView = FlintDetailsLayout.Children[i];
+					if (childView is Editor editor)
+					{
+						editor.Text = string.Empty;
+					}
+					if (childView is Picker picker)
+					{
+						picker.SelectedIndex = -1;
+					}
+					await Device.InvokeOnMainThreadAsync(() =>
+					{
+						if (FlintDetailsLayout.Children.Contains(childView))
+						{
+                            FlintDetailsLayout.Children.RemoveAt(i);
+                        }
+						
+					});
 				}
-				flintEnds.RemoveAt(i);
-			}
-		}
-		//create collection view with new flintend items
-		if(FlintDetailsLayout.Children.Count == 0)
+                // Remove the FlintEnd object from the collection
+                flintEnds.RemoveAt(i);
+            }
+        }
+        //create collection view with new flintend items
+        if (FlintDetailsLayout.Children.Count == 0)
 		{
 			var collectionView = new CollectionView
 			{
@@ -108,7 +134,6 @@ public partial class ScoreCardPopup : Popup
         SaveRound();
         //Load Round Data from next round, if current is equal to rounds.count turn off other wise on
         current++;
-		currentRound = rounds[current];
 		//Load Round Info
 		UpdateDisplay();
 		ToggleNavButtons();
@@ -119,7 +144,6 @@ public partial class ScoreCardPopup : Popup
 		SaveRound();
 		//Load Round Data from previous round, if current is equal to 0 turn off otherwise on
 		current--;
-		currentRound = rounds[current];
 		//load round
 		UpdateDisplay();
 		ToggleNavButtons();
@@ -149,9 +173,9 @@ public partial class ScoreCardPopup : Popup
 	private void UpdateDisplay()
 	{
 		CurrentRoundLabel.Text = $"Round: {current + 1}";
-		if(IsRoundPopulated(currentRound))
+		if (IsRoundPopulated(rounds[current]))
 		{
-			if (currentRound.Type.Equals("Standard"))
+			if (rounds[current].Type.Equals("Standard"))
 			{
 				//populated standard round input
 				StandardRadioButton.IsChecked = true;
@@ -160,7 +184,7 @@ public partial class ScoreCardPopup : Popup
                 StandardDetailsLayout.IsVisible = true;
                 FlintDetailsLayout.IsVisible = false;
                 FlintDetailsLayout.IsEnabled = false;
-				StandardDistanceEditor.Text = currentRound.Distance;
+				StandardDistanceEditor.Text = rounds[current].Distance;
 				
             }
 			else
@@ -176,15 +200,15 @@ public partial class ScoreCardPopup : Popup
                 StandardDistanceEditor.Text = "";
 
             }
-			EndSlider.Value = currentRound.EndCount;
-			ArrowSlider.Value = currentRound.ShotsPerEnd;
-			if(currentRound.PositionType.Equals(ShootingPosition.Stationary))
+			EndSlider.Value = rounds[current].EndCount;
+			ArrowSlider.Value = rounds[current].ShotsPerEnd;
+			if(rounds[current].PositionType.Equals(ShootingPosition.Stationary))
 			{
                 StationaryRadioButton.IsChecked = true;
                 WalkBackRadioButton.IsChecked = false;
                 WalkUpRadioButton.IsChecked = false;
             }
-			else if (currentRound.PositionType.Equals(ShootingPosition.WalkUp))
+			else if (rounds[current].PositionType.Equals(ShootingPosition.WalkUp))
 			{
                 StationaryRadioButton.IsChecked = false;
                 WalkBackRadioButton.IsChecked = false;
@@ -219,14 +243,17 @@ public partial class ScoreCardPopup : Popup
 	}
 	private void SaveRound()
 	{
-		if(currentRound.Type == "Flint")
+		if(rounds[current].Type == "Flint")
 		{
-			currentRound.TargetsPerEnd = GetListFromChildren();
+            rounds[current].TargetsPerEnd = GetListFromChildren();
 			
 		}
 		else
 		{
-
+            rounds[current].Target = StandardTargetPicker.SelectedItem as Target;
+            rounds[current].Distance = StandardDistanceEditor.Text;
+            rounds[current].ShotsPerEnd = (int)ArrowSlider.Value;
+			rounds[current].EndCount = (int)EndSlider.Value;
 		}
 	}
 	//To Do: recreate this method
@@ -290,45 +317,46 @@ public partial class ScoreCardPopup : Popup
 		//return populated list of targets
 		return list;
     }
-	private async void OnStandardCheckedChanged(object sender, CheckedChangedEventArgs e)
+	private void OnStandardCheckedChanged(object sender, CheckedChangedEventArgs e)
 	{
 		if (sender is RadioButton radioButton && e.Value)
 		{
-			currentRound.Type = "Standard";
+            rounds[current].Type = "Standard";
+			StationaryRadioButton.IsChecked = true;
 			ToggleFlintDisplay();
 			ToggleRadioButtons();
 			ToggleStandardDisplay();
 		}
 	}
-    private async void OnFlintCheckedChanged(object sender, CheckedChangedEventArgs e)
+    private void OnFlintCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (sender is RadioButton radioButton && e.Value)
         {
-            currentRound.Type = "Flint";
+            rounds[current].Type = "Flint";
 			ToggleFlintDisplay();
 			ToggleRadioButtons();
 			ToggleStandardDisplay();
         }
     }
-    private async void OnStationaryCheckedChanged(object sender, CheckedChangedEventArgs e)
+    private void OnStationaryCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (sender is RadioButton radioButton && e.Value)
         {
-            currentRound.PositionType = ShootingPosition.Stationary;
+            rounds[current].PositionType = ShootingPosition.Stationary;
         }
     }
-    private async void OnWalkUpCheckedChanged(object sender, CheckedChangedEventArgs e)
+    private void OnWalkUpCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (sender is RadioButton radioButton && e.Value)
         {
-            currentRound.PositionType = ShootingPosition.WalkUp;
+            rounds[current].PositionType = ShootingPosition.WalkUp;
         }
     }
-    private async void OnWalkBackCheckedChanged(object sender, CheckedChangedEventArgs e)
+    private void OnWalkBackCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (sender is RadioButton radioButton && e.Value)
         {
-            currentRound.PositionType = ShootingPosition.WalkBack;
+            rounds[current].PositionType = ShootingPosition.WalkBack;
         }
     }
 	private void ToggleNavButtons()
@@ -353,6 +381,7 @@ public partial class ScoreCardPopup : Popup
 		}
 		else if(current == rounds.Count - 1)
 		{
+			NextRoundButton.IsVisible = false;
 			TurnOffNextButton();
 			TurnOnPrevButton();
 		}
@@ -402,8 +431,10 @@ public partial class ScoreCardPopup : Popup
 
     private async void ContinueButton_Clicked(object sender, EventArgs e)
     {
+		SaveRound();
         _eventItem.ScoreCard.Rounds = rounds;
+		Console.WriteLine($"{rounds.Count} rounds.");
         Close();
-        await _navigation.PushAsync(new ScoresPage());
+        await _navigation.PushAsync(new ScoresPage(_eventItem));
     }
 }

@@ -31,19 +31,15 @@
                     <RadioButton x:Name="WalkBackRadioButton" Content="Walk-Back" CheckedChanged="OnWalkBackCheckedChanged"/>
                 </StackLayout>
             </HorizontalStackLayout>
-
+            
             <VerticalStackLayout x:Name="FlintDetailsLayout">
-                <!-- Target Pickers Go Here (Made in c#)  -->
-                <!-- Distance Sliders Go Here (Made in c#) -->
-
-
+                    <!-- Target Pickers Go Here (Made in c#)  -->
+                    <!-- Distance Sliders Go Here (Made in c#) -->
             </VerticalStackLayout>
 
 
             <VerticalStackLayout x:Name="StandardDetailsLayout">
-                <HorizontalStackLayout>
-                    <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
-                </HorizontalStackLayout>
+                <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
                 <Picker x:Name="StandardTargetPicker" Title="Select Target" />
             </VerticalStackLayout>
 

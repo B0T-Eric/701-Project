@@ -4,8 +4,25 @@
              x:Class="ArcheryProjectApp.Pages.ScoresPage"
              Title="ScoresPage">
     <VerticalStackLayout>
-        <CollectionView>
-            
-        </CollectionView>
+
+        <HorizontalStackLayout>
+        <Label Text="Ends                                          " FontSize="10" Padding="4" />
+        <Label Text="Arrows                             " FontSize="10" Padding="4"/>
+        <Label Text="X's            " FontSize="10" Padding="4"/>
+        <VerticalStackLayout >
+            <Label Text="End " FontSize="10"/>
+            <Label Text="Total        " FontSize="10"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Running " FontSize="10"/>
+            <Label Text="Total" FontSize="10"/>
+        </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+        <ScrollView>
+        <VerticalStackLayout x:Name="RoundScoringLayout" >
+        </VerticalStackLayout>
+    </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

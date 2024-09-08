@@ -36,6 +36,7 @@ public partial class RoundsPage : ContentPage
         ObservableCollection<EventItemModel> eventItemModels = new ObservableCollection<EventItemModel>();
         if(ProfilePage.UserInstance.Events != null)
         {
+            Console.WriteLine(ProfilePage.UserInstance.Events.Count);
             foreach (Event e in ProfilePage.UserInstance.Events)
             {
                 EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.ScoreCard.Environment, e);
@@ -73,7 +74,7 @@ public class EventItemModel
     public string Name { get; set; }
     public DateOnly Date { get; set; }
     public string Type { get; set; }
-    public string Environment { get; set; }
+    public string? Environment { get; set; }
     public Event UserEvent { get; set; }
     public EventItemModel(string name, DateOnly date, string type, string environment, Event userEvent)
     {
@@ -82,6 +83,13 @@ public class EventItemModel
         Type = type;
         Environment = environment;
         UserEvent = userEvent;
+    }
+    public EventItemModel(string name, DateOnly date, string type, Event userEvent) 
+    {
+        Name =name;
+        Date = date;
+        Type = type;
+        UserEvent=userEvent;
     }
 }
 

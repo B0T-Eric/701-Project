@@ -2,7 +2,6 @@ namespace ArcheryProjectApp;
 using ArcheryLibrary;
 public partial class SigninPage : ContentPage
 {
-	public enum LoginType {Guest, RegisteredUser};
 	public SigninPage()
 	{
 		InitializeComponent();
@@ -10,17 +9,24 @@ public partial class SigninPage : ContentPage
 
     private async void OnSigninClick(object sender, EventArgs e)
     {
-		LoginType loginType = LoginType.RegisteredUser;
+		//process user information (check for validity and verification from local db (if online check api aswell))
+		ValidateUserCredentials();
         await Shell.Current.GoToAsync($"///Main");
     }
-	private async void OnClubSignUpClick(object sender, EventArgs e)
+
+    private void ValidateUserCredentials()
+    {
+		//If user details are valid go to profile page, if not alert user to try again or register with their club credentials
+
+    }
+
+    private async void OnClubSignUpClick(object sender, EventArgs e)
 	{
 		await Navigation.PushAsync(new SignUpPage());
 	}
 	private async void GuestSignInClick(object sender, EventArgs e)
 	{
-		LoginType loginType = LoginType.Guest;
-		string loginTypeString = loginType.ToString();
-        await Shell.Current.GoToAsync($"///Main?loginType={loginTypeString}");
+		ProfilePage.UserInstance = new User();
+        await Shell.Current.GoToAsync($"///Main");
     }
 }
