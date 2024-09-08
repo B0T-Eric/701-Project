@@ -6,15 +6,15 @@
     <VerticalStackLayout>
 
         <HorizontalStackLayout>
-        <Label Text="Ends                                          " FontSize="10" Padding="4" />
-        <Label Text="Arrows                             " FontSize="10" Padding="4"/>
-        <Label Text="X's            " FontSize="10" Padding="4"/>
+        <Label Text="Ends                                                 " FontSize="10" Padding="4" />
+        <Label Text="Arrows                                                    " FontSize="10" Padding="4"/>
+        <Label Text="X's " FontSize="10" Padding="4"/>
         <VerticalStackLayout >
             <Label Text="End " FontSize="10"/>
-            <Label Text="Total        " FontSize="10"/>
+            <Label Text="Total " FontSize="10"/>
         </VerticalStackLayout>
         <VerticalStackLayout>
-            <Label Text="Running " FontSize="10"/>
+            <Label Text="Run" FontSize="10"/>
             <Label Text="Total" FontSize="10"/>
         </VerticalStackLayout>
 

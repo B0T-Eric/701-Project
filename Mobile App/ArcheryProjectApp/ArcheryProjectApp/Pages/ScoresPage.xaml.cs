@@ -62,70 +62,88 @@ public partial class ScoresPage : ContentPage
         });
     }
     //need parameters for flint and standard differences
-    private CollectionView GenerateEndCollectionView(Round round,ObservableCollection<EndModel> endModels)
+    private CollectionView GenerateEndCollectionView(Round round, ObservableCollection<EndModel> endModels)
     {
         var endsCollectionView = new CollectionView
         {
-
             ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical),
             ItemTemplate = new DataTemplate(() =>
             {
-                var endFrame = new Frame();
-                var endHorizontal = new HorizontalStackLayout();
-                var endNumLabel = new Label {Margin = 4 , FontAutoScalingEnabled = true };
+                var grid = new Grid
+                {
+                    ColumnSpacing = 5, // Adds some spacing between columns
+                    RowSpacing = 5     // Adds some spacing between rows
+                };
+
+                // Define the column widths
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); // End number label on the left
+                for (int i = 0; i < round.ShotsPerEnd; i++) // Arrow editor columns (centered)
+                {
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                }
+                // Columns for X's, End Total, and Running Total on the far right
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                // Setup the grid children
+                // End number label (aligned left)
+                var endNumLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
                 endNumLabel.SetBinding(Label.TextProperty, "EndNum");
-                endHorizontal.Children.Add(endNumLabel);
-                var targetDistContainer = new VerticalStackLayout { };
-                var endTargetNameLabel = new Label { Text = $"{round.Target}" , FontAutoScalingEnabled = true,  FontSize = 8};
-                var endDistanceLabel = new Label { Text = $"{round.Distance}", FontAutoScalingEnabled = true, FontSize = 8 };
-                targetDistContainer.Children.Add(endDistanceLabel);
-                targetDistContainer.Children.Add(endTargetNameLabel);
-                endHorizontal.Children.Add(targetDistContainer);
+                Grid.SetColumn(endNumLabel, 0);
+                grid.Children.Add(endNumLabel);
 
-
+                // Arrow Editors (centered)
                 for (int i = 0; i < round.ShotsPerEnd; i++)
                 {
-                    Console.WriteLine($"Added Arrow Editor number {i}");
-                    var arrowEditor = new Editor { Margin = 4 };
-                    arrowEditor.SetBinding(Editor.TextProperty, $"Arrow[{i}]");
-                    arrowEditor.Placeholder = "arrow";
-                    //arrowEditor.TextChanged += OnArrowTextChanged;
-                    endHorizontal.Children.Add(arrowEditor);
+                    var arrowEditor = new Editor { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
+                    arrowEditor.SetBinding(Editor.TextProperty, $"Arrows[{i}]");
+                    arrowEditor.TextChanged += OnArrowTextChanged;
+                    Grid.SetColumn(arrowEditor, i + 1);
+                    grid.Children.Add(arrowEditor);
                 }
 
-                var endXCountLabel = new Label {Margin = 4, HorizontalTextAlignment = TextAlignment.End, FontAutoScalingEnabled = true };
-                endXCountLabel.SetBinding(Label.TextProperty, "xCount");
-                endHorizontal.Children.Add(endXCountLabel);
+                // Xs Label (aligned right)
+                var xCountLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
+                xCountLabel.SetBinding(Label.TextProperty, "Xs");
+                Grid.SetColumn(xCountLabel, round.ShotsPerEnd + 1);
+                grid.Children.Add(xCountLabel);
 
-                var endTotalLabel = new Label { Margin = 4, HorizontalTextAlignment = TextAlignment.End, FontAutoScalingEnabled = true };
+                // End Total Label (aligned right)
+                var endTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
                 endTotalLabel.SetBinding(Label.TextProperty, "EndTotal");
-                endHorizontal.Children.Add(endTotalLabel);
+                Grid.SetColumn(endTotalLabel, round.ShotsPerEnd + 2);
+                grid.Children.Add(endTotalLabel);
 
-                var runningTotalLabel = new Label { Margin=4, HorizontalTextAlignment = TextAlignment.End, FontAutoScalingEnabled = true };
+                // Running Total Label (aligned right)
+                var runningTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
                 runningTotalLabel.SetBinding(Label.TextProperty, "RunningTotal");
-                endHorizontal.Children.Add(runningTotalLabel);
+                Grid.SetColumn(runningTotalLabel, round.ShotsPerEnd + 3);
+                grid.Children.Add(runningTotalLabel);
 
-                endFrame.Content = endHorizontal;
+                // Wrap the grid in a frame for better visual separation
+                var endFrame = new Frame { Content = grid, Padding = 5, Margin = 5 };
                 return endFrame;
-
             }),
             ItemsSource = endModels
         };
-        
+
         return endsCollectionView;
     }
 
-    //private void OnArrowTextChanged(object? sender, TextChangedEventArgs e)
-    //{
-    //    var editor = sender as Editor;
-    //    var context = editor.BindingContext as EndModel;
-    //    if (context != null)
-    //    {
-    //        context.Xs = context.Arrows.Count(a => a == "X");
-    //        context.EndTotal = context.Arrows.Where(a => int.TryParse(a, out _)).Sum(a => int.Parse(a));
+
+
+    private void OnArrowTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        var editor = sender as Editor;
+        var context = editor.BindingContext as EndModel;
+        if (context != null)
+        {
+            context.Xs = context.Arrows.Count(a => a == "X");
+            context.EndTotal = context.Arrows.Where(a => int.TryParse(a, out _)).Sum(a => int.Parse(a));
     //        context.RunningTotal = CalculateRunningTotal();
-    //    }
-    //}
+        }
+    }
 
     //private int CalculateRunningTotal()
     //{
