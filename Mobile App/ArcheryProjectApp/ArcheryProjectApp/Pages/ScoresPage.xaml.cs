@@ -25,7 +25,7 @@ public partial class ScoresPage : ContentPage
         InitializeRoundDisplays(userEvent);
     }
 
-    private ObservableCollection<EndModel> InitializeEndModels(int shotsPerEnd, int numberOfEnds)
+    private ObservableCollection<EndModel> InitializeEndModels(int shotsPerEnd, int numberOfEnds, List<int>? distancePerEnd)
     {
         var endModels = new ObservableCollection<EndModel>();
         for (int i = 0; i < numberOfEnds; i++)
@@ -44,7 +44,7 @@ public partial class ScoresPage : ContentPage
     {
         foreach (Round round in _event.ScoreCard.Rounds)
         {
-            var endModels = InitializeEndModels(round.ShotsPerEnd, round.EndCount);
+            var endModels = InitializeEndModels(round.ShotsPerEnd, round.EndCount,null);
             GenerateRoundCollectionView(round, _event.ScoreCard.Rounds.IndexOf(round), endModels);
         }
     }
@@ -141,14 +141,14 @@ public partial class ScoresPage : ContentPage
         {
             context.Xs = context.Arrows.Count(a => a == "X");
             context.EndTotal = context.Arrows.Where(a => int.TryParse(a, out _)).Sum(a => int.Parse(a));
-    //        context.RunningTotal = CalculateRunningTotal();
+            //context.RunningTotal = CalculateRunningTotal();
         }
     }
 
     //private int CalculateRunningTotal()
     //{
     //    int runningTotal = 0;
-    //    foreach(var end in endModels)
+    //    foreach (var end in endModels)
     //    {
     //        runningTotal += end.EndTotal;
     //        end.RunningTotal = runningTotal;

@@ -22,9 +22,9 @@ namespace ArcheryLibrary
         //list of events, which can contain empty or full scorecards
         public List<Event> Events { get; set; }
 
-        public Division division {  get; set; }
+        public string division {  get; set; }
         //new users
-        public User(string firstname, string lastname, string club, int nzfaa, int affilitaion, Division division, DateOnly DOB) 
+        public User(string firstname, string lastname, string club, int nzfaa, int affilitaion, string division, DateOnly DOB) 
         {
             ArcherName = firstname + " " + lastname;
             ClubName = club;
@@ -35,7 +35,7 @@ namespace ArcheryLibrary
             isGuest = false;
         }
         //existing user loading
-        public User(string archerName, string clubName, int nZFAANumber, int affiliationNumber, DateOnly dateOfBirth, List<Event> events, Division division)
+        public User(string archerName, string clubName, int nZFAANumber, int affiliationNumber, DateOnly dateOfBirth, List<Event> events, string division)
         {
             ArcherName = archerName;
             ClubName = clubName;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using ArcheryProjectApp.Data;
 namespace ArcheryProjectApp
 {
     public static class MauiProgram
@@ -15,7 +16,7 @@ namespace ArcheryProjectApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            //builder.Services.AddTransientPopup<UpdatingPopup, UdpatingPopupViewModel>();
+            builder.Services.AddSingleton<LocalDbService>();
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
