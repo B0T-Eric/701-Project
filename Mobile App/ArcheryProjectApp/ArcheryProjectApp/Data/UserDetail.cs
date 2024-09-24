@@ -23,9 +23,9 @@ namespace ArcheryProjectApp.Data
         public string ClubName { get; set; }
         [Column("DOB")]
         public DateOnly DateOfBirth { get; set; }
-
-        []
         [Column("user_auth_id")]
         public int UserAuthId { get; set;}
+
+        //Users need events (user events)
     }
 }

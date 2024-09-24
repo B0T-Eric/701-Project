@@ -15,6 +15,7 @@ namespace ArcheryProjectApp.Data
         public LocalDbService()
         {
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
+            _connection.ExecuteAsync("PRAGMA foreign_keys = ON");
             _connection.CreateTableAsync<UserAuth>();
         }
         public async Task<UserAuth> GetUserById(int id)
