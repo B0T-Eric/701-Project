@@ -4,37 +4,45 @@ using ArcheryLibrary;
 using System.Collections.ObjectModel;
 
 //To Do: Have loading of round information from existing information, Have Saving of Round Data, Fix Navigation Buttons, Fix Targets Stuff
-public partial class ScoreCardPopup : Popup
+public partial class RoundPopup : Popup
 {
 	private INavigation _navigation;
 	private List<Round> rounds = new List<Round>();
 	private Event _eventItem;
 	private int current;
 	private ObservableCollection<FlintEnd> flintEnds = new ObservableCollection<FlintEnd>();
-	public ScoreCardPopup(Event eventItem, INavigation navigation)
-	{
-		InitializeComponent();
-		_navigation = navigation;
-		_eventItem = eventItem;
-		if(eventItem.ScoreCard.Rounds == null)
-		{
-            for (int i = 0; i < eventItem.ScoreCard.RoundCount; i++)
+	public RoundPopup(Event eventItem, INavigation navigation)
+    {
+        InitializeComponent();
+        _navigation = navigation;
+        _eventItem = eventItem;
+        ToggleContinueButton();
+        if (eventItem.Rounds == null)
+        {
+            for (int i = 0; i < eventItem.RoundCount; i++)
             {
                 rounds.Add(new Round());
             }
         }
-		else
-		{
-			rounds = eventItem.ScoreCard.Rounds;
-		}
-		
-		ToggleNavButtons();
-		current = 0;
-		StandardTargetPicker.ItemsSource = App.targets;
-		//Check for existing round data and update display fields if possible
-		UpdateDisplay();
-	}
-	public class FlintEnd
+        else
+        {
+            rounds = eventItem.Rounds;
+        }
+
+        ToggleNavButtons();
+        current = 0;
+        StandardTargetPicker.ItemsSource = App.targets;
+        //Check for existing round data and update display fields if possible
+        UpdateDisplay();
+    }
+
+    private void ToggleContinueButton()
+    {
+        ContinueButton.IsEnabled = !ContinueButton.IsEnabled;
+        ContinueButton.IsVisible = !ContinueButton.IsVisible;
+    }
+
+    public class FlintEnd
 	{
 		public string Distance { get; set; }
 		public Target? EndTarget { get; set; }
@@ -119,13 +127,11 @@ public partial class ScoreCardPopup : Popup
 
                     container.Children.Add(distEditor);
                     container.Children.Add(picker);
-                    Console.WriteLine("Container Returned Successfully To Collection View!");
                     return container;
                 })
 			};
 			FlintDetailsLayout.Children.Clear();
 			FlintDetailsLayout.Children.Add(collectionView);
-			Console.WriteLine("Collection View Added Successfully!");
 		}
 	}
 	private async void OnNextRoundClicked(object sender, EventArgs e)
@@ -154,15 +160,22 @@ public partial class ScoreCardPopup : Popup
 		{
 			if (round.Type.Equals("Flint"))
 			{
-				if ((round.DistancePerEnd.Count() < 0 || round.DistancePerEnd.Equals(null)) && (round.TargetsPerEnd.Count() < 0 || round.TargetsPerEnd.Equals(null)))
+				int successCount = 0;
+				foreach(End end in round.Ends)
+				{
+					if(end != null && (!end.Distance.Equals("") || end.Distance != null)&& end.Target != null)
+					{
+						successCount++;
+					}
+				}
+				if(successCount == round.EndCount)
+				{
+					return true;
+				}
+				else
 				{
 					return false;
 				}
-				else if(round.Distance == null  && round.Target == null) 
-				{
-					return false;
-				}
-				else { return true; }
 			}
 			else return true;
 			
@@ -245,7 +258,7 @@ public partial class ScoreCardPopup : Popup
 	{
 		if(rounds[current].Type == "Flint")
 		{
-            rounds[current].TargetsPerEnd = GetListFromChildren();
+			//get  type, target and distance for each end in round.
 			
 		}
 		else
@@ -432,7 +445,7 @@ public partial class ScoreCardPopup : Popup
     private async void ContinueButton_Clicked(object sender, EventArgs e)
     {
 		SaveRound();
-        _eventItem.ScoreCard.Rounds = rounds;
+        _eventItem.Rounds = rounds;
 		Console.WriteLine($"{rounds.Count} rounds.");
         Close();
         await _navigation.PushAsync(new ScoresPage(_eventItem));

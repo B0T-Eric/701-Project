@@ -3,26 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.Pages.ScoresPage"
              Title="ScoresPage">
-    <VerticalStackLayout>
-
+    <VerticalStackLayout >
+        
+        
         <HorizontalStackLayout>
-        <Label Text="Ends                                                 " FontSize="10" Padding="4" />
-        <Label Text="Arrows                                                    " FontSize="10" Padding="4"/>
-        <Label Text="X's " FontSize="10" Padding="4"/>
-        <VerticalStackLayout >
-            <Label Text="End " FontSize="10"/>
-            <Label Text="Total " FontSize="10"/>
-        </VerticalStackLayout>
-        <VerticalStackLayout>
-            <Label Text="Run" FontSize="10"/>
-            <Label Text="Total" FontSize="10"/>
-        </VerticalStackLayout>
+            <Label Text="Ends                                                 " FontSize="10" Padding="4" />
+            <Label Text="Arrows                                                    " FontSize="10" Padding="4"/>
+            <Label Text="X's " FontSize="10" Padding="4"/>
+            <VerticalStackLayout >
+                <Label Text="End " FontSize="10"/>
+                <Label Text="Total " FontSize="10"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Run" FontSize="10"/>
+                <Label Text="Total" FontSize="10"/>
+            </VerticalStackLayout>
 
         </HorizontalStackLayout>
-
-        <ScrollView>
-        <VerticalStackLayout x:Name="RoundScoringLayout" >
+        <VerticalStackLayout x:Name="RoundScoringLayout">
+            
         </VerticalStackLayout>
-    </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

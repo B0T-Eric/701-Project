@@ -37,11 +37,8 @@ public partial class ProfilePage : ContentPage
     private void FetchEventsFromAPI()
     {
         //Do API call for this users 
-        Event newEvent = new Event("Test", "Test", "Practice", new DateOnly(2024, 12, 2));
-        ScoreCard scoreCard = new ScoreCard(3, "Outdoor", "3km/h E", "JMHB");
-        newEvent.ScoreCard = scoreCard;
+        Event newEvent = new Event("Test", "Test", "Practice", new DateOnly(2024, 12, 2), 3, "Outdoor", "3km/h E", "JMHB");
         EventItemModel eventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent);
-        
         eventItems.Add(eventItemModel);
 
     }

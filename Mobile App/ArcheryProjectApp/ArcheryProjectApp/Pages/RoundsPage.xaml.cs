@@ -39,7 +39,7 @@ public partial class RoundsPage : ContentPage
             Console.WriteLine(ProfilePage.UserInstance.Events.Count);
             foreach (Event e in ProfilePage.UserInstance.Events)
             {
-                EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.ScoreCard.Environment, e);
+                EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.Environment, e);
                 eventItemModels.Add(model);
             }
         }
@@ -53,7 +53,7 @@ public partial class RoundsPage : ContentPage
     }
     private void OnRoundCreated(Event newEvent)
     {
-        var newEventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.ScoreCard.Environment, newEvent);
+        var newEventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.Environment, newEvent);
         EventItems.Add(newEventItemModel);
         ChangeTitle();
     }

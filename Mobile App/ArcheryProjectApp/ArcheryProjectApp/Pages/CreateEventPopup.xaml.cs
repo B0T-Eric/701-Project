@@ -1,21 +1,20 @@
 namespace ArcheryProjectApp.Pages;
-
+using System.Collections.ObjectModel;
 using ArcheryLibrary;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Views;
 
 
-public partial class CreateRoundPopup : Popup
+public partial class CreateEventPopup : Popup
 {
 	public event Action<Event> RoundCreated;
-	public CreateRoundPopup()
+	public CreateEventPopup()
 	{
 		InitializeComponent();
 	}
 	private async void OnSaveButtonClicked(object sender, EventArgs e)
 	{
 		Event newEvent;
-		ScoreCard newScoreCard;
 		string eventName = EventNameEditor.Text;
 		string eventDescription = EventDescriptionEditor.Text;
 		string eventType = EventTypePicker.SelectedItem as string;
@@ -31,7 +30,7 @@ public partial class CreateRoundPopup : Popup
 
 		if (eventType == null || eventDate.Equals(null) || eventName == null || roundCount.Equals(-1) || division.Equals(null) || environment.Equals(null))
         {
-			Toast.Make("Please populate all required fields",duration:CommunityToolkit.Maui.Core.ToastDuration.Short);
+			
         }
         else
         {
@@ -39,9 +38,7 @@ public partial class CreateRoundPopup : Popup
 			{
 				eventDescription = "No Description";
 			}
-			newScoreCard = new ScoreCard(roundCount, environment, weather, division);
-            newEvent = new Event(eventName, eventDescription,eventType,eventDate);
-			newEvent.ScoreCard = newScoreCard;
+            newEvent = new Event(eventName, eventDescription,eventType,eventDate, roundCount, environment, weather, division);
             ProfilePage.UserInstance.Events.Add(newEvent);
 			
 			RoundCreated?.Invoke(newEvent);

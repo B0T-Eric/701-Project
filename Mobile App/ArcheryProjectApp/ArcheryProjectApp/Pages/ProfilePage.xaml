@@ -39,10 +39,18 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="Black" Background="LightBlue" Margin="4">
-                        <HorizontalStackLayout>
-                            <Label Text="Event Name: " TextColor="Black" Padding="3"/>
-                            <Label Text="Event Date: " TextColor="Black" Padding="3"/>
-                        </HorizontalStackLayout>
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Event Name: " TextColor="Black" Padding="3"/>
+                                <Label Text ="{Binding Name}" TextColor="Black" Padding="3"/>
+                                <Label Text="Event Date: " TextColor="Black" Padding="3"/>
+                                <Label Text ="{Binding Date}" TextColor="Black" Padding="3"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Event Type: " TextColor="Black" Padding="3"/>
+                                <Label Text ="{Binding Type}" TextColor="Black" Padding="3"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnEventItemTapped"/>
                         </Frame.GestureRecognizers>
