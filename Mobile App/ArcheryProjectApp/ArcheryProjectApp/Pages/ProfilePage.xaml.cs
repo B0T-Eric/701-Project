@@ -1,4 +1,5 @@
 using ArcheryLibrary;
+using ArcheryProjectApp.Data;
 using System.Collections.ObjectModel;
 using static ArcheryProjectApp.SigninPage;
 
@@ -13,6 +14,7 @@ public partial class ProfilePage : ContentPage
     public ProfilePage()
     {
         InitializeComponent();
+
         EventsCollectionView.ItemsSource = eventItems;
         BindingContext = this;
         if (UserInstance != null)
@@ -32,6 +34,8 @@ public partial class ProfilePage : ContentPage
             }
             
         }
+
+        
     }
 
     private void FetchEventsFromAPI()

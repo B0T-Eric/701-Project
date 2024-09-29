@@ -17,6 +17,8 @@ namespace ArcheryProjectApp.Data
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
             _connection.ExecuteAsync("PRAGMA foreign_keys = ON");
             _connection.CreateTableAsync<UserAuth>();
+            _connection.CreateTableAsync<UserDetail>();
+            _connection.CreateTableAsync<UserEvents>();    
         }
         public async Task<UserAuth> GetUserById(int id)
         {

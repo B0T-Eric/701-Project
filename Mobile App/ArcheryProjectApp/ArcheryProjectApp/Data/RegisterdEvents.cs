@@ -9,7 +9,7 @@ namespace ArcheryProjectApp.Data
 {
     //This table is for event data for the events which are retrieved from the api and displayed in the upcomming events page.
     [Table("registered_events")]
-    internal class RegisterdEvents
+    public class RegisterdEvents
     {
         [PrimaryKey]
         [AutoIncrement]
@@ -33,5 +33,9 @@ namespace ArcheryProjectApp.Data
         public string? Weather { get; set; }
         [Column("division")]
         public string Division { get; set; }
+        [Column("user_id")]
+        public int UserId { get; set; }
+        [Ignore]
+        public UserDetail UserDetail { get; set; }
     }
 }

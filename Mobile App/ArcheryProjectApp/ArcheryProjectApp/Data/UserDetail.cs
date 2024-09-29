@@ -26,6 +26,10 @@ namespace ArcheryProjectApp.Data
         [Column("user_auth_id")]
         public int UserAuthId { get; set;}
 
+        [Ignore]
+        public UserAuth UserAuth { get; set; }
         //Users need events (user events)
+        [Ignore]
+        public List<RegisterdEvents> Events { get; set; }
     }
 }
