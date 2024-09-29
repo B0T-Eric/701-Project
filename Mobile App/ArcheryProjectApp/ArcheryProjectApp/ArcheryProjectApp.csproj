@@ -70,7 +70,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\CreateRoundPopup.xaml">
+	  <Compile Update="Pages\CreateEventPopup.xaml.cs">
+	    <DependentUpon>CreateEventPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\RoundsPage.xaml.cs">
+	    <DependentUpon>RoundsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\RoundPopup.xaml.cs">
+	    <DependentUpon>RoundPopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\CreateEventPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ProfilePage.xaml">

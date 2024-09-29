@@ -32,5 +32,9 @@ namespace ArcheryLibrary
         {
             Score = score;
         }
+        public End()
+        {
+
+        }
     }
 }

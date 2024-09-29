@@ -47,7 +47,7 @@ public partial class RoundsPage : ContentPage
     }
     private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-        var createRoundPopup = new CreateRoundPopup();
+        var createRoundPopup = new CreateEventPopup();
         createRoundPopup.RoundCreated += OnRoundCreated;
         this.ShowPopup(createRoundPopup);
     }
@@ -63,7 +63,7 @@ public partial class RoundsPage : ContentPage
         var tappedItem = frame.BindingContext as EventItemModel;
         if(tappedItem != null)
         {
-            this.ShowPopup(new ScoreCardPopup(tappedItem.UserEvent, Navigation));
+            this.ShowPopup(new RoundPopup(tappedItem.UserEvent, Navigation));
         }
         
     }

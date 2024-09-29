@@ -25,7 +25,7 @@ namespace ArcheryLibrary
         public List<End> Ends { get; set; }
         public Round()
         {
-
+            Ends = new List<End>();
         }
     }
 }

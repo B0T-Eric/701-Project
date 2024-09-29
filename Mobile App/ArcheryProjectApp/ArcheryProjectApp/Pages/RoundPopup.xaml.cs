@@ -16,7 +16,8 @@ public partial class RoundPopup : Popup
         InitializeComponent();
         _navigation = navigation;
         _eventItem = eventItem;
-        ToggleContinueButton();
+		ArrowPicker.ItemsSource = App.arrowCountOptions;
+		EndPicker.ItemsSource = App.endCountOptions;
         if (eventItem.Rounds == null)
         {
             for (int i = 0; i < eventItem.RoundCount; i++)
@@ -28,45 +29,18 @@ public partial class RoundPopup : Popup
         {
             rounds = eventItem.Rounds;
         }
-
-        ToggleNavButtons();
         current = 0;
         StandardTargetPicker.ItemsSource = App.targets;
         //Check for existing round data and update display fields if possible
         UpdateDisplay();
     }
-
-    private void ToggleContinueButton()
-    {
-        ContinueButton.IsEnabled = !ContinueButton.IsEnabled;
-        ContinueButton.IsVisible = !ContinueButton.IsVisible;
-    }
-
-    public class FlintEnd
+	public class FlintEnd
 	{
 		public string Distance { get; set; }
-		public Target? EndTarget { get; set; }
+		public Target EndTarget { get; set; }
+		public ShootingPosition? Position { get; set; }
 
-    }
-	private void OnEndSliderChange(object sender, ValueChangedEventArgs e)
-	{
-        //change slider values to be whole numbers
-        var slider = (Slider)sender;
-		slider.Value = Math.Round(e.NewValue);
-		EndsLabel.Text = $"Ends: {EndSlider.Value}";
-		//get value of slider and cast to int, then send to populate the pickers in flint layout
-        int value = (int)slider.Value;
-        PopulateFlintLayout(value);
 	}
-	private async void OnArrowSliderChange(object sender, ValueChangedEventArgs e)
-	{
-		//change slider values to be whole numbers
-		var slider = (Slider)sender;
-		slider.Value = Math.Round(e.NewValue);
-		ArrowsLabel.Text = $"Arrows: {ArrowSlider.Value}";
-	}
-
-    [Obsolete]
 	//this is super buggy idk why
     private async void PopulateFlintLayout(int count)
 	{
@@ -125,8 +99,14 @@ public partial class RoundPopup : Popup
                     var distEditor = new Editor { Placeholder = "Enter Distance" };
 					distEditor.SetBinding(Editor.TextProperty, new Binding("Distance"));
 
+					//Picker for type
+					var typePicker = new Picker { Title = "Select End Type" };
+					typePicker.ItemsSource = App.positionOptions;
+					typePicker.SetBinding(Picker.SelectedIndexProperty, new Binding("EndType"));
+
                     container.Children.Add(distEditor);
                     container.Children.Add(picker);
+					container.Children.Add(typePicker);	
                     return container;
                 })
 			};
@@ -134,26 +114,10 @@ public partial class RoundPopup : Popup
 			FlintDetailsLayout.Children.Add(collectionView);
 		}
 	}
-	private async void OnNextRoundClicked(object sender, EventArgs e)
+	private void EndPickerChanged(object sender, EventArgs e)
 	{
-        //Save Round Info
-        SaveRound();
-        //Load Round Data from next round, if current is equal to rounds.count turn off other wise on
-        current++;
-		//Load Round Info
-		UpdateDisplay();
-		ToggleNavButtons();
+		PopulateFlintLayout((int)EndPicker.SelectedItem);
 	}
-    private async void OnPreviousRoundClicked(object sender, EventArgs e)
-    {
-		//Save current Round
-		SaveRound();
-		//Load Round Data from previous round, if current is equal to 0 turn off otherwise on
-		current--;
-		//load round
-		UpdateDisplay();
-		ToggleNavButtons();
-    }
 	private bool IsRoundPopulated(Round round)
 	{
 		if(round.Type != null && round.EndCount != 0 && round.ShotsPerEnd != 0)
@@ -163,7 +127,7 @@ public partial class RoundPopup : Popup
 				int successCount = 0;
 				foreach(End end in round.Ends)
 				{
-					if(end != null && (!end.Distance.Equals("") || end.Distance != null)&& end.Target != null)
+					if(end != null && (!end.Distance.Equals("") || end.Distance != null)&& end.Target != null && end.Position != null)
 					{
 						successCount++;
 					}
@@ -213,26 +177,8 @@ public partial class RoundPopup : Popup
                 StandardDistanceEditor.Text = "";
 
             }
-			EndSlider.Value = rounds[current].EndCount;
-			ArrowSlider.Value = rounds[current].ShotsPerEnd;
-			if(rounds[current].PositionType.Equals(ShootingPosition.Stationary))
-			{
-                StationaryRadioButton.IsChecked = true;
-                WalkBackRadioButton.IsChecked = false;
-                WalkUpRadioButton.IsChecked = false;
-            }
-			else if (rounds[current].PositionType.Equals(ShootingPosition.WalkUp))
-			{
-                StationaryRadioButton.IsChecked = false;
-                WalkBackRadioButton.IsChecked = false;
-                WalkUpRadioButton.IsChecked = true;
-            }
-			else
-			{
-                StationaryRadioButton.IsChecked = false;
-                WalkBackRadioButton.IsChecked = true;
-                WalkUpRadioButton.IsChecked = false;
-            }
+			EndPicker.SelectedItem = rounds[current].EndCount;
+			ArrowPicker.SelectedItem = rounds[current].ShotsPerEnd;
 		}
 		else
 		{
@@ -240,214 +186,136 @@ public partial class RoundPopup : Popup
 			StandardRadioButton.IsChecked=true;
 			FlintRadioButton.IsChecked=false;
 			EndsLabel.Text = "Ends: ";
-			EndSlider.Value = 3;
+			EndPicker.SelectedIndex = -1;
 			ArrowsLabel.Text = "Arrows: ";
-			ArrowSlider.Value = 3;
+			ArrowPicker.SelectedIndex = -1;
 			StandardTargetPicker.SelectedIndex = -1;
 			StandardDistanceEditor.Text = "";
 			StandardDetailsLayout.IsEnabled = true;
 			StandardDetailsLayout.IsVisible = true;
 			FlintDetailsLayout.IsVisible = false;
 			FlintDetailsLayout.IsEnabled = false;
-			StationaryRadioButton.IsChecked = true;
-			WalkBackRadioButton.IsChecked = false;
-			WalkUpRadioButton.IsChecked = false;
 		}
 	}
-	private void SaveRound()
+	private void OnFlintCheckedChanged(object sender, EventArgs e)
 	{
-		if(rounds[current].Type == "Flint")
+		ToggleFlintDisplay();
+		rounds[current].Type = "Flint";
+	}
+	private void OnStandardCheckedChanged(object sender, EventArgs e)
+	{
+		ToggleStandardDisplay();
+        rounds[current].Type = "Standard";
+    }
+	private async void SaveRound()
+	{
+        if (EndPicker.SelectedItem == null || ArrowPicker.SelectedItem == null)
+        {
+            // Display an error or return early to prevent a null exception
+            await Application.Current.MainPage.DisplayAlert("Error", "Please select both the number of ends and arrows per end.", "OK");
+            return;
+        }
+
+        if (rounds[current].Ends == null)
+        {
+            rounds[current].Ends = new List<End>();
+        }
+
+        if (rounds[current].Type == "Flint")
 		{
-			//get  type, target and distance for each end in round.
-			
+			rounds[current].EndCount = (int)EndPicker.SelectedItem;
+			//get  type, target and distance for each end in rounds
+			for(int i = 0; i < rounds[current].EndCount; i++)
+			{
+				rounds[current].Ends.Add(new End());
+			}
+			foreach(End end in rounds[current].Ends)
+			{
+				end.Position = GetFlintEndPosition();
+				end.ArrowCount = (int)ArrowPicker.SelectedItem;
+				end.Target = GetFlintEndTargets();
+				end.Distance = GetFlintEndDistance();
+			}
 		}
 		else
 		{
             rounds[current].Target = StandardTargetPicker.SelectedItem as Target;
             rounds[current].Distance = StandardDistanceEditor.Text;
-            rounds[current].ShotsPerEnd = (int)ArrowSlider.Value;
-			rounds[current].EndCount = (int)EndSlider.Value;
+            rounds[current].ShotsPerEnd = (int)ArrowPicker.SelectedItem;
+			rounds[current].EndCount = (int)EndPicker.SelectedItem;
+			//for(int i = 0; i < rounds[current].EndCount; i++)
+			//{
+				rounds[current].Ends.Add(new End(ShootingPosition.Stationary, (int)ArrowPicker.SelectedItem, null, null));
+            //}
 		}
 	}
-	//To Do: recreate this method
-    private Dictionary<double, string> GetDictFromChildren()
-    {
-        Dictionary<double, string> keyValuePairs = new Dictionary<double, string>();
 
-		foreach (var child in FlintDetailsLayout.Children)
-		{
-			if (child is HorizontalStackLayout layout)
-			{
-				double key = 0;
-				string value = null;
-				foreach (var child2 in layout.Children)
-				{
-					if (child2 is Editor editor)
-					{
-						if (editor.AutomationId.StartsWith("DistEditor_"))
-						{
-							if (double.TryParse(editor.Text, out key))
-							{
-								Console.WriteLine($"Successful Parse of {key}");
-							}
-						}
-						else if (editor.AutomationId.StartsWith("UnitEditor_"))
-						{
-							value = editor.Text;
-						}
-					}
-				}
-				// After both key and value are set, add them to the dictionary
-				if (!string.IsNullOrEmpty(value))
-				{
-					keyValuePairs[key] = value;
-				}
-			}
-		}
-        // Return populated dictionary
-        return keyValuePairs;
-    }
-	//to do: recreate this method
-    private List<Target> GetListFromChildren()
-	{
-		List<Target> list = new List<Target>();
-        foreach (var child in FlintDetailsLayout.Children)
-        {
-            if (child is HorizontalStackLayout layout)
-            {
-                foreach (var child2 in layout.Children)
-                {
-					if(child2 is Picker picker)
-					{
-						if (picker.SelectedItem is Target target)
-						{
-							list.Add(target);
-						}
-					}
-                }
-            }
-        }
-		//return populated list of targets
-		return list;
-    }
-	private void OnStandardCheckedChanged(object sender, CheckedChangedEventArgs e)
-	{
-		if (sender is RadioButton radioButton && e.Value)
-		{
-            rounds[current].Type = "Standard";
-			StationaryRadioButton.IsChecked = true;
-			ToggleFlintDisplay();
-			ToggleRadioButtons();
-			ToggleStandardDisplay();
-		}
-	}
-    private void OnFlintCheckedChanged(object sender, CheckedChangedEventArgs e)
+    private ShootingPosition GetFlintEndPosition()
     {
-        if (sender is RadioButton radioButton && e.Value)
-        {
-            rounds[current].Type = "Flint";
-			ToggleFlintDisplay();
-			ToggleRadioButtons();
-			ToggleStandardDisplay();
-        }
+        throw new NotImplementedException();
     }
-    private void OnStationaryCheckedChanged(object sender, CheckedChangedEventArgs e)
+
+    private string? GetFlintEndDistance()
     {
-        if (sender is RadioButton radioButton && e.Value)
-        {
-            rounds[current].PositionType = ShootingPosition.Stationary;
-        }
+        throw new NotImplementedException();
     }
-    private void OnWalkUpCheckedChanged(object sender, CheckedChangedEventArgs e)
+
+    private Target? GetFlintEndTargets()
     {
-        if (sender is RadioButton radioButton && e.Value)
-        {
-            rounds[current].PositionType = ShootingPosition.WalkUp;
-        }
+        throw new NotImplementedException();
     }
-    private void OnWalkBackCheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        if (sender is RadioButton radioButton && e.Value)
-        {
-            rounds[current].PositionType = ShootingPosition.WalkBack;
-        }
-    }
-	private void ToggleNavButtons()
-	{
-		if (current == 0)
-		{
-			if (rounds.Count == 1)
-			{
-				TurnOffNextButton();
-				TurnOffPrevButton();
-			}
-			else
-			{
-                TurnOffPrevButton();
-				TurnOnNextButton();
-            }
-        }
-		else if (current > 0 && current < rounds.Count)
-		{
-			TurnOnNextButton();
-			TurnOnPrevButton();
-		}
-		else if(current == rounds.Count - 1)
-		{
-			NextRoundButton.IsVisible = false;
-			TurnOffNextButton();
-			TurnOnPrevButton();
-		}
-	}
-	private void TurnOffPrevButton()
-	{
-        PreviousRoundButton.IsVisible = false;
-        PreviousRoundButton.IsEnabled = false;
-    }
-	private void TurnOffNextButton()
-	{
-		NextRoundButton.IsVisible = false;
-		NextRoundButton.IsEnabled = false;
-	}
-	private void TurnOnPrevButton() 
-	{
-        PreviousRoundButton.IsVisible = true;
-        PreviousRoundButton.IsEnabled = true;
-    }
-	private void TurnOnNextButton()
-	{
-		NextRoundButton.IsVisible = true;
-		NextRoundButton.IsEnabled = true;
-	}
-	private void ToggleFlintDisplay()
+
+    private void ToggleFlintDisplay()
 	{
 		FlintDetailsLayout.IsEnabled = !FlintDetailsLayout.IsEnabled;
 		FlintDetailsLayout.IsVisible = !FlintDetailsLayout.IsVisible;
-	}
-	private void ToggleRadioButtons()
-	{
-		WalkUpRadioButton.IsEnabled = !WalkUpRadioButton.IsEnabled;
-		WalkBackRadioButton.IsEnabled = !WalkBackRadioButton.IsEnabled;
-		WalkBackRadioButton.IsVisible = !WalkBackRadioButton.IsVisible;
-		WalkUpRadioButton.IsVisible = !WalkUpRadioButton.IsVisible;
 	}
 	private void ToggleStandardDisplay()
 	{
 		StandardDetailsLayout.IsEnabled = !StandardDetailsLayout.IsEnabled;
 		StandardDetailsLayout.IsVisible = !StandardDetailsLayout.IsVisible;
 	}
-	private void ToggleContinueDisplay()
-	{
-		ContinueButton.IsEnabled = !ContinueButton.IsEnabled;
-		ContinueButton.IsVisible = !ContinueButton.IsVisible;
-	}
-
     private async void ContinueButton_Clicked(object sender, EventArgs e)
     {
-		SaveRound();
-        _eventItem.Rounds = rounds;
-		Console.WriteLine($"{rounds.Count} rounds.");
-        Close();
-        await _navigation.PushAsync(new ScoresPage(_eventItem));
+        if ()
+        {
+            
+        }
+        SaveRound();
+        if(current == _eventItem.Rounds.Count)
+		{
+            _eventItem.Rounds = rounds;
+            Close();
+            await _navigation.PushAsync(new ScoresPage(_eventItem));
+        }
+		else
+		{
+            //Load Round Data from next round, if current is equal to rounds.count turn off other wise on
+            current++;
+            //Load Round Info
+            UpdateDisplay();
+        }
     }
+	private bool CheckFields()
+	{
+		if (rounds[current].EndCount == 0)
+		{
+			return false;
+		}
+		else if (rounds[current].Type == "Stationary")
+		{
+			if (rounds[current].Target == null)
+			{
+				return false;
+			}
+			else if (rounds[current].Distance == "")
+			{
+				return false;
+			}
+		}
+		else if (rounds[current].EndCount == 0)
+		{
+			return false;
+		}
+	}
 }
