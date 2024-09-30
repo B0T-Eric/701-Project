@@ -2,6 +2,10 @@ namespace ArcheryProjectApp.Pages;
 using CommunityToolkit.Maui.Views;
 using ArcheryLibrary;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Markup;
+using Android.App;
+using AndroidX.AppCompat.App;
 
 //To Do: Have loading of round information from existing information, Have Saving of Round Data, Fix Navigation Buttons, Fix Targets Stuff
 public partial class RoundPopup : Popup
@@ -41,7 +45,9 @@ public partial class RoundPopup : Popup
 		public ShootingPosition? Position { get; set; }
 
 	}
-	//this is super buggy idk why
+
+    //this is super buggy idk why
+    [Obsolete]
     private async void PopulateFlintLayout(int count)
 	{
 		//Check if more are required
@@ -92,11 +98,26 @@ public partial class RoundPopup : Popup
                     var container = new HorizontalStackLayout();
                     // Picker for target selection
                     var picker = new Picker { Title = "Select End Target" };
-                    picker.ItemsSource = App.targets;
+					picker.ItemsSource = App.targets;
                     picker.SetBinding(Picker.SelectedItemProperty, new Binding("Target"));
 
-                    // Editors for distance and unit
-                    var distEditor = new Editor { Placeholder = "Enter Distance" };
+					// Editors for distance and unit
+					var distEditor = new Entry {
+						Placeholder = "Enter Distance",
+						Behaviors =
+						{
+							new TextValidationBehavior
+							{
+								InvalidStyle = new Style<Entry>(Entry.TextColorProperty,Color.Red),
+								ValidStyle = new Style<Entry>(Entry.TextColorProperty, Color.FromArgb("000000")),
+								Flags = ValidationFlags.ValidateOnValueChanged,
+								MinimumLength = 1, 
+								MaximumLength = 10,
+							}
+						}
+                    
+                };
+					
 					distEditor.SetBinding(Editor.TextProperty, new Binding("Distance"));
 
 					//Picker for type
@@ -209,18 +230,6 @@ public partial class RoundPopup : Popup
     }
 	private async void SaveRound()
 	{
-        if (EndPicker.SelectedItem == null || ArrowPicker.SelectedItem == null)
-        {
-            // Display an error or return early to prevent a null exception
-            await Application.Current.MainPage.DisplayAlert("Error", "Please select both the number of ends and arrows per end.", "OK");
-            return;
-        }
-
-        if (rounds[current].Ends == null)
-        {
-            rounds[current].Ends = new List<End>();
-        }
-
         if (rounds[current].Type == "Flint")
 		{
 			rounds[current].EndCount = (int)EndPicker.SelectedItem;
@@ -229,12 +238,14 @@ public partial class RoundPopup : Popup
 			{
 				rounds[current].Ends.Add(new End());
 			}
+			int index = 0;
 			foreach(End end in rounds[current].Ends)
 			{
-				end.Position = GetFlintEndPosition();
+				end.Position = GetFlintEndPosition(index);
 				end.ArrowCount = (int)ArrowPicker.SelectedItem;
-				end.Target = GetFlintEndTargets();
-				end.Distance = GetFlintEndDistance();
+				end.Target = GetFlintEndTargets(index);
+				end.Distance = GetFlintEndDistance(index);
+				index++;
 			}
 		}
 		else
@@ -250,19 +261,31 @@ public partial class RoundPopup : Popup
 		}
 	}
 
-    private ShootingPosition GetFlintEndPosition()
+    private ShootingPosition GetFlintEndPosition(int index)
     {
-        throw new NotImplementedException();
+        if(index >= 0 && index < flintEnds.Count)
+		{
+			return (ShootingPosition)flintEnds[index].Position;
+		}
+		return default(ShootingPosition);
     }
 
-    private string? GetFlintEndDistance()
+    private string? GetFlintEndDistance(int index)
     {
-        throw new NotImplementedException();
+        if (index >= 0 && index < flintEnds.Count)
+        {
+            return flintEnds[index].Distance;
+        }
+        return default;
     }
 
-    private Target? GetFlintEndTargets()
+    private Target? GetFlintEndTargets(int index)
     {
-        throw new NotImplementedException();
+        if (index >= 0 && index < flintEnds.Count)
+        {
+            return flintEnds[index].EndTarget;
+        }
+        return default;
     }
 
     private void ToggleFlintDisplay()
@@ -277,45 +300,64 @@ public partial class RoundPopup : Popup
 	}
     private async void ContinueButton_Clicked(object sender, EventArgs e)
     {
-        if ()
-        {
-            
-        }
-        SaveRound();
-        if(current == _eventItem.Rounds.Count)
+		//if all fields are not empty save round
+		if(CheckFields() == true)
 		{
-            _eventItem.Rounds = rounds;
-            Close();
-            await _navigation.PushAsync(new ScoresPage(_eventItem));
+            SaveRound();
+            if (current == _eventItem.Rounds.Count)
+            {
+				//save rounds to event
+                _eventItem.Rounds = rounds;
+                Close();
+				//load scoring page
+                await _navigation.PushAsync(new ScoresPage(_eventItem));
+            }
+            else
+            {
+                //Load Round Data from next round, if current is equal to rounds.count turn off other wise on
+                current++;
+                //Load Round Info
+                UpdateDisplay();
+            }
         }
 		else
-		{
-            //Load Round Data from next round, if current is equal to rounds.count turn off other wise on
-            current++;
-            //Load Round Info
-            UpdateDisplay();
-        }
+		{ 
+
+		}
     }
 	private bool CheckFields()
 	{
-		if (rounds[current].EndCount == 0)
+		if(EndPicker.SelectedIndex == -1) return false;
+		if(ArrowPicker.SelectedIndex == -1) return false;
+		if(StandardRadioButton.IsChecked == true)
 		{
-			return false;
-		}
-		else if (rounds[current].Type == "Stationary")
-		{
-			if (rounds[current].Target == null)
+			if(StandardDistanceEditor.Text == "" || StandardDistanceEditor.Text == null)
 			{
 				return false;
 			}
-			else if (rounds[current].Distance == "")
+			if(StandardTargetPicker.SelectedIndex == -1) return false;
+		}
+		else if(FlintRadioButton.IsChecked == true)
+		{
+			if(EndPicker.SelectedItem != null)
 			{
-				return false;
+				for(int i = 0; i < (int)EndPicker.SelectedItem; i++)
+				{
+					if (flintEnds[i].Distance == "" || flintEnds[i].Distance == null)
+					{
+						return false;
+					}
+					if (flintEnds[i].EndTarget == null)
+					{
+						return false;
+					}
+					if (flintEnds[i].Position == null)
+					{
+						return false;
+					}
+				}
 			}
 		}
-		else if (rounds[current].EndCount == 0)
-		{
-			return false;
-		}
+		return true;
 	}
 }

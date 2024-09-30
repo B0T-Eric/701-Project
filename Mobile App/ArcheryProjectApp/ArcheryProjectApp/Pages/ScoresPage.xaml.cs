@@ -9,7 +9,7 @@ namespace ArcheryProjectApp.Pages;
  */
 public partial class ScoresPage : ContentPage
 {
-    ObservableCollection<EndModel> endModels;
+    Event currentEvent;
     public class EndModel
     {
         public int EndNum { get; set; }
@@ -19,12 +19,13 @@ public partial class ScoresPage : ContentPage
         public int RunningTotal { get; set; }
         public string? Distance { get; set; }
         public Target? Target { get; set; }
-        public string Type { get; set; }
+        public string Position { get; set; }
     }
     private VerticalStackLayout mainLayout;
     public ScoresPage(Event userEvent)
     {
         InitializeComponent();
+        currentEvent = userEvent;
         mainLayout = RoundScoringLayout;
         InitializeRoundDisplays(userEvent);
     }
@@ -41,15 +42,15 @@ public partial class ScoresPage : ContentPage
             }
             if (ends[i].Position == ShootingPosition.WalkBack)
             {
-                endModels.Add(new EndModel { EndNum = i + 1, Type = "Walk Back", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
+                endModels.Add(new EndModel { EndNum = i + 1, Position = "Walk Back", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
             }
             else if (ends[i].Position == ShootingPosition.WalkUp)
             {
-                endModels.Add(new EndModel { EndNum = i + 1, Type = "Walk Up", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
+                endModels.Add(new EndModel { EndNum = i + 1, Position = "Walk Up", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
             }
             else
             {
-                endModels.Add(new EndModel { EndNum = i + 1, Type = "Stationary", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = null, Target = null });
+                endModels.Add(new EndModel { EndNum = i + 1, Position = "Stationary", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = null, Target = null });
             }
         }
         return endModels;
@@ -59,7 +60,7 @@ public partial class ScoresPage : ContentPage
     {
         foreach (Round round in _event.Rounds)
         {
-            endModels = InitializeEndModels(round.ShotsPerEnd, round.EndCount,round.Ends);
+            var endModels = InitializeEndModels(round.ShotsPerEnd, round.EndCount,round.Ends);
             GenerateRoundCollectionView(round, _event.Rounds.IndexOf(round), endModels);
         }
     }
@@ -146,8 +147,8 @@ public partial class ScoresPage : ContentPage
                 // Arrow Editors
                 for (int i = 0; i < round.ShotsPerEnd; i++)
                 {
-                    var arrowEditor = new Editor { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
-                    arrowEditor.SetBinding(Editor.TextProperty, $"Arrows[{i}]");
+                    var arrowEditor = new Entry { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
+                    arrowEditor.SetBinding(Entry.TextProperty, $"Arrows[{i}]");
                     arrowEditor.TextChanged += OnArrowTextChanged;
                     Grid.SetColumn(arrowEditor, i + 4);
                     grid.Children.Add(arrowEditor);
@@ -221,8 +222,8 @@ public partial class ScoresPage : ContentPage
                 // Arrow Editors
                 for (int i = 0; i < round.ShotsPerEnd; i++)
                 {
-                    var arrowEditor = new Editor { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
-                    arrowEditor.SetBinding(Editor.TextProperty, $"Arrows[{i}]");
+                    var arrowEditor = new Entry { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
+                    arrowEditor.SetBinding(Entry.TextProperty, $"Arrows[{i}]");
                     arrowEditor.TextChanged += OnArrowTextChanged;
                     Grid.SetColumn(arrowEditor, i + 4);
                     grid.Children.Add(arrowEditor);
@@ -257,26 +258,12 @@ public partial class ScoresPage : ContentPage
 
     private void OnArrowTextChanged(object? sender, TextChangedEventArgs e)
     {
-        var editor = sender as Editor;
+        var editor = sender as Entry;
         var context = editor.BindingContext as EndModel;
-        if (context != null)
-        {
-            context.Xs = context.Arrows.Count(a => a == "X");
-            context.EndTotal = context.Arrows.Where(a => int.TryParse(a, out _)).Sum(a => int.Parse(a));
-            context.RunningTotal = CalculateRunningTotal();
-        }
+
     }
 
-    private int CalculateRunningTotal()
-    {
-        int runningTotal = 0;
-        foreach (var end in endModels)
-        {
-            runningTotal += end.EndTotal;
-            end.RunningTotal = runningTotal;
-        }
-        return runningTotal;
-    }
+
 }
 
 
