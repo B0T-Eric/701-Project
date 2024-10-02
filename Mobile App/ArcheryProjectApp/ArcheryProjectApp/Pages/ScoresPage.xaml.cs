@@ -1,269 +1,212 @@
 
 using ArcheryLibrary;
-using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 namespace ArcheryProjectApp.Pages;
 
-/*To Do: Copy pretty much exactly what I made for Java Application in 601.
-	AKA, Create Collection Views for Rounds (many rounds) and collection view inside the rounds for ends.
-	Logic for taking inputted data, logic for restricting inputs per end/round based on target face, logic for displaying round/end details
- */
 public partial class ScoresPage : ContentPage
 {
     Event currentEvent;
-    public class EndModel
-    {
-        public int EndNum { get; set; }
-        public List<string> Arrows { get; set; }
-        public int Xs { get; set; }
-        public int EndTotal { get; set; }
-        public int RunningTotal { get; set; }
-        public string? Distance { get; set; }
-        public Target? Target { get; set; }
-        public string Position { get; set; }
-    }
     private VerticalStackLayout mainLayout;
     public ScoresPage(Event userEvent)
     {
         InitializeComponent();
         currentEvent = userEvent;
         mainLayout = RoundScoringLayout;
-        InitializeRoundDisplays(userEvent);
-    }
 
-    private ObservableCollection<EndModel> InitializeEndModels(int shotsPerEnd, int numberOfEnds, List<End> ends)
-    {
-        var endModels = new ObservableCollection<EndModel>();
-        for (int i = 0; i < numberOfEnds; i++)
+        int roundNum = 0;
+        //divide into rounds
+        foreach(Round round in currentEvent.Rounds)
         {
-            var arrows = new List<string>();
-            for (int j = 0; j < shotsPerEnd; j++)
-            {
-                arrows.Add("");
-            }
-            if (ends[i].Position == ShootingPosition.WalkBack)
-            {
-                endModels.Add(new EndModel { EndNum = i + 1, Position = "Walk Back", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
-            }
-            else if (ends[i].Position == ShootingPosition.WalkUp)
-            {
-                endModels.Add(new EndModel { EndNum = i + 1, Position = "Walk Up", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = ends[i].Distance, Target = ends[i].Target });
-            }
-            else
-            {
-                endModels.Add(new EndModel { EndNum = i + 1, Position = "Stationary", Arrows = arrows, Xs = 0, EndTotal = 0, RunningTotal = 0, Distance = null, Target = null });
-            }
-        }
-        return endModels;
-    }
-
-    private void InitializeRoundDisplays(Event _event)
-    {
-        foreach (Round round in _event.Rounds)
-        {
-            var endModels = InitializeEndModels(round.ShotsPerEnd, round.EndCount,round.Ends);
-            GenerateRoundCollectionView(round, _event.Rounds.IndexOf(round), endModels);
-        }
-    }
-
-    private void GenerateRoundCollectionView(Round round, int roundIndex, ObservableCollection<EndModel> endModels)
-    {
-        var roundVertical = new VerticalStackLayout();
-        var roundLabel = new Label { Text = $"Round: {roundIndex + 1}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
-        roundVertical.Children.Add(roundLabel);
-        if(round.Type == "Standard")
-        {
-            var roundDetailLabel = new Label { Text = $"Distance: {round.Distance + 1} - Target: {round.Target.ToString()}", FontSize = 12, HorizontalTextAlignment = TextAlignment.Center };
-            roundVertical.Children.Add(roundDetailLabel);
-            var endCollection = GenerateStandardEndCollectionView(round, endModels);
-            roundVertical.Add(endCollection);
-        }
-        else
-        {
-            var endCollection = GenerateFlintEndCollectionView(round, endModels);
-            roundVertical.Add(endCollection);
-        }
-        
-        Device.BeginInvokeOnMainThread(() =>
-        {
+            roundNum++;
+            var roundVertical = new VerticalStackLayout();
+            var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
+            roundVertical.Children.Add(roundLabel);
+            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical);
+            roundVertical.Children.Add(endCollectionView);
             mainLayout.Children.Add(roundVertical);
-        });
+        }
     }
-    //need parameters for flint and standard differences
-    private CollectionView GenerateFlintEndCollectionView(Round round, ObservableCollection<EndModel> endModels)
+
+    private CollectionView GenerateEndViews(List<End> ends, string type, VerticalStackLayout roundLayout)
     {
-        var endsCollectionView = new CollectionView
+        var endCollectionView = new CollectionView
         {
             ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical),
+            ItemsSource = ends,
             ItemTemplate = new DataTemplate(() =>
             {
                 var grid = new Grid
                 {
                     ColumnSpacing = 5,
-                    RowSpacing = 5     
+                    RowSpacing = 5,
+                    ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = GridLength.Auto }, // End number
+                    new ColumnDefinition { Width = GridLength.Auto }, // Position, distance, target (for Flint)
+                    new ColumnDefinition { Width = GridLength.Star }, // Score entry fields
+                    new ColumnDefinition { Width = GridLength.Auto }, // X Count
+                    new ColumnDefinition { Width = GridLength.Auto }, // End Total
+                    new ColumnDefinition { Width = GridLength.Auto }  // Running Total
+                }
                 };
 
-                // Define the column widths
-                //end label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //Shooting Position label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //flint distance label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //flint target label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //arrows editors
-                for (int i = 0; i < round.ShotsPerEnd; i++) 
+                // End Number Label
+                var endNumberLabel = new Label();
+                endNumberLabel.SetBinding(Label.TextProperty, new Binding("EndNum"));
+                grid.Children.Add(endNumberLabel); // Add the label
+                Grid.SetColumn(endNumberLabel, 0); // Set to the first column
+
+                if (type == "Flint")
                 {
-                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    var flintStack = new VerticalStackLayout();
+                    // Shooting position
+                    var positionLabel = new Label();
+                    positionLabel.SetBinding(Label.TextProperty, "Position");
+                    flintStack.Children.Add(positionLabel);
+
+                    // End Distance
+                    var distanceLabel = new Label();
+                    distanceLabel.SetBinding(Label.TextProperty, "Distance");
+                    flintStack.Children.Add(distanceLabel);
+
+                    // End Target
+                    var targetLabel = new Label();
+                    targetLabel.SetBinding(Label.TextProperty, "Target");
+                    flintStack.Children.Add(targetLabel);
+
+                    grid.Children.Add(flintStack);
+                    Grid.SetColumn(flintStack, 1);
                 }
-                // Columns for X's, End Total, and Running Total  towards the right
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-
-                //fill in grid
-                //end label
-                var endNumLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "EndNum");
-                Grid.SetColumn(endNumLabel, 0);
-                grid.Children.Add(endNumLabel);
-                //end type
-                var endTypeLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "Type");
-                Grid.SetColumn(endTypeLabel, 1);
-                grid.Children.Add(endTypeLabel);
-                //end distance
-                var endDistLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "Distance");
-                Grid.SetColumn(endDistLabel, 2);
-                grid.Children.Add(endDistLabel);
-                //end target
-                var endTargetLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "Target");
-                Grid.SetColumn(endTargetLabel, 3);
-                grid.Children.Add(endTargetLabel);
-
-                // Arrow Editors
-                for (int i = 0; i < round.ShotsPerEnd; i++)
+                else
                 {
-                    var arrowEditor = new Entry { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
-                    arrowEditor.SetBinding(Entry.TextProperty, $"Arrows[{i}]");
-                    arrowEditor.TextChanged += OnArrowTextChanged;
-                    Grid.SetColumn(arrowEditor, i + 4);
-                    grid.Children.Add(arrowEditor);
+                    var standardStack = new VerticalStackLayout();
+
+                    grid.Children.Add(standardStack);
+                    Grid.SetColumn(standardStack, 1);
                 }
 
-                // Xs Label (aligned right)
-                var xCountLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                xCountLabel.SetBinding(Label.TextProperty, "Xs");
-                Grid.SetColumn(xCountLabel, round.ShotsPerEnd + 4);
-                grid.Children.Add(xCountLabel);
+                // Score Entries (generate dynamically based on ArrowCount)
+                var scoreLayout = new HorizontalStackLayout();
+                for (int i = 0; i < ends.FirstOrDefault()?.ArrowCount; i++)
+                {
+                    var scoreEntry = new Entry { Placeholder = $"Arrow {i + 1}", StyleId = i.ToString() };
+                    scoreEntry.SetBinding(Entry.TextProperty, new Binding($"Score[{i}]"));
+                    scoreEntry.TextChanged += OnScoreEntryChanged;
+                    scoreLayout.Children.Add(scoreEntry);
+                }
+                grid.Children.Add(scoreLayout); 
+                Grid.SetColumn(scoreLayout, 2); 
 
-                // End Total Label (aligned right)
-                var endTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                endTotalLabel.SetBinding(Label.TextProperty, "EndTotal");
-                Grid.SetColumn(endTotalLabel, round.ShotsPerEnd + 5);
-                grid.Children.Add(endTotalLabel);
+                // X Count Label
+                var xCountLabel = new Label { TextColor = Colors.Green };
+                xCountLabel.SetBinding(Label.TextProperty, new Binding("XCount", stringFormat: "{0}"));
+                grid.Children.Add(xCountLabel); 
+                Grid.SetColumn(xCountLabel, 3); 
 
-                // Running Total Label (aligned right)
-                var runningTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                runningTotalLabel.SetBinding(Label.TextProperty, "RunningTotal");
-                Grid.SetColumn(runningTotalLabel, round.ShotsPerEnd + 6);
-                grid.Children.Add(runningTotalLabel);
-                var endFrame = new Frame { Content = grid, Padding = 5, Margin = 5 };
-                return endFrame;
-            }),
-            ItemsSource = endModels
+                // End Total Label
+                var endTotalLabel = new Label { TextColor = Colors.Blue };
+                endTotalLabel.SetBinding(Label.TextProperty, new Binding("EndTotal", stringFormat: "{0}"));
+                grid.Children.Add(endTotalLabel); 
+                Grid.SetColumn(endTotalLabel, 4); 
+
+                // Running Total Label
+                var runningTotalLabel = new Label { TextColor = Colors.Red };
+                runningTotalLabel.SetBinding(Label.TextProperty, new Binding("RunningTotal", stringFormat: "{0}"));
+                grid.Children.Add(runningTotalLabel); 
+                Grid.SetColumn(runningTotalLabel, 5); 
+
+                Frame frame = new Frame();
+                frame.Content = grid;
+                frame.Margin = 5;
+                frame.Padding = 5;
+
+                return frame;
+            })
         };
 
-        return endsCollectionView;
+        return endCollectionView;
     }
-    private CollectionView GenerateStandardEndCollectionView(Round round, ObservableCollection<EndModel> endModels)
+    public void OnScoreEntryChanged(object sender, TextChangedEventArgs e)
     {
-        var endsCollectionView = new CollectionView
+        var entry = sender as Entry;
+        if(entry == null || string.IsNullOrEmpty(entry.StyleId)) return;
+        if(int.TryParse(entry.StyleId, out int scoreIndex))
         {
-            ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical),
-            ItemTemplate = new DataTemplate(() =>
+            var currentEnd = (entry.BindingContext as End);
+            if(currentEnd != null && scoreIndex < currentEnd.ArrowCount)
             {
-                var grid = new Grid
+                currentEnd.Score[scoreIndex] = e.NewTextValue;
+                var currentRound = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(currentEnd));
+                if(currentRound != null)
                 {
-                    ColumnSpacing = 5,
-                    RowSpacing = 5
-                };
-
-                // Define the column widths
-                //end label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //Shooting Position label
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //arrows editors
-                for (int i = 0; i < round.ShotsPerEnd; i++)
-                {
-                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    UpdateEndTotals(currentEnd,currentRound.Ends);
                 }
-                // Columns for X's, End Total, and Running Total  towards the right
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-
-                //fill in grid
-                //end label
-                var endNumLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "EndNum");
-                Grid.SetColumn(endNumLabel, 0);
-                grid.Children.Add(endNumLabel);
-                //end type
-                var endTypeLabel = new Label { HorizontalTextAlignment = TextAlignment.Start };
-                endNumLabel.SetBinding(Label.TextProperty, "Type");
-                Grid.SetColumn(endTypeLabel, 1);
-                grid.Children.Add(endTypeLabel);
-                // Arrow Editors
-                for (int i = 0; i < round.ShotsPerEnd; i++)
-                {
-                    var arrowEditor = new Entry { Placeholder = "arrow", HorizontalTextAlignment = TextAlignment.Center };
-                    arrowEditor.SetBinding(Entry.TextProperty, $"Arrows[{i}]");
-                    arrowEditor.TextChanged += OnArrowTextChanged;
-                    Grid.SetColumn(arrowEditor, i + 4);
-                    grid.Children.Add(arrowEditor);
-                }
-
-                // Xs Label (aligned right)
-                var xCountLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                xCountLabel.SetBinding(Label.TextProperty, "Xs");
-                Grid.SetColumn(xCountLabel, round.ShotsPerEnd + 4);
-                grid.Children.Add(xCountLabel);
-
-                // End Total Label (aligned right)
-                var endTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                endTotalLabel.SetBinding(Label.TextProperty, "EndTotal");
-                Grid.SetColumn(endTotalLabel, round.ShotsPerEnd + 5);
-                grid.Children.Add(endTotalLabel);
-
-                // Running Total Label (aligned right)
-                var runningTotalLabel = new Label { HorizontalTextAlignment = TextAlignment.Center };
-                runningTotalLabel.SetBinding(Label.TextProperty, "RunningTotal");
-                Grid.SetColumn(runningTotalLabel, round.ShotsPerEnd + 6);
-                grid.Children.Add(runningTotalLabel);
-                var endFrame = new Frame { Content = grid, Padding = 5, Margin = 5 };
-                return endFrame;
-            }),
-            ItemsSource = endModels
-        };
-
-        return endsCollectionView;
+                
+            }
+        }
     }
 
-
-    private void OnArrowTextChanged(object? sender, TextChangedEventArgs e)
+    private void UpdateEndTotals(End end, List<End> roundEnds)
     {
-        var editor = sender as Entry;
-        var context = editor.BindingContext as EndModel;
+        end.XCount = end.Score.Count(s => s.Equals("X", StringComparison.OrdinalIgnoreCase));
+        int totalScore = 0;
+        foreach (var score in end.Score)
+        {
+            if (int.TryParse(score, out int parsedScore))
+            {
+                totalScore += parsedScore;
+            }
+            else if (score.Equals("X", StringComparison.OrdinalIgnoreCase))
+            {
+                totalScore += 10; //placeholder value for target max value.
+            }
+            else if (score.Equals("M", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+        }
+        end.EndTotal = totalScore;
+        int runningTotal = 0;
+        foreach (var endItem in roundEnds)
+        {
+            if(endItem.EndNum <= end.EndNum)
+            {
+                runningTotal += endItem.EndTotal;
+            }
+        }
+        end.RunningTotal = runningTotal;
+    }
+    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    {
+        bool allFieldsChecked = true;
+        foreach(var round in currentEvent.Rounds)
+        {
+            foreach(var end in round.Ends)
+            {
+                for(int i = 0; i < end.ArrowCount; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(end.Score[i]))
+                    {
+                        allFieldsChecked = false;
+                        break;
+                    }
+                }
+                if (!allFieldsChecked)
+                {
+                    break;
+                }
+            }
+            if (!allFieldsChecked)
+            {
+                break;
+            }
+        }
+        if (!allFieldsChecked)
+        {
+            DisplayAlert("Incomplete Rounds", "Please Fill all fields before continuing", "Return");
+        }
 
     }
-
-
 }
 
 

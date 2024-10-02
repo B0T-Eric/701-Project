@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ArcheryLibrary
 {
-    public class End
+    public class End : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public int EndNum { get; set; }
         //walk up walk back stationary end position.
         public ShootingPosition Position { get; set; }
         //amount of end fields to generate.
@@ -16,25 +14,73 @@ namespace ArcheryLibrary
         public string? Distance { get; set; }
         //flint end target
         public Target? Target { get; set; }
-        public List<int> Score { get; set; }
+        public List<string> Score { get; set; } = new List<string>();
+
+        private int _xCount;
+        private int _endTotal;
+        private int _runningTotal;
+        public int XCount
+        {
+            get => _xCount;
+            set
+            {
+                if (_xCount != value)
+                {
+                    _xCount = value;
+                    OnPropertyChanged(nameof(XCount));
+                }
+            }
+        }
+        public int EndTotal
+        {
+            get => _endTotal;
+            set
+            {
+                if (_endTotal != value)
+                {
+                    _endTotal = value;
+                    OnPropertyChanged(nameof(EndTotal));
+                }
+            }
+        }
+        public int RunningTotal
+        {
+            get => _runningTotal;
+            set
+            {
+                if (_runningTotal != value)
+                {
+                    _runningTotal = value;
+                    OnPropertyChanged(nameof(RunningTotal));
+                }
+            }
+        }
         //target and distance can be null as flint is optional.
         //constructor for making an end in app
-        public End(ShootingPosition position, int arrowCount, string? distance, Target? target) 
+        public End(int endNum,ShootingPosition position, int arrowCount, string? distance, Target? target) 
         {
+            EndNum = endNum;
             Position = position;
             ArrowCount = arrowCount;
             Distance = distance;
             this.Target = target;
-            Score = new List<int>();
         }
 
-        public End(ShootingPosition position, int arrowCount, string? distance, Target? target, List<int> score) : this(position, arrowCount, distance, target)
+        public End(int endNum,ShootingPosition position, int arrowCount, string? distance, Target? target, List<string> score) : this(endNum,position, arrowCount, distance, target)
         {
             Score = score;
+        }
+        public End(int num)
+        {
+            EndNum = num;
         }
         public End()
         {
 
+        }
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -10,11 +10,11 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout>
                 <Label Text="Ends: " x:Name="EndsLabel"/>
-                <Picker x:Name="EndPicker" SelectedIndexChanged="EndPickerChanged" WidthRequest="320"/>
+                <Picker x:Name="EndPicker" SelectedIndexChanged="EndPickerChanged" WidthRequest="160"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout>
                 <Label Text="Arrows: " x:Name="ArrowsLabel"/>
-                <Picker x:Name="ArrowPicker" WidthRequest="320"/>
+                <Picker x:Name="ArrowPicker" WidthRequest="160"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout>
                 <StackLayout Padding="10">

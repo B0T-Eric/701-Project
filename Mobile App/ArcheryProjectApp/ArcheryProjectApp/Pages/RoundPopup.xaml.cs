@@ -4,8 +4,6 @@ using ArcheryLibrary;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Markup;
-using Android.App;
-using AndroidX.AppCompat.App;
 
 //To Do: Have loading of round information from existing information, Have Saving of Round Data, Fix Navigation Buttons, Fix Targets Stuff
 public partial class RoundPopup : Popup
@@ -99,7 +97,8 @@ public partial class RoundPopup : Popup
                     // Picker for target selection
                     var picker = new Picker { Title = "Select End Target" };
 					picker.ItemsSource = App.targets;
-                    picker.SetBinding(Picker.SelectedItemProperty, new Binding("Target"));
+                    picker.SetBinding(Picker.SelectedItemProperty, new Binding("EndTarget"));
+
 
 					// Editors for distance and unit
 					var distEditor = new Entry {
@@ -115,15 +114,14 @@ public partial class RoundPopup : Popup
 								MaximumLength = 10,
 							}
 						}
-                    
-                };
+					};
 					
 					distEditor.SetBinding(Editor.TextProperty, new Binding("Distance"));
 
 					//Picker for type
-					var typePicker = new Picker { Title = "Select End Type" };
+					var typePicker = new Picker { Title = "Select Shooting Position" };
 					typePicker.ItemsSource = App.positionOptions;
-					typePicker.SetBinding(Picker.SelectedIndexProperty, new Binding("EndType"));
+					typePicker.SetBinding(Picker.SelectedItemProperty, new Binding("Position"));
 
                     container.Children.Add(distEditor);
                     container.Children.Add(picker);
@@ -183,7 +181,7 @@ public partial class RoundPopup : Popup
                 FlintDetailsLayout.IsVisible = false;
                 FlintDetailsLayout.IsEnabled = false;
 				StandardDistanceEditor.Text = rounds[current].Distance;
-				
+				StandardTargetPicker.SelectedIndex = StandardTargetPicker.Items.IndexOf(rounds[current].Target.ToString()); 
             }
 			else
 			{
@@ -206,10 +204,8 @@ public partial class RoundPopup : Popup
 			//default empty views
 			StandardRadioButton.IsChecked=true;
 			FlintRadioButton.IsChecked=false;
-			EndsLabel.Text = "Ends: ";
-			EndPicker.SelectedIndex = -1;
-			ArrowsLabel.Text = "Arrows: ";
-			ArrowPicker.SelectedIndex = -1;
+			EndPicker.SelectedIndex = 0;
+			ArrowPicker.SelectedIndex = 0;
 			StandardTargetPicker.SelectedIndex = -1;
 			StandardDistanceEditor.Text = "";
 			StandardDetailsLayout.IsEnabled = true;
@@ -228,7 +224,7 @@ public partial class RoundPopup : Popup
 		ToggleStandardDisplay();
         rounds[current].Type = "Standard";
     }
-	private async void SaveRound()
+	private void SaveRound()
 	{
         if (rounds[current].Type == "Flint")
 		{
@@ -236,7 +232,7 @@ public partial class RoundPopup : Popup
 			//get  type, target and distance for each end in rounds
 			for(int i = 0; i < rounds[current].EndCount; i++)
 			{
-				rounds[current].Ends.Add(new End());
+				rounds[current].Ends.Add(new End(i+1));
 			}
 			int index = 0;
 			foreach(End end in rounds[current].Ends)
@@ -245,7 +241,11 @@ public partial class RoundPopup : Popup
 				end.ArrowCount = (int)ArrowPicker.SelectedItem;
 				end.Target = GetFlintEndTargets(index);
 				end.Distance = GetFlintEndDistance(index);
-				index++;
+                for (int j = 0; j < end.ArrowCount; j++)
+                {
+                    end.Score.Add("");
+                }
+                index++;
 			}
 		}
 		else
@@ -254,10 +254,15 @@ public partial class RoundPopup : Popup
             rounds[current].Distance = StandardDistanceEditor.Text;
             rounds[current].ShotsPerEnd = (int)ArrowPicker.SelectedItem;
 			rounds[current].EndCount = (int)EndPicker.SelectedItem;
-			//for(int i = 0; i < rounds[current].EndCount; i++)
-			//{
-				rounds[current].Ends.Add(new End(ShootingPosition.Stationary, (int)ArrowPicker.SelectedItem, null, null));
-            //}
+			for(int i = 0; i < rounds[current].EndCount; i++)
+			{
+				rounds[current].Ends.Add(new End(i+1, ShootingPosition.Stationary, (int)ArrowPicker.SelectedItem, null, null));
+				rounds[current].Ends[i].Score = new List<string>(rounds[current].EndCount);
+                for (int j = 0; j < rounds[current].Ends[i].ArrowCount; j++)
+                {
+                    rounds[current].Ends[i].Score.Add(""); 
+                }
+            }
 		}
 	}
 
@@ -304,7 +309,7 @@ public partial class RoundPopup : Popup
 		if(CheckFields() == true)
 		{
             SaveRound();
-            if (current == _eventItem.Rounds.Count)
+            if (current == rounds.Count-1)
             {
 				//save rounds to event
                 _eventItem.Rounds = rounds;
@@ -322,7 +327,7 @@ public partial class RoundPopup : Popup
         }
 		else
 		{ 
-
+			
 		}
     }
 	private bool CheckFields()

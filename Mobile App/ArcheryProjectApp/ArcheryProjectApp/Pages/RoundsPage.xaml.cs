@@ -38,7 +38,7 @@ public partial class RoundsPage : ContentPage
         {
             Console.WriteLine(ProfilePage.UserInstance.Events.Count);
             foreach (Event e in ProfilePage.UserInstance.Events)
-            {
+            { 
                 EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.Environment, e);
                 eventItemModels.Add(model);
             }

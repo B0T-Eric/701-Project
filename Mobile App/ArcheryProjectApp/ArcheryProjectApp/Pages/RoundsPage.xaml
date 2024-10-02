@@ -17,7 +17,7 @@
     </Shell.TitleView>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="add.png"/>
+        <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="save_icon.png"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
         <Label x:Name="Rounds" Text="Saved Rounds!"/>
@@ -27,16 +27,24 @@
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
                         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                             <VerticalStackLayout>
-                                <HorizontalStackLayout>
-                                    <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
-                                    <Label Text="{Binding Name}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
-                                    <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    <Label Text="Type: " FontSize="16" Padding="3" TextColor="Black"/>
-                                    <Label Text="{Binding Type}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
-                                    <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
-                                </HorizontalStackLayout>
+                                <VerticalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
+                                        <Label Text="{Binding Name}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
+                                        <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Type: " FontSize="16" Padding="3" TextColor="Black"/>
+                                        <Label Text="{Binding Type}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
+                                        <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
 
                             </VerticalStackLayout>
 
