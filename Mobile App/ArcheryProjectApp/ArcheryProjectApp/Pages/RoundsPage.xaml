@@ -21,7 +21,7 @@
     </ContentPage.ToolbarItems>
     <StackLayout>
         <Label x:Name="Rounds" Text="Saved Rounds!"/>
-        <CollectionView x:Name="RoundsCollectionView">
+        <CollectionView x:Name="RoundsCollectionView" EmptyView="No Saved Events">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
@@ -58,7 +58,7 @@
             
         </CollectionView>
         <Label Text="Completed Events:"/>
-        <CollectionView x:Name="CompleteCollectionView">
+        <CollectionView x:Name="CompleteCollectionView" EmptyView="No Completed Events">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LimeGreen" Margin="4">

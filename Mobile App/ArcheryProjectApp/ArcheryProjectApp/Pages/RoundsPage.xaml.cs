@@ -16,7 +16,6 @@ public partial class RoundsPage : ContentPage
         InitializeComponent();
         EventItems = GetDisplayItems();
         CompletedEvents = GetCompletedItems();
-        ChangeTitle();
         RoundsCollectionView.ItemsSource = EventItems;
         CompleteCollectionView.ItemsSource = CompletedEvents;
         BindingContext = this;
@@ -51,28 +50,18 @@ public partial class RoundsPage : ContentPage
         }
         return completeEvents;
     }
-
-    private void ChangeTitle()
-    {
-        if (EventItems.Count > 0)
-        {
-            Rounds.Text = "Saved Rounds";
-        }
-        else
-        {
-            Rounds.Text = "Create Rounds by clicking the plus to the top right!";
-        }
-    }
-
     private ObservableCollection<EventItemModel> GetDisplayItems()
     {
         ObservableCollection<EventItemModel> eventItemModels = new ObservableCollection<EventItemModel>();
         if(ProfilePage.UserInstance.Events != null)
         {
             foreach (Event e in ProfilePage.UserInstance.Events)
-            { 
-                EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.Environment, e);
-                eventItemModels.Add(model);
+            {
+                if(e.Rounds == null)
+                {
+                    EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.Environment, e);
+                    eventItemModels.Add(model);
+                }
             }
         }
         return eventItemModels;
@@ -87,7 +76,6 @@ public partial class RoundsPage : ContentPage
     {
         var newEventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.Environment, newEvent);
         EventItems.Add(newEventItemModel);
-        ChangeTitle();
     }
     private async void OnItemTapped(object sender, EventArgs e)
     {

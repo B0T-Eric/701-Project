@@ -25,6 +25,7 @@ public partial class ScoresPage : ContentPage
             roundVertical.Children.Add(roundLabel);
             CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical);
             roundVertical.Children.Add(endCollectionView);
+
             //at bottom of each round display x totals, and total score.
             var horizontals = new HorizontalStackLayout();
             var roundTotalLabel = new Label { Text = $"Round Total: {round.RoundTotal}" };
@@ -33,6 +34,8 @@ public partial class ScoresPage : ContentPage
             var roundXTotal = new Label { Text = $"Total X's:{round.XTotal}" };
             roundXTotal.SetBinding(Label.TextProperty, "XTotal");
             horizontals.Children.Add(roundXTotal);
+
+
             roundVertical.Children.Add(horizontals);
             mainLayout.Children.Add(roundVertical);
         }
