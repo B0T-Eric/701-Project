@@ -24,27 +24,16 @@ namespace ArcheryLibrary
         //end list which contains details for scoring and flint end information
         public List<End> Ends { get; set; }
         public int RoundTotal { get; set; }
-        public int EndAverage {  get; set; }
+        public int XTotal { get; set; }
+        public bool IsComplete { get; set; }
         public Round()
         {
             Ends = new List<End>();
         }
-        private int CalcRoundTotal()
+
+        public int GetRoundAverage()
         {
-            int total = 0;
-            foreach (End end in Ends)
-            {
-                foreach(string score in end.Score)
-                {
-                    
-                }
-            }
-            return total;
-        }
-        private int CalcEndAverage()
-        {
-            int average = RoundTotal / Ends.Count;
-            return average;
+            return RoundTotal / Ends.Count;
         }
     }
 }

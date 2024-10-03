@@ -12,17 +12,28 @@ public partial class ScoresPage : ContentPage
         InitializeComponent();
         currentEvent = userEvent;
         mainLayout = RoundScoringLayout;
-
+        
         int roundNum = 0;
         //divide into rounds
         foreach(Round round in currentEvent.Rounds)
         {
+            round.XTotal = 0;
+            round.RoundTotal = 0;
             roundNum++;
             var roundVertical = new VerticalStackLayout();
             var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
             roundVertical.Children.Add(roundLabel);
             CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical);
             roundVertical.Children.Add(endCollectionView);
+            //at bottom of each round display x totals, and total score.
+            var horizontals = new HorizontalStackLayout();
+            var roundTotalLabel = new Label { Text = $"Round Total: {round.RoundTotal}" };
+            roundTotalLabel.SetBinding(Label.TextProperty, "RoundTotal");
+            horizontals.Children.Add(roundTotalLabel);
+            var roundXTotal = new Label { Text = $"Total X's:{round.XTotal}" };
+            roundXTotal.SetBinding(Label.TextProperty, "XTotal");
+            horizontals.Children.Add(roundXTotal);
+            roundVertical.Children.Add(horizontals);
             mainLayout.Children.Add(roundVertical);
         }
     }
@@ -139,7 +150,11 @@ public partial class ScoresPage : ContentPage
                 var currentRound = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(currentEnd));
                 if(currentRound != null)
                 {
-                    UpdateEndTotals(currentEnd,currentRound.Ends);
+                    UpdateEndTotals(currentEnd, currentRound.Ends);
+                    foreach( var end in currentRound.Ends)
+                    {
+                        currentRound.RoundTotal += end.EndTotal;
+                    }
                 }
                 
             }
@@ -175,8 +190,9 @@ public partial class ScoresPage : ContentPage
             }
         }
         end.RunningTotal = runningTotal;
+        
     }
-    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
         bool allFieldsChecked = true;
         foreach(var round in currentEvent.Rounds)
@@ -204,6 +220,14 @@ public partial class ScoresPage : ContentPage
         if (!allFieldsChecked)
         {
             DisplayAlert("Incomplete Rounds", "Please Fill all fields before continuing", "Return");
+        }
+        else
+        {
+            foreach (var round in currentEvent.Rounds)
+            {
+                round.IsComplete = true;
+            }
+            await Navigation.PopAsync();
         }
 
     }

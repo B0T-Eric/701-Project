@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Text;
 using ArcheryLibrary;
 using ArcheryProjectApp.Pages;
 using CommunityToolkit.Maui.Views;
@@ -7,16 +8,48 @@ namespace ArcheryProjectApp;
 
 public partial class RoundsPage : ContentPage
 {
+    public ObservableCollection<CompletedEventItemModel> CompletedEvents {  get; set; }
     public ObservableCollection<EventItemModel> EventItems { get; set; }
 	public RoundsPage()
 	{
 
         InitializeComponent();
         EventItems = GetDisplayItems();
+        CompletedEvents = GetCompletedItems();
         ChangeTitle();
         RoundsCollectionView.ItemsSource = EventItems;
+        CompleteCollectionView.ItemsSource = CompletedEvents;
         BindingContext = this;
         
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        EventItems = GetDisplayItems();
+        CompletedEvents = GetCompletedItems();
+        RoundsCollectionView.ItemsSource = EventItems;
+        CompleteCollectionView.ItemsSource = CompletedEvents;
+    }
+    private ObservableCollection<CompletedEventItemModel>? GetCompletedItems()
+    {
+        ObservableCollection<CompletedEventItemModel> completeEvents = new ObservableCollection<CompletedEventItemModel>();
+        foreach(Event _event in  ProfilePage.UserInstance.Events) 
+        {
+            if(_event.Rounds != null)
+            {
+                int roundTotals = 0;
+                foreach (Round round in _event.Rounds)
+                {
+                    if (round.IsComplete)
+                    {
+                        roundTotals += round.GetRoundAverage();
+                    }
+                }
+                int eventAverage = roundTotals / _event.Rounds.Count;
+                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage));
+            }
+        }
+        return completeEvents;
     }
 
     private void ChangeTitle()
@@ -36,7 +69,6 @@ public partial class RoundsPage : ContentPage
         ObservableCollection<EventItemModel> eventItemModels = new ObservableCollection<EventItemModel>();
         if(ProfilePage.UserInstance.Events != null)
         {
-            Console.WriteLine(ProfilePage.UserInstance.Events.Count);
             foreach (Event e in ProfilePage.UserInstance.Events)
             { 
                 EventItemModel model = new EventItemModel(e.Name, e.Date, e.Type, e.Environment, e);
@@ -61,11 +93,22 @@ public partial class RoundsPage : ContentPage
     {
         var frame = (Frame)sender;
         var tappedItem = frame.BindingContext as EventItemModel;
-        if(tappedItem != null)
+        if(tappedItem != null && tappedItem.UserEvent != null)
         {
-            this.ShowPopup(new RoundPopup(tappedItem.UserEvent, Navigation));
+            var popup = new RoundPopup(tappedItem.UserEvent, this.Navigation);
+            await this.ShowPopupAsync(popup);
         }
         
+    }
+    private async void OnCompletedItemTapped(object sender, EventArgs e)
+    {
+        var frame = (Frame)sender;
+        var tappedItem = frame?.BindingContext as EventItemModel;
+        if (tappedItem != null)
+        {
+            //if rounds have been set and created before open the scores page with this event.
+            await Navigation.PushAsync(new ScoresPage(tappedItem.UserEvent));
+        }
     }
     
 }
@@ -90,6 +133,16 @@ public class EventItemModel
         Date = date;
         Type = type;
         UserEvent=userEvent;
+    }
+}
+public class CompletedEventItemModel : EventItemModel
+{
+    public int RoundCount { get; set; }
+    public int RoundAverage { get; set; }
+    public CompletedEventItemModel(string name, DateOnly date, string type, string environment, Event userEvent, int roundCount, int roundAverage) : base(name, date, type, environment, userEvent)
+    {
+        RoundCount = roundCount;
+        RoundAverage = roundAverage;
     }
 }
 
