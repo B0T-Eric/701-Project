@@ -19,6 +19,7 @@
         public string Division { get; set; }
         //Rounds.
         public List<Round> Rounds { get; set; }
+        public int EventTotal { get; set; }
 
         //constructor for loading a registered event
         public Event(int eventId, string eventName, string eventDescription, string eventType, DateOnly eventDate,
@@ -65,6 +66,25 @@
         {
         }
         
+        public int GetEventAverage()
+        {
+            int average = 0;
+            foreach( Round round in Rounds )
+            {
+                average += round.RoundTotal;
+            }
+            average /= RoundCount;
+            return average;
+        }
+        public int GetEventTotal()
+        {
+            EventTotal = 0;
+            foreach ( Round round in Rounds ) 
+            {
+                EventTotal += round.RoundTotal;
+            }
+            return EventTotal;
 
+        }
     }
 }
