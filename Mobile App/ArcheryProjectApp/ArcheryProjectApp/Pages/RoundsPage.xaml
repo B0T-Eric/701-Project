@@ -15,13 +15,14 @@
                    />
         </HorizontalStackLayout>
     </Shell.TitleView>
-    
+
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Help" Clicked="ToolbarHelp_Clicked" IconImageSource="help.png"/>
         <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="save_icon.png"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Label x:Name="Rounds" Text="Saved Rounds!"/>
-        <CollectionView x:Name="RoundsCollectionView" EmptyView="No Saved Events">
+        <Label x:Name="Rounds" Text="Saved Events Templates:"/>
+        <CollectionView x:Name="RoundsCollectionView" EmptyView="No Saved Events" Header="Click or Tap to Add Rounds">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
@@ -58,7 +59,7 @@
             
         </CollectionView>
         <Label Text="Completed Events:"/>
-        <CollectionView x:Name="CompleteCollectionView" EmptyView="No Completed Events">
+        <CollectionView x:Name="CompleteCollectionView" EmptyView="No Completed Events" Header="Click or Tap To View Scores">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LimeGreen" Margin="4">
@@ -86,7 +87,7 @@
                                 </VerticalStackLayout>
 
                             </VerticalStackLayout>
-
+                            <Image MaximumWidthRequest="320" MaximumHeightRequest="320" Source="{Binding TargetFace}"/>
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCompletedItemTapped"/>

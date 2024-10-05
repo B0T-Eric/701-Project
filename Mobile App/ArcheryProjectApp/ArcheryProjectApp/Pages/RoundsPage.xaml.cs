@@ -37,15 +37,20 @@ public partial class RoundsPage : ContentPage
             if(_event.Rounds != null)
             {
                 int roundTotals = 0;
+                Target roundTarget = null;
                 foreach (Round round in _event.Rounds)
                 {
                     if (round.IsComplete)
                     {
-                        roundTotals += round.GetRoundAverage();
+                        roundTotals += round.RoundTotal;
+                        if(round.Target != null)
+                        {
+                            roundTarget = round.Target;
+                        }
                     }
                 }
                 int eventAverage = roundTotals / _event.Rounds.Count;
-                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage));
+                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
             }
         }
         return completeEvents;
@@ -98,7 +103,11 @@ public partial class RoundsPage : ContentPage
             await Navigation.PushAsync(new ScoresPage(tappedItem.UserEvent));
         }
     }
-    
+    private async void ToolbarHelp_Clicked(object sender, EventArgs e)
+    {
+        var popup = new InfoPopup();
+        await this.ShowPopupAsync(popup);
+    }
 }
 public class EventItemModel
 {
@@ -127,10 +136,12 @@ public class CompletedEventItemModel : EventItemModel
 {
     public int RoundCount { get; set; }
     public int RoundAverage { get; set; }
-    public CompletedEventItemModel(string name, DateOnly date, string type, string environment, Event userEvent, int roundCount, int roundAverage) : base(name, date, type, environment, userEvent)
+    public Target? RoundTarget { get; set; }
+    public CompletedEventItemModel(string name, DateOnly date, string type, string environment, Event userEvent, int roundCount, int roundAverage, Target target) : base(name, date, type, environment, userEvent)
     {
         RoundCount = roundCount;
         RoundAverage = roundAverage;
+        RoundTarget = target;
     }
 }
 

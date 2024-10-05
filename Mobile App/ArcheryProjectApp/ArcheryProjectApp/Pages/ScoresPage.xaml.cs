@@ -1,4 +1,3 @@
-
 using ArcheryLibrary;
 using System.Text.RegularExpressions;
 namespace ArcheryProjectApp.Pages;
@@ -23,16 +22,23 @@ public partial class ScoresPage : ContentPage
             var roundVertical = new VerticalStackLayout();
             var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
             roundVertical.Children.Add(roundLabel);
-            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical);
+            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical); //create collection view items based on each end in the round.
             roundVertical.Children.Add(endCollectionView);
 
             //at bottom of each round display x totals, and total score.
             var horizontals = new HorizontalStackLayout();
-            var roundTotalLabel = new Label { Text = $"Round Total: {round.RoundTotal}" };
+            horizontals.BindingContext = round;
+            var roundText = new Label { Text = "Round Total: " };
+            horizontals.Children.Add(roundText);
+            var roundTotalLabel = new Label { Text = $"{round.RoundTotal}" };
             roundTotalLabel.SetBinding(Label.TextProperty, "RoundTotal");
             horizontals.Children.Add(roundTotalLabel);
-            var roundXTotal = new Label { Text = $"Total X's:{round.XTotal}" };
+            var xText = new Label { Text = "Total X's: " };
+            horizontals.Children.Add(xText);
+            var roundXTotal = new Label { Text = $"{round.XTotal}" };
             roundXTotal.SetBinding(Label.TextProperty, "XTotal");
+
+            
             horizontals.Children.Add(roundXTotal);
 
 
@@ -46,9 +52,10 @@ public partial class ScoresPage : ContentPage
         var endCollectionView = new CollectionView
         {
             ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical),
-            ItemsSource = ends,
+            ItemsSource = ends, //round ends
             ItemTemplate = new DataTemplate(() =>
             {
+                //grid layout parent
                 var grid = new Grid
                 {
                     ColumnSpacing = 5,
@@ -72,6 +79,7 @@ public partial class ScoresPage : ContentPage
 
                 if (type == "Flint")
                 {
+                    //popuplate view if flint
                     var flintStack = new VerticalStackLayout();
                     // Shooting position
                     var positionLabel = new Label();
@@ -93,6 +101,7 @@ public partial class ScoresPage : ContentPage
                 }
                 else
                 {
+                    //empty view if not flint
                     var standardStack = new VerticalStackLayout();
 
                     grid.Children.Add(standardStack);
@@ -105,7 +114,10 @@ public partial class ScoresPage : ContentPage
                 {
                     var scoreEntry = new Entry { Placeholder = $"Arrow {i + 1}", StyleId = i.ToString() };
                     scoreEntry.SetBinding(Entry.TextProperty, new Binding($"Score[{i}]"));
+                    scoreEntry.MaxLength = 1;
+                    scoreEntry.TextChanged += ValidateEntry;
                     scoreEntry.TextChanged += OnScoreEntryChanged;
+                    scoreEntry.Focused += EntryFocused;
                     scoreLayout.Children.Add(scoreEntry);
                 }
                 grid.Children.Add(scoreLayout); 
@@ -140,6 +152,39 @@ public partial class ScoresPage : ContentPage
 
         return endCollectionView;
     }
+    private async void ValidateEntry(object sender, TextChangedEventArgs e)
+    {
+        var entry = sender as Entry;
+        if(entry != null) 
+        {
+            string allowedInput;
+            var end = entry.BindingContext as End;
+            if(end.Target != null)
+            {
+                allowedInput = string.Join("", end.Target.ZoneValues) + "XMxm";
+                string newText = e.NewTextValue;
+                if (!string.IsNullOrEmpty(newText) && !newText.All(c => allowedInput.Contains(c)))
+                {
+                    entry.Text = e.OldTextValue;
+                }
+            }
+            else
+            {
+                var round = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(end));
+                allowedInput = string.Join("", round.Target.ZoneValues) + "XMxm";
+                string newText = e.NewTextValue;
+                if (!string.IsNullOrEmpty(newText) && !newText.All(c => allowedInput.Contains(c)))
+                {
+                    entry.Text = e.OldTextValue;
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+    private void EntryFocused(object sender, FocusEventArgs e) => ScoreScrollView.ScrollToAsync((VisualElement)sender, ScrollToPosition.Start, true);
     public void OnScoreEntryChanged(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;
@@ -153,18 +198,31 @@ public partial class ScoresPage : ContentPage
                 var currentRound = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(currentEnd));
                 if(currentRound != null)
                 {
-                    UpdateEndTotals(currentEnd, currentRound.Ends);
-                    foreach( var end in currentRound.Ends)
+                    UpdateEndTotals(currentEnd, currentRound.Ends, currentRound.Target.ZoneValues);
+                    currentRound.RoundTotal = 0;
+                    currentRound.XTotal = 0;
+                    int currentEndIndex = currentRound.Ends.IndexOf(currentEnd);
+                    for(int i = currentEndIndex; i < currentRound.Ends.Count; i++)
                     {
-                        currentRound.RoundTotal += end.EndTotal;
+                        End end = currentRound.Ends[i];
+                        UpdateEndTotals(end, currentRound.Ends,currentRound.Target.ZoneValues);
+                        
+                        
                     }
+                    foreach (End _end in currentRound.Ends)
+                    {
+                        currentRound.RoundTotal += _end.EndTotal;
+                        currentRound.XTotal += _end.XCount;
+                    }
+
+
                 }
                 
             }
         }
     }
 
-    private void UpdateEndTotals(End end, List<End> roundEnds)
+    private void UpdateEndTotals(End end, List<End> roundEnds, List<int>? zoneValues)
     {
         end.XCount = end.Score.Count(s => s.Equals("X", StringComparison.OrdinalIgnoreCase));
         int totalScore = 0;
@@ -176,7 +234,16 @@ public partial class ScoresPage : ContentPage
             }
             else if (score.Equals("X", StringComparison.OrdinalIgnoreCase))
             {
-                totalScore += 10; //placeholder value for target max value.
+                //if there is a target for the end (flint round) then use the maximum value of the target
+                if(end.Target != null)
+                {
+                    totalScore += end.Target.ZoneValues[end.Target.ZoneValues.Count-1];
+                }
+                //if there is zoneValues param (standard round) then use the maximum value of target
+                if(zoneValues != null)
+                {
+                    totalScore += zoneValues[zoneValues.Count - 1];
+                }
             }
             else if (score.Equals("M", StringComparison.OrdinalIgnoreCase))
             {
@@ -230,6 +297,10 @@ public partial class ScoresPage : ContentPage
             {
                 round.IsComplete = true;
             }
+            //save to db here.
+
+            //send to API if not guest
+            
             await Navigation.PopAsync();
         }
 

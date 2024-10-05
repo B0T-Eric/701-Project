@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace ArcheryLibrary
 {
     public enum ShootingPosition { Stationary, WalkBack, WalkUp }
-    public class Round
+    public class Round : INotifyPropertyChanged
     {
         //shooting Position of each end
         public ShootingPosition PositionType { get; set; }
@@ -23,17 +24,50 @@ namespace ArcheryLibrary
         public string? Distance { get; set; }
         //end list which contains details for scoring and flint end information
         public List<End> Ends { get; set; }
-        public int RoundTotal { get; set; }
-        public int XTotal { get; set; }
+        //round totals
+        private int roundTotal;
+        public int RoundTotal 
+        {
+            get => roundTotal;
+            set
+            {
+                if (roundTotal != value)
+                {
+                    roundTotal = value;
+                    OnPropertyChanged(nameof(RoundTotal));
+                }
+            }
+        }
+        //total x's
+        private int xTotal;
+        public int XTotal 
+        {
+            get => xTotal;
+            set
+            {
+                if (xTotal != value)
+                {
+                    xTotal = value;
+                    OnPropertyChanged(nameof(XTotal));
+                }
+            }
+        }
+
         public bool IsComplete { get; set; }
         public Round()
         {
             Ends = new List<End>();
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public int GetRoundAverage()
         {
             return RoundTotal / Ends.Count;
+        }
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
