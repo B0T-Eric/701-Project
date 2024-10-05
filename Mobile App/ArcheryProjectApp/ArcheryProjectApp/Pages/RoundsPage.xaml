@@ -28,24 +28,29 @@
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
                         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                             <VerticalStackLayout>
-                                <VerticalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="{Binding Name}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Type: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding Type}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
+                                <Grid ColumnSpacing="20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Event: " FontSize="12" TextColor="Black"  Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding Name}" FontSize="12" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Text="Date: " FontSize="12" TextColor="Black"  Grid.Row="1" Grid.Column="0"/>
+                                    <Label Text="{Binding Date}" FontSize="12" TextColor="Black" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Text="Type: " FontSize="12"  TextColor="Black" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding Type}" FontSize="12" TextColor="Black"  Grid.Row="2" Grid.Column="1"/>
+                                    <Label Text="Environment: " FontSize="12"  TextColor="Black" Grid.Row="3" Grid.Column="0"/>
+                                    <Label Text="{Binding Environment}" FontSize="12" TextColor="Black" Grid.Row="3" Grid.Column="1"/>
+                                    <Label Text="Missing Round Information." FontSize="12" TextColor="Black" Grid.Column="2" Grid.Row="1"/>
+                                    <Label Text="Tap or Click to continue." FontSize="12" TextColor="Black" Grid.Column="2" Grid.Row="2"/>
+                                </Grid>
 
                             </VerticalStackLayout>
 
@@ -65,29 +70,37 @@
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LimeGreen" Margin="4">
                         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                             <VerticalStackLayout>
-                                <VerticalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Event: " FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="{Binding Name}" FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="Date: " FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="{Binding Date}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Type: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding Type}" FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="Environment: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding Environment}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Text="Round Count: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding RoundCount}" FontSize="16" TextColor="Black" Padding="3"/>
-                                        <Label Text="Average Score Per Round: " FontSize="16" Padding="3" TextColor="Black"/>
-                                        <Label Text="{Binding RoundAverage}" FontSize="16" TextColor="Black" Padding="3"/>
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Event: " FontSize="12" TextColor="Black"  Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding Name}" FontSize="12" TextColor="Black"  Grid.Row="0" Grid.Column="1"/>
+                                    <Label Text="Date: " FontSize="12" TextColor="Black"  Grid.Row="1" Grid.Column="0"/>
+                                    <Label Text="{Binding Date}" FontSize="12" TextColor="Black"  Grid.Row="1" Grid.Column="1"/>
+                                    <Label Text="Type: " FontSize="12"  TextColor="Black" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding Type}" FontSize="12" TextColor="Black"  Grid.Row="2" Grid.Column="1"/>
+                                    <Label Text="Environment: " FontSize="12"  TextColor="Black" Grid.Row="3" Grid.Column="0"/>
+                                    <Label Text="{Binding Environment}" FontSize="12" TextColor="Black"  Grid.Row="3" Grid.Column="1"/>
+                                    <Label Text="Round Count: " FontSize="12"  TextColor="Black" Grid.Row="4" Grid.Column="0"/>
+                                    <Label Text="{Binding RoundCount}" FontSize="12" TextColor="Black"  Grid.Row="4" Grid.Column="1"/>
+                                    <Label Text="Average Score: " FontSize="12"  TextColor="Black" Grid.Row="5" Grid.Column="0"/>
+                                    <Label Text="{Binding RoundAverage}" FontSize="12" TextColor="Black"  Grid.Row="5" Grid.Column="1"/>
+                                    <Image MaximumWidthRequest="320" MaximumHeightRequest="320" Source="{Binding RoundTarget.FaceImageURL}" Grid.Row="2" Grid.Column="2"/>
+                                </Grid>
 
                             </VerticalStackLayout>
-                            <Image MaximumWidthRequest="320" MaximumHeightRequest="320" Source="{Binding TargetFace}"/>
+                            
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCompletedItemTapped"/>

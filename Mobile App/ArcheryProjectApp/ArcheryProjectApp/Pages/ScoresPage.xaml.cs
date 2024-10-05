@@ -4,13 +4,14 @@ namespace ArcheryProjectApp.Pages;
 
 public partial class ScoresPage : ContentPage
 {
-    Event currentEvent;
+    Event currentEvent; //user event.
     private VerticalStackLayout mainLayout;
+    //scores page is passed reference to a user event which it then creates views to display each of the 
     public ScoresPage(Event userEvent)
     {
         InitializeComponent();
         currentEvent = userEvent;
-        mainLayout = RoundScoringLayout;
+        mainLayout = RoundScoringLayout; //host layout for collection view.
         
         int roundNum = 0;
         //divide into rounds
@@ -25,8 +26,10 @@ public partial class ScoresPage : ContentPage
             CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical); //create collection view items based on each end in the round.
             roundVertical.Children.Add(endCollectionView);
 
+
+            //need to format
             //at bottom of each round display x totals, and total score.
-            var horizontals = new HorizontalStackLayout();
+            var horizontals = new HorizontalStackLayout(); //horizontal layout summary text
             horizontals.BindingContext = round;
             var roundText = new Label { Text = "Round Total: " };
             horizontals.Children.Add(roundText);
@@ -35,7 +38,7 @@ public partial class ScoresPage : ContentPage
             horizontals.Children.Add(roundTotalLabel);
             var xText = new Label { Text = "Total X's: " };
             horizontals.Children.Add(xText);
-            var roundXTotal = new Label { Text = $"{round.XTotal}" };
+            var roundXTotal = new Label { Text = $"{round.XTotal}"};
             roundXTotal.SetBinding(Label.TextProperty, "XTotal");
 
             
@@ -46,7 +49,7 @@ public partial class ScoresPage : ContentPage
             mainLayout.Children.Add(roundVertical);
         }
     }
-
+    //create a set of collection view items based on the ends provided by selected events rounds.
     private CollectionView GenerateEndViews(List<End> ends, string type, VerticalStackLayout roundLayout)
     {
         var endCollectionView = new CollectionView
@@ -152,6 +155,7 @@ public partial class ScoresPage : ContentPage
 
         return endCollectionView;
     }
+    //limit entry to x and m and only the values of the score zones (1 digit only as to not let mistakes through, any 10s and x's).
     private async void ValidateEntry(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;
@@ -184,7 +188,9 @@ public partial class ScoresPage : ContentPage
             return;
         }
     }
+    //attempt to scroll to the view.
     private void EntryFocused(object sender, FocusEventArgs e) => ScoreScrollView.ScrollToAsync((VisualElement)sender, ScrollToPosition.Start, true);
+    //On user input determine running totals, x count and end scores.
     public void OnScoreEntryChanged(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;

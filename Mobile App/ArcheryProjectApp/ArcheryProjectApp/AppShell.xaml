@@ -11,13 +11,13 @@
     <ShellContent Route="SignUp" Title="Sign-Up" ContentTemplate="{DataTemplate local:SignUpPage}"/>
 
     <TabBar Route="Main">
-        <Tab Title="Profile">
+        <Tab Title="Profile" Icon="pfp_small.png">
             <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"/>
         </Tab>
-        <Tab Title="Events" >
+        <Tab Title="Events" Icon="event.png">
             <ShellContent ContentTemplate="{DataTemplate local:RoundsPage}"/>
         </Tab>
-        <Tab Title="Stats">
+        <Tab Title="Stats" Icon="stats.png">
             <ShellContent ContentTemplate="{DataTemplate local:StatisticsPage}"/>
         </Tab>
     </TabBar>
