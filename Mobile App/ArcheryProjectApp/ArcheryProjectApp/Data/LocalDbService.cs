@@ -1,10 +1,6 @@
-﻿using Android.Icu.Text;
+﻿
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ArcheryProjectApp.Data
 {
@@ -23,7 +19,6 @@ namespace ArcheryProjectApp.Data
             _connection.CreateTableAsync<RoundTable>();
             _connection.CreateTableAsync<EndTable>();
             _connection.CreateTableAsync<ScoreItem>();
-            _connection.CreateTableAsync<RegisterdEvents>();
         }
         public async Task<UserAuth> GetUserById(int id)
         {
