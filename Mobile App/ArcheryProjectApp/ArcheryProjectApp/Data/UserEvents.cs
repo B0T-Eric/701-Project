@@ -10,7 +10,7 @@ namespace ArcheryProjectApp.Data
     //table combines event data and score card information from the in app creation process,
     //this will then have an attachment of rounds
     [Table("user_events")]
-    internal class UserEvents
+    public class UserEvents
     {
         [PrimaryKey]
         [AutoIncrement]
@@ -19,22 +19,22 @@ namespace ArcheryProjectApp.Data
         [Column("user_id")]
         public int UserId { get; set; }
         [Column("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
         [Column("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = default!;
         [Column("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = default!;
         [Column("date")]
-        public DateOnly Date {  get; set; }
+        public DateOnly Date { get; set; }
         [Column("round_count")]
         public int RoundCount { get; set; }
         [Column("environment")]
-        public string Environment { get; set; }
+        public string Environment { get; set; } = default!;
         [Column("weather")]
-        public string Weather { get; set; }
+        public string? Weather { get; set; }
         [Column("division")]
         public string Division { get; set; }
-
+        [Ignore]
         public List<RoundTable> Rounds { get; set; }
 
     }

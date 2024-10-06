@@ -24,6 +24,7 @@ namespace ArcheryProjectApp.Data
         [Column("target_name")]
         public string? TargetName { get; set; }
 
+        [Ignore]
         public List<EndTable> Ends { get; set; }
     }
 }

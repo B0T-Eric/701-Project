@@ -13,14 +13,16 @@ namespace ArcheryProjectApp.Data
         [PrimaryKey,AutoIncrement]
         [Column("id")]
         public int Id { get; set; }
+        [Column("end_num")]
+        public int Number { get; set; }
         [Column("target_name")]
         public string? TargetName { get; set; }
         [Column("distance")]
         public string? Distance { get; set; }
         [Column("position")]
         public string Position { get; set; } = default!;
-
-
+        [Column("round_table_id")]
+        public int RoundTableId {  get; set; }
     }
     [Table("score_item")]
     public class ScoreItem

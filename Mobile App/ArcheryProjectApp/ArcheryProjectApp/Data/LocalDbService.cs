@@ -36,6 +36,7 @@ namespace ArcheryProjectApp.Data
 
 
 
+        //Add scores from ends in app
         public async Task AddScoresToDatabase(int endId, List<string> scores)
         {
             foreach (var score in scores)
@@ -44,6 +45,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.InsertAsync(scoreItem);
             }
         }
+        //retrieve scores from and end
         public async Task<List<string>> GetScoresFromDatabase(int endId)
         {
             var scoreItems = await _connection.Table<ScoreItem>().Where(item => item.EndId == endId).ToListAsync();
