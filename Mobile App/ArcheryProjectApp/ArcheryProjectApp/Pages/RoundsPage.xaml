@@ -96,11 +96,10 @@
                                     <Label Text="{Binding RoundCount}" FontSize="12" TextColor="Black"  Grid.Row="4" Grid.Column="1"/>
                                     <Label Text="Average Score: " FontSize="12"  TextColor="Black" Grid.Row="5" Grid.Column="0"/>
                                     <Label Text="{Binding RoundAverage}" FontSize="12" TextColor="Black"  Grid.Row="5" Grid.Column="1"/>
-                                    <Image MaximumWidthRequest="320" MaximumHeightRequest="320" Source="{Binding RoundTarget.FaceImageURL}" Grid.Row="2" Grid.Column="2"/>
                                 </Grid>
 
                             </VerticalStackLayout>
-                            
+                            <Image HorizontalOptions="End" MaximumWidthRequest="100" MaximumHeightRequest="100" Source="{Binding RoundTargetImage}" Margin="4"/>
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCompletedItemTapped"/>

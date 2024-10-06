@@ -119,6 +119,10 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Resources\Images\Targets\" />
+	</ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionArcheryProjectAppHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

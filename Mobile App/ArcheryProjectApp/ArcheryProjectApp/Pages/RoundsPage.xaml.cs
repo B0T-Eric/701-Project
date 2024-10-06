@@ -136,12 +136,12 @@ public class CompletedEventItemModel : EventItemModel
 {
     public int RoundCount { get; set; }
     public int RoundAverage { get; set; }
-    public Target? RoundTarget { get; set; }
+    public ImageSource? RoundTargetImage { get; set; }
     public CompletedEventItemModel(string name, DateOnly date, string type, string environment, Event userEvent, int roundCount, int roundAverage, Target target) : base(name, date, type, environment, userEvent)
     {
         RoundCount = roundCount;
         RoundAverage = roundAverage;
-        RoundTarget = target;
+        RoundTargetImage = target.FaceImage.Source;
     }
 }
 

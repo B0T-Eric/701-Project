@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Android.Icu.Text;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,11 @@ namespace ArcheryProjectApp.Data
             _connection.ExecuteAsync("PRAGMA foreign_keys = ON");
             _connection.CreateTableAsync<UserAuth>();
             _connection.CreateTableAsync<UserDetail>();
-            _connection.CreateTableAsync<UserEvents>();    
+            _connection.CreateTableAsync<UserEvents>();
+            _connection.CreateTableAsync<RoundTable>();
+            _connection.CreateTableAsync<EndTable>();
+            _connection.CreateTableAsync<ScoreItem>();
+            _connection.CreateTableAsync<RegisterdEvents>();
         }
         public async Task<UserAuth> GetUserById(int id)
         {
@@ -27,6 +32,22 @@ namespace ArcheryProjectApp.Data
         public async Task Create(UserAuth auth)
         {
             await _connection.InsertAsync(auth);
+        }
+
+
+
+        public async Task AddScoresToDatabase(int endId, List<string> scores)
+        {
+            foreach (var score in scores)
+            {
+                var scoreItem = new ScoreItem { EndId = endId, Score = score };
+                await _connection.InsertAsync(scoreItem);
+            }
+        }
+        public async Task<List<string>> GetScoresFromDatabase(int endId)
+        {
+            var scoreItems = await _connection.Table<ScoreItem>().Where(item => item.EndId == endId).ToListAsync();
+            return scoreItems.Select(item => item.Score).ToList();
         }
     }
 }

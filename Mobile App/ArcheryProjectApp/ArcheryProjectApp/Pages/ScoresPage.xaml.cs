@@ -1,4 +1,5 @@
 using ArcheryLibrary;
+using CommunityToolkit.Maui.Markup;
 using System.Text.RegularExpressions;
 namespace ArcheryProjectApp.Pages;
 
@@ -23,7 +24,8 @@ public partial class ScoresPage : ContentPage
             var roundVertical = new VerticalStackLayout();
             var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
             roundVertical.Children.Add(roundLabel);
-            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type, roundVertical); //create collection view items based on each end in the round.
+            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type); //create collection view items based on each end in the round.
+            endCollectionView.SelectionMode = SelectionMode.None;
             roundVertical.Children.Add(endCollectionView);
 
 
@@ -31,7 +33,8 @@ public partial class ScoresPage : ContentPage
             //at bottom of each round display x totals, and total score.
             var horizontals = new HorizontalStackLayout(); //horizontal layout summary text
             horizontals.BindingContext = round;
-            var roundText = new Label { Text = "Round Total: " };
+            horizontals.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            var roundText = new Label { Text = "Round Total: "};
             horizontals.Children.Add(roundText);
             var roundTotalLabel = new Label { Text = $"{round.RoundTotal}" };
             roundTotalLabel.SetBinding(Label.TextProperty, "RoundTotal");
@@ -40,8 +43,6 @@ public partial class ScoresPage : ContentPage
             horizontals.Children.Add(xText);
             var roundXTotal = new Label { Text = $"{round.XTotal}"};
             roundXTotal.SetBinding(Label.TextProperty, "XTotal");
-
-            
             horizontals.Children.Add(roundXTotal);
 
 
@@ -50,7 +51,7 @@ public partial class ScoresPage : ContentPage
         }
     }
     //create a set of collection view items based on the ends provided by selected events rounds.
-    private CollectionView GenerateEndViews(List<End> ends, string type, VerticalStackLayout roundLayout)
+    private CollectionView GenerateEndViews(List<End> ends, string type)
     {
         var endCollectionView = new CollectionView
         {
