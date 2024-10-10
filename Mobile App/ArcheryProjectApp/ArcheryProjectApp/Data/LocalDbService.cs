@@ -62,6 +62,30 @@ namespace ArcheryProjectApp.Data
             };
             await _connection.InsertAsync(e);
         }
+        //retrieve each event from database for the user
+        public async Task<List<Event>>GetUserEvents(int userId)
+        {
+            var eventTableEntries = await _connection.Table<UserEvents>().Where(e => e.UserId == userId).ToListAsync();
+            var userEvents = new List<Event>();
+            foreach (var entry in eventTableEntries)
+            {
+                var _event = new Event
+                {
+                    Id = entry.Id,
+                    Name = entry.Name,
+                    Description = entry.Description,
+                    Date = entry.Date,
+                    RoundCount = entry.RoundCount,
+                    Environment = entry.Environment,
+                    Weather = entry.Weather,
+                    Division = entry.Division,
+                    Type = entry.Type,
+                };
+                userEvents.Add( _event );
+            }
+            return userEvents;
+        }
+
         //Add each round from app into database.
         public async Task AddRoundsToDatabase(List<Round> rounds, int eventId)
         {
@@ -77,6 +101,25 @@ namespace ArcheryProjectApp.Data
                 };
                 await _connection.InsertAsync(round);
             }
+        }
+        //Retrieve each round for user from events
+        public async Task<List<Round>> GetRoundsFromDatabase(int eventId)
+        {
+            var roundTableEntries = await _connection.Table<RoundTable>().Where(r => r.EventId == eventId).ToListAsync();
+            var rounds = new List<Round>();
+            foreach(var entry in roundTableEntries)
+            {
+                var round = new Round
+                {
+                    Distance = entry.Distance,
+                    EndCount = entry.EndCount,
+                    Type = entry.Type,
+                    Target = App.targets.FirstOrDefault(t => t.Face == entry.TargetName),
+
+                };
+                rounds.Add( round );
+            }
+            return rounds;
         }
 
         //Add each end from app into database.
