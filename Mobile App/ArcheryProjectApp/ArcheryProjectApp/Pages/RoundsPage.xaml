@@ -3,19 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.RoundsPage"
              Title="Events">
-    <Shell.TitleView>
-        <HorizontalStackLayout VerticalOptions="Fill">
-            <Label x:Name="Title" 
-                   Text="Events"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   FontAttributes="Bold"
-                   FontSize="Large"
-                   TextColor="Black"
-                   />
-        </HorizontalStackLayout>
-    </Shell.TitleView>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Help" Clicked="ToolbarHelp_Clicked" IconImageSource="help.png"/>
         <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="save_icon.png"/>
@@ -80,9 +67,9 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Text="Event: " FontSize="12" TextColor="Black"  Grid.Row="0" Grid.Column="0"/>
                                     <Label Text="{Binding Name}" FontSize="12" TextColor="Black"  Grid.Row="0" Grid.Column="1"/>

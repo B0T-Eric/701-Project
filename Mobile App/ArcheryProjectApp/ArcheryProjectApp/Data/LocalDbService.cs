@@ -1,6 +1,5 @@
-﻿
-using SQLite;
-
+﻿using SQLite;
+using ArcheryLibrary;
 
 namespace ArcheryProjectApp.Data
 {
@@ -20,16 +19,57 @@ namespace ArcheryProjectApp.Data
             _connection.CreateTableAsync<EndTable>();
             _connection.CreateTableAsync<ScoreItem>();
         }
+        //retrieve the user credentials from the auth table.
         public async Task<UserAuth> GetUserById(int id)
         {
             return await _connection.Table<UserAuth>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
-        public async Task Create(UserAuth auth)
+        //Add new user authentication data to database.
+        public async Task CreateUserAuth(UserAuth auth)
         {
             await _connection.InsertAsync(auth);
         }
 
+        //Add each end from app into database.
+        public async Task AddEndsToDatabase(List<End> ends, int roundId)
+        {
+            foreach (End e in ends)
+            {
+                var end = new EndTable
+                {
+                    Distance = e.Distance,
+                    Number = e.EndNum,
+                    TargetName = e.Target.Face,
+                    Position = e.Position.ToString(),
+                    RoundTableId = roundId
+                };
+                await _connection.InsertAsync(end);
+            }
+        }
 
+        //Get Ends from the database
+        public async Task<List<End>> RetrieveEndsFromDatabase(int roundId)
+        {
+            var endTableEntries = _connection.Table<EndTable>().Where(end => end.RoundTableId == roundId).ToListAsync();
+            var ends = new List<End>();
+            foreach(var endTable in await endTableEntries) 
+            {
+                var scoreItems = await _connection.Table<ScoreItem>().Where(scoreItem => scoreItem.EndId == endTable.Id).ToListAsync();
+                var scores = scoreItems.Select(si => si.Score).ToList();
+                var end = new End
+                {
+                    EndId = endTable.Id,
+                    EndNum = endTable.Number,
+                    Position = Enum.Parse<ShootingPosition>(endTable.Position),
+                    ArrowCount = endTable.ArrowCount,
+                    Distance = endTable.Distance,
+                    Score = scores,
+                    Target = App.targets.FirstOrDefault(t => t.Face == endTable.TargetName)
+                };
+                ends.Add(end);
+            }
+            return ends;
+        }
 
         //Add scores from ends in app
         public async Task AddScoresToDatabase(int endId, List<string> scores)
@@ -39,12 +79,6 @@ namespace ArcheryProjectApp.Data
                 var scoreItem = new ScoreItem { EndId = endId, Score = score };
                 await _connection.InsertAsync(scoreItem);
             }
-        }
-        //retrieve scores from and end
-        public async Task<List<string>> GetScoresFromDatabase(int endId)
-        {
-            var scoreItems = await _connection.Table<ScoreItem>().Where(item => item.EndId == endId).ToListAsync();
-            return scoreItems.Select(item => item.Score).ToList();
         }
     }
 }

@@ -5,6 +5,9 @@ namespace ArcheryLibrary
     public class End : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        //end id for local storage
+        public int EndId { get; set; }
+        //Number displayed on the score cards
         public int EndNum { get; set; }
         //walk up walk back stationary end position.
         public ShootingPosition Position { get; set; }

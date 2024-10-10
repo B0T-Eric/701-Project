@@ -32,7 +32,7 @@
             </VerticalStackLayout>
         </HorizontalStackLayout>
         <Label
-            Text="Upcomming Events"
+            Text="Upcoming Events"
             FontSize="20"
             FontAttributes="Bold"/>
         <CollectionView x:Name="EventsCollectionView">

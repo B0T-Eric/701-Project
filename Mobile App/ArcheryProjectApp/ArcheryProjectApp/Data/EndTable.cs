@@ -14,7 +14,9 @@ namespace ArcheryProjectApp.Data
         [Column("id")]
         public int Id { get; set; }
         [Column("end_num")]
-        public int Number { get; set; }
+        public int Number { get; set; }        
+        [Column("arrow_count")]
+        public int ArrowCount { get; set; }
         [Column("target_name")]
         public string? TargetName { get; set; }
         [Column("distance")]

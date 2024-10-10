@@ -24,10 +24,14 @@ public partial class ScoresPage : ContentPage
             var roundVertical = new VerticalStackLayout();
             var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
             roundVertical.Children.Add(roundLabel);
+            if (round.Type == "Standard")
+            {
+                var detailLabel = new Label { Text = $"Target: {round.Target} at {round.Distance} distance.", FontAttributes = FontAttributes.Bold, HorizontalTextAlignment = TextAlignment.Center };
+            }
             CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type); //create collection view items based on each end in the round.
             endCollectionView.SelectionMode = SelectionMode.None;
             roundVertical.Children.Add(endCollectionView);
-
+            
 
             //need to format
             //at bottom of each round display x totals, and total score.
@@ -118,7 +122,7 @@ public partial class ScoresPage : ContentPage
                 {
                     var scoreEntry = new Entry { Placeholder = $"Arrow {i + 1}", StyleId = i.ToString() };
                     scoreEntry.SetBinding(Entry.TextProperty, new Binding($"Score[{i}]"));
-                    scoreEntry.MaxLength = 1;
+                    scoreEntry.MaxLength = 2;
                     scoreEntry.TextChanged += ValidateEntry;
                     scoreEntry.TextChanged += OnScoreEntryChanged;
                     scoreEntry.Focused += EntryFocused;
@@ -160,33 +164,25 @@ public partial class ScoresPage : ContentPage
     private async void ValidateEntry(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;
-        if(entry != null) 
+        if (entry != null)
         {
             string allowedInput;
             var end = entry.BindingContext as End;
-            if(end.Target != null)
+            if (end != null && end.Target != null)
             {
-                allowedInput = string.Join("", end.Target.ZoneValues) + "XMxm";
-                string newText = e.NewTextValue;
-                if (!string.IsNullOrEmpty(newText) && !newText.All(c => allowedInput.Contains(c)))
-                {
-                    entry.Text = e.OldTextValue;
-                }
+                allowedInput = string.Join(",", end.Target.ZoneValues) + ",X,M,x,m";
             }
             else
             {
                 var round = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(end));
-                allowedInput = string.Join("", round.Target.ZoneValues) + "XMxm";
-                string newText = e.NewTextValue;
-                if (!string.IsNullOrEmpty(newText) && !newText.All(c => allowedInput.Contains(c)))
-                {
-                    entry.Text = e.OldTextValue;
-                }
+                allowedInput = string.Join(",", round.Target.ZoneValues) + ",X,M,x,m";
             }
-        }
-        else
-        {
-            return;
+            var allowedValues = allowedInput.Split(',').ToList();
+            string newText = e.NewTextValue;
+            if (!string.IsNullOrEmpty(newText) && !allowedValues.Contains(newText))
+            {
+                entry.Text = e.OldTextValue;
+            }
         }
     }
     //attempt to scroll to the view.
@@ -205,14 +201,30 @@ public partial class ScoresPage : ContentPage
                 var currentRound = currentEvent.Rounds.FirstOrDefault(r => r.Ends.Contains(currentEnd));
                 if(currentRound != null)
                 {
-                    UpdateEndTotals(currentEnd, currentRound.Ends, currentRound.Target.ZoneValues);
                     currentRound.RoundTotal = 0;
                     currentRound.XTotal = 0;
                     int currentEndIndex = currentRound.Ends.IndexOf(currentEnd);
+                    List<int> zoneValues = null;
+                    if(currentRound.Type == "Standard")
+                    {
+                        zoneValues = currentRound.Target?.ZoneValues;
+                    }
+                    else if(currentEnd.Target != null)
+                    {
+                        zoneValues = currentEnd.Target.ZoneValues;
+                    }
+                    UpdateEndTotals(currentEnd, currentRound.Ends, zoneValues);
                     for(int i = currentEndIndex; i < currentRound.Ends.Count; i++)
                     {
                         End end = currentRound.Ends[i];
-                        UpdateEndTotals(end, currentRound.Ends,currentRound.Target.ZoneValues);
+                        if(currentRound.Type == "Standard")
+                        {
+                            UpdateEndTotals(end, currentRound.Ends, currentRound.Target.ZoneValues);
+                        }
+                        else if(currentRound.Type == "Flint")
+                        {
+                            UpdateEndTotals(end, currentRound.Ends, end.Target.ZoneValues);
+                        }
                         
                         
                     }
@@ -244,12 +256,12 @@ public partial class ScoresPage : ContentPage
                 //if there is a target for the end (flint round) then use the maximum value of the target
                 if(end.Target != null)
                 {
-                    totalScore += end.Target.ZoneValues[end.Target.ZoneValues.Count-1];
+                    totalScore += end.Target.ZoneValues[^1];
                 }
                 //if there is zoneValues param (standard round) then use the maximum value of target
-                if(zoneValues != null)
+                else if(zoneValues != null)
                 {
-                    totalScore += zoneValues[zoneValues.Count - 1];
+                    totalScore += zoneValues[^1];
                 }
             }
             else if (score.Equals("M", StringComparison.OrdinalIgnoreCase))

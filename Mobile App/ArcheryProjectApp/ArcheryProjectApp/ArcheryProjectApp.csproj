@@ -61,6 +61,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\fita_122cm_target_faces.jpg" />
+	  <None Remove="Resources\Images\fita_3_x_20cm_las_vegas.jpg" />
+	  <None Remove="Resources\Images\fita_3_x_20cm_vertical.jpg" />
+	  <None Remove="Resources\Images\fita_40cm_target_faces.jpg" />
+	  <None Remove="Resources\Images\fita_80cm_target_faces.jpg" />
+	  <None Remove="Resources\Images\ifaa_field_35.jpg" />
+	  <None Remove="Resources\Images\ifaa_field_50.jpg" />
+	  <None Remove="Resources\Images\maple_leaf_40cm_5_spot.jpg" />
+	  <None Remove="Resources\Images\maple_leaf_40cm_single_spot.jpeg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="4.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.80" />

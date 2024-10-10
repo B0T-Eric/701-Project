@@ -47,10 +47,18 @@ public partial class RoundsPage : ContentPage
                         {
                             roundTarget = round.Target;
                         }
+                        else
+                        {
+                            roundTarget = round.Ends[0].Target;
+                        }
                     }
                 }
                 int eventAverage = roundTotals / _event.Rounds.Count;
-                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
+                if(roundTarget != null)
+                {
+                    completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
+                }
+                
             }
         }
         return completeEvents;
