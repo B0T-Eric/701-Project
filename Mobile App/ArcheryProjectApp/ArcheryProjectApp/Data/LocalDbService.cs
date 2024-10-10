@@ -29,6 +29,55 @@ namespace ArcheryProjectApp.Data
         {
             await _connection.InsertAsync(auth);
         }
+        //Add User Details to database
+        public async Task AddUserDetailsToDatabase(User user, int userAuthId)
+        {
+            var u = new UserDetail
+            {
+                FirstName = user.ArcherName.Split(' ')[0],
+                LastName = user.ArcherName.Split(' ')[1],
+                Division = user.division,
+                NzfaaNumber = user.NZFAANumber,
+                ClubName = user.ClubName,
+                ClubNumber = user.AffiliationNumber,
+                DateOfBirth = user.DateOfBirth,
+                UserAuthId = userAuthId
+            };
+            await _connection.InsertAsync(u);
+        }
+        //Add events to users in database
+        public async Task AddEventsToUserDatabase(Event _event, int userDetailId)
+        {
+            var e = new UserEvents
+            {
+                Type = _event.Type,
+                UserId = userDetailId,
+                Name = _event.Name,
+                Description = _event.Description,
+                Date = _event.Date,
+                RoundCount = _event.RoundCount,
+                Environment = _event.Environment,
+                Weather = _event.Weather,
+                Division = _event.Division,
+            };
+            await _connection.InsertAsync(e);
+        }
+        //Add each round from app into database.
+        public async Task AddRoundsToDatabase(List<Round> rounds, int eventId)
+        {
+            foreach (Round r in rounds)
+            {
+                var round = new RoundTable
+                {
+                    Distance = r.Distance,
+                    EndCount = r.EndCount,
+                    Type = r.Type,
+                    TargetName = r.Target.Face,
+                    EventId = eventId,
+                };
+                await _connection.InsertAsync(round);
+            }
+        }
 
         //Add each end from app into database.
         public async Task AddEndsToDatabase(List<End> ends, int roundId)

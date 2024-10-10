@@ -17,13 +17,12 @@ namespace ArcheryProjectApp.Data
         public string Type { get; set; } = default!;
         [Column("end_count")]
         public int EndCount {  get; set; }
-        [Column("arrow_count")]
-        public int ArrowCount { get; set; }
         [Column("distance")]
         public string? Distance { get; set; }
         [Column("target_name")]
         public string? TargetName { get; set; }
-
+        [Column("event_id")]
+        public int EventId {  get; set; }
         [Ignore]
         public List<EndTable> Ends { get; set; }
     }
