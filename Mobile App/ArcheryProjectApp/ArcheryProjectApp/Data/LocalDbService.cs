@@ -24,10 +24,21 @@ namespace ArcheryProjectApp.Data
         {
             return await _connection.Table<UserAuth>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+        //Retrieve the user by name
+        public async Task<UserAuth> GetUserByName(string username)
+        {
+            return await _connection.Table<UserAuth>().Where(x => x.Username == username).FirstOrDefaultAsync();
+        }
         //Add new user authentication data to database.
         public async Task CreateUserAuth(UserAuth auth)
         {
             await _connection.InsertAsync(auth);
+        }
+        //retrieve user auth id by name (username should be unique)
+        public async Task<int> GetUserAuthId(string username)
+        {
+            var user = await _connection.Table<UserAuth>().Where(x => x.Username == username).FirstOrDefaultAsync();
+            return user.Id;
         }
         //Add User Details to database
         public async Task AddUserDetailsToDatabase(User user, int userAuthId)

@@ -1,5 +1,7 @@
+using Android.Widget;
 using ArcheryLibrary;
 using CommunityToolkit.Maui.Markup;
+using Microsoft.Maui.Layouts;
 using System.Text.RegularExpressions;
 namespace ArcheryProjectApp.Pages;
 
@@ -21,28 +23,40 @@ public partial class ScoresPage : ContentPage
             round.XTotal = 0;
             round.RoundTotal = 0;
             roundNum++;
-            var roundVertical = new VerticalStackLayout();
+            var roundVertical = new VerticalStackLayout {BindingContext = round };
             var roundLabel = new Label {Text=$"Round {roundNum}", FontAttributes = FontAttributes.Bold, FontSize = 20, HorizontalTextAlignment = TextAlignment.Center };
             roundVertical.Children.Add(roundLabel);
+            //if there the round is standard, display target and distance information at the topp of the scorecard otherwise don't show anything.
             if (round.Type == "Standard")
             {
-                var detailLabel = new Label { Text = $"Target: {round.Target} at {round.Distance} distance.", FontAttributes = FontAttributes.Bold, HorizontalTextAlignment = TextAlignment.Center };
+                var detailHorizontal = new HorizontalStackLayout();
+                detailHorizontal.HorizontalOptions = LayoutOptions.FillAndExpand;
+                detailHorizontal.AlignSelf(FlexAlignSelf.Center);
+
+                var distanceText = new Label { FontSize = 10, Margin = 4};
+                distanceText.SetBinding(Label.TextProperty, new Binding("Distance", stringFormat: "{0} Distance, Shooting at:"));
+                detailHorizontal.Children.Add(distanceText);
+
+                var targetText = new Label { FontSize = 10, Margin = 4};
+                targetText.SetBinding(Label.TextProperty, new Binding("Target", stringFormat: "{0}"));
+                detailHorizontal.Children.Add(targetText);
+
+                roundVertical.Children.Add(detailHorizontal);
             }
-            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type); //create collection view items based on each end in the round.
+            //Collection View for End score entry.
+            CollectionView endCollectionView = GenerateEndViews(round.Ends, round.Type);
             endCollectionView.SelectionMode = SelectionMode.None;
             roundVertical.Children.Add(endCollectionView);
-            
 
-            //need to format
             //at bottom of each round display x totals, and total score.
-            var horizontals = new HorizontalStackLayout(); //horizontal layout summary text
-            horizontals.BindingContext = round;
+            var horizontals = new HorizontalStackLayout();
             horizontals.HorizontalOptions = LayoutOptions.CenterAndExpand;
             var roundText = new Label { Text = "Round Total: "};
             horizontals.Children.Add(roundText);
-            var roundTotalLabel = new Label { Text = $"{round.RoundTotal}" };
+            var roundTotalLabel = new Label { Text = $"{round.RoundTotal} " };
             roundTotalLabel.SetBinding(Label.TextProperty, "RoundTotal");
             horizontals.Children.Add(roundTotalLabel);
+            //x total
             var xText = new Label { Text = "Total X's: " };
             horizontals.Children.Add(xText);
             var roundXTotal = new Label { Text = $"{round.XTotal}"};
@@ -71,7 +85,7 @@ public partial class ScoresPage : ContentPage
                     ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = GridLength.Auto }, // End number
-                    new ColumnDefinition { Width = GridLength.Auto }, // Position, distance, target (for Flint)
+                    new ColumnDefinition { Width = GridLength.Auto }, // Position, distance, target (for Flint rounds only - displayed as empty if standard)
                     new ColumnDefinition { Width = GridLength.Star }, // Score entry fields
                     new ColumnDefinition { Width = GridLength.Auto }, // X Count
                     new ColumnDefinition { Width = GridLength.Auto }, // End Total
@@ -91,16 +105,19 @@ public partial class ScoresPage : ContentPage
                     var flintStack = new VerticalStackLayout();
                     // Shooting position
                     var positionLabel = new Label();
+                    positionLabel.FontSize = 8;
                     positionLabel.SetBinding(Label.TextProperty, "Position");
                     flintStack.Children.Add(positionLabel);
 
                     // End Distance
                     var distanceLabel = new Label();
+                    distanceLabel.FontSize = 8;
                     distanceLabel.SetBinding(Label.TextProperty, "Distance");
                     flintStack.Children.Add(distanceLabel);
 
                     // End Target
                     var targetLabel = new Label();
+                    targetLabel.FontSize = 8;
                     targetLabel.SetBinding(Label.TextProperty, "Target");
                     flintStack.Children.Add(targetLabel);
 
@@ -117,19 +134,30 @@ public partial class ScoresPage : ContentPage
                 }
 
                 // Score Entries (generate dynamically based on ArrowCount)
-                var scoreLayout = new HorizontalStackLayout();
+                var scoreGrid = new Grid
+                {
+                    ColumnSpacing = 10,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
                 for (int i = 0; i < ends.FirstOrDefault()?.ArrowCount; i++)
                 {
-                    var scoreEntry = new Entry { Placeholder = $"Arrow {i + 1}", StyleId = i.ToString() };
+                    scoreGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+                    var scoreEntry = new Entry
+                    {
+                        Placeholder = $"{i + 1}",
+                        StyleId = i.ToString(),
+                        MaxLength = 2,
+                        HorizontalOptions = LayoutOptions.FillAndExpand
+                    };
                     scoreEntry.SetBinding(Entry.TextProperty, new Binding($"Score[{i}]"));
-                    scoreEntry.MaxLength = 2;
                     scoreEntry.TextChanged += ValidateEntry;
                     scoreEntry.TextChanged += OnScoreEntryChanged;
                     scoreEntry.Focused += EntryFocused;
-                    scoreLayout.Children.Add(scoreEntry);
+                    Grid.SetColumn(scoreEntry, i);
+                    scoreGrid.Children.Add(scoreEntry);
                 }
-                grid.Children.Add(scoreLayout); 
-                Grid.SetColumn(scoreLayout, 2); 
+                grid.Children.Add(scoreGrid);
+                Grid.SetColumn(scoreGrid, 2);
 
                 // X Count Label
                 var xCountLabel = new Label { TextColor = Colors.Green };

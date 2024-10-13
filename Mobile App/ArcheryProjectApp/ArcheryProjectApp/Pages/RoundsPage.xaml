@@ -15,7 +15,7 @@
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LightBlue" Margin="4">
                         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                             <VerticalStackLayout>
-                                <Grid ColumnSpacing="20">
+                                <Grid ColumnSpacing="20" HorizontalOptions="FillAndExpand">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition/>
@@ -57,7 +57,7 @@
                     <Frame BorderColor="Gray" CornerRadius="6" Background="LimeGreen" Margin="4">
                         <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                             <VerticalStackLayout>
-                                <Grid>
+                                <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="20">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />
@@ -83,10 +83,11 @@
                                     <Label Text="{Binding RoundCount}" FontSize="12" TextColor="Black"  Grid.Row="4" Grid.Column="1"/>
                                     <Label Text="Average Score: " FontSize="12"  TextColor="Black" Grid.Row="5" Grid.Column="0"/>
                                     <Label Text="{Binding RoundAverage}" FontSize="12" TextColor="Black"  Grid.Row="5" Grid.Column="1"/>
+                                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" MaximumWidthRequest="100" MaximumHeightRequest="100" Source="{Binding RoundTargetImage}" Margin="4" Grid.Column="2" Grid.RowSpan="5"/>
                                 </Grid>
 
                             </VerticalStackLayout>
-                            <Image HorizontalOptions="End" MaximumWidthRequest="100" MaximumHeightRequest="100" Source="{Binding RoundTargetImage}" Margin="4"/>
+                           
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCompletedItemTapped"/>

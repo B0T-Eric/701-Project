@@ -203,7 +203,8 @@ public partial class RoundPopup : Popup
 		{
 			//default empty views
 			StandardRadioButton.IsChecked=true;
-			FlintRadioButton.IsChecked=false;
+            rounds[current].Type = "Standard";
+            FlintRadioButton.IsChecked=false;
 			EndPicker.SelectedIndex = 0;
 			ArrowPicker.SelectedIndex = 0;
 			StandardTargetPicker.SelectedIndex = -1;
@@ -254,7 +255,8 @@ public partial class RoundPopup : Popup
             rounds[current].Distance = StandardDistanceEditor.Text;
             rounds[current].ShotsPerEnd = (int)ArrowPicker.SelectedItem;
 			rounds[current].EndCount = (int)EndPicker.SelectedItem;
-			for(int i = 0; i < rounds[current].EndCount; i++)
+            rounds[current].Type = "Standard";
+            for (int i = 0; i < rounds[current].EndCount; i++)
 			{
 				rounds[current].Ends.Add(new End(i+1, ShootingPosition.Stationary, (int)ArrowPicker.SelectedItem, null, null));
 				rounds[current].Ends[i].Score = new List<string>(rounds[current].EndCount);

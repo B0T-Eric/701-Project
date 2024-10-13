@@ -27,6 +27,30 @@ public partial class SigninPage : ContentPage
 	private async void GuestSignInClick(object sender, EventArgs e)
 	{
 		ProfilePage.UserInstance = new User();
+		if (!GuestInstanceExists("Guest"))
+		{
+            await App.dbService.CreateUserAuth(new Data.UserAuth
+            {
+                Username = "Guest",
+                Id = 1,
+                Password = "Guest",
+                Salt = null
+            });
+			await App.dbService.AddUserDetailsToDatabase(ProfilePage.UserInstance, 1);
+			
+        }
+		
         await Shell.Current.GoToAsync($"///Main");
     }
+	private bool GuestInstanceExists(string username)
+	{
+		if (App.dbService.GetUserByName(username) != null)
+		{
+            return true;
+        }
+		else
+		{
+			return false;
+		}
+	}
 }

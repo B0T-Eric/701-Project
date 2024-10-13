@@ -40,24 +40,18 @@ public partial class RoundsPage : ContentPage
                 Target roundTarget = null;
                 foreach (Round round in _event.Rounds)
                 {
-                    if (round.IsComplete)
+                    roundTotals += round.RoundTotal;
+                    if(round.Target != null && round.Type == "Standard")
                     {
-                        roundTotals += round.RoundTotal;
-                        if(round.Target != null)
-                        {
-                            roundTarget = round.Target;
-                        }
-                        else
-                        {
-                            roundTarget = round.Ends[0].Target;
-                        }
+                        roundTarget = round.Target;
+                    }
+                    else if(round.Type == "Flint")
+                    {
+                        roundTarget = round.Ends[0].Target;
                     }
                 }
                 int eventAverage = roundTotals / _event.Rounds.Count;
-                if(roundTarget != null)
-                {
-                    completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
-                }
+                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
                 
             }
         }
