@@ -11,6 +11,13 @@ public partial class CreateEventPopup : Popup
 	public CreateEventPopup()
 	{
 		InitializeComponent();
+		if (!ProfilePage.UserInstance.isGuest)
+		{
+			DivisionPicker.SelectedItem = ProfilePage.UserInstance.division;
+			DivisionPicker.IsEnabled = false;
+		}
+		WeatherEditor.IsEnabled = false;
+		WeatherEditor.IsVisible = false;
 	}
 	private async void OnSaveButtonClicked(object sender, EventArgs e)
 	{

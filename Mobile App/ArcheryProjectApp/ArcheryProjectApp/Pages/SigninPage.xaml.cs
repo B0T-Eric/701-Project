@@ -17,7 +17,6 @@ public partial class SigninPage : ContentPage
     private void ValidateUserCredentials()
     {
 		//If user details are valid go to profile page, if not alert user to try again or register with their club credentials
-
     }
 
     private async void OnClubSignUpClick(object sender, EventArgs e)
@@ -33,11 +32,10 @@ public partial class SigninPage : ContentPage
             await App.dbService.CreateUserAuth(new Data.UserAuth
             {
                 Username = "Guest",
-                Id = 1,
                 Password = "Guest",
                 Salt = null
             });
-			await App.dbService.AddUserDetailsToDatabase(ProfilePage.UserInstance, 1);
+			await App.dbService.AddUserDetailsToDatabase(ProfilePage.UserInstance, await App.dbService.GetUserAuthId("Guest"));
 			
         }
 		else //get any data for guest user.
@@ -57,7 +55,7 @@ public partial class SigninPage : ContentPage
 				division = userDetail.Division,
 			};
 
-			ProfilePage.UserInstance.Events = await App.dbService.GetUserEvents(ProfilePage.UserInstance.Id);
+			ProfilePage.UserInstance.Events = await App.dbService.GetUserEvents(ProfilePage.UserInstance.AuthId);
 			foreach (var _event in ProfilePage.UserInstance.Events)
 			{
 				_event.Rounds = await App.dbService.GetRoundsFromDatabase(_event.Id);

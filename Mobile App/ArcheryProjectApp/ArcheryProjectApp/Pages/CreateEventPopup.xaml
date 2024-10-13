@@ -174,7 +174,8 @@
                 </Picker.ItemsSource>
             </Picker>
             <Picker x:Name="EnvironmentPicker"
-                    Title="Select Environment">
+                    Title="Select Environment"
+                    SelectedIndexChanged="OnEnvironmentPickerIndexChanged">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Outdoor</x:String>
