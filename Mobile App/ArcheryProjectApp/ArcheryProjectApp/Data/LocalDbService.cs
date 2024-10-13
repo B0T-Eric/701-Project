@@ -56,6 +56,12 @@ namespace ArcheryProjectApp.Data
             };
             await _connection.InsertAsync(u);
         }
+        //get user detail from database
+        public async Task<UserDetail> GetUserDetail(int userAuthId)
+        {
+            var detailEntry = await _connection.Table<UserDetail>().FirstOrDefaultAsync(entry => entry.UserAuthId == userAuthId);
+            return detailEntry;
+        }
         //Add events to users in database
         public async Task AddEventsToUserDatabase(Event _event, int userDetailId)
         {
@@ -72,6 +78,7 @@ namespace ArcheryProjectApp.Data
                 Division = _event.Division,
             };
             await _connection.InsertAsync(e);
+            await AddRoundsToDatabase(_event.Rounds, userDetailId);
         }
         //retrieve each event from database for the user
         public async Task<List<Event>>GetUserEvents(int userId)
@@ -111,6 +118,7 @@ namespace ArcheryProjectApp.Data
                     EventId = eventId,
                 };
                 await _connection.InsertAsync(round);
+                await AddEndsToDatabase(r.Ends, r.Id);
             }
         }
         //Retrieve each round for user from events
@@ -126,7 +134,7 @@ namespace ArcheryProjectApp.Data
                     EndCount = entry.EndCount,
                     Type = entry.Type,
                     Target = App.targets.FirstOrDefault(t => t.Face == entry.TargetName),
-
+                    Id = entry.Id,
                 };
                 rounds.Add( round );
             }

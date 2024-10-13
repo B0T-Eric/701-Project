@@ -9,6 +9,8 @@ namespace ArcheryLibrary
 {
     public class User
     {
+        public int DetailId { get; set; }
+        public int AuthId { get; set; }
         public bool isGuest { get; set; }
         public string? ArcherName { get; set; }
         

@@ -345,7 +345,7 @@ public partial class ScoresPage : ContentPage
                 round.IsComplete = true;
             }
             //save to db here.
-
+            await App.dbService.AddEventsToUserDatabase(currentEvent, ProfilePage.UserInstance.DetailId);
             //send to API if not guest
             
             await Navigation.PopAsync();

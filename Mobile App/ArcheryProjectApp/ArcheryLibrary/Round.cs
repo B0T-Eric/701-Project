@@ -10,6 +10,7 @@ namespace ArcheryLibrary
     public enum ShootingPosition { Stationary, WalkBack, WalkUp }
     public class Round : INotifyPropertyChanged
     {
+        public int Id { get; set; }
         //Round Type - Flint or Standard
         public string Type { get; set; }
         //End Count, This property determines how many ends inside of the rounds. set on creation.
