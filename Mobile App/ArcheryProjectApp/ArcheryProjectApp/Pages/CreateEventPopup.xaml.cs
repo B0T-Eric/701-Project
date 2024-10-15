@@ -27,7 +27,7 @@ public partial class CreateEventPopup : Popup
             string eventName = EventNameEditor.Text;
             string eventDescription = EventDescriptionEditor.Text;
             string eventType = EventTypePicker.SelectedItem as string;
-            DateOnly eventDate = DateOnly.FromDateTime(EventDatePicker.Date);
+            DateTime eventDate = EventDatePicker.Date;
             int roundCount = (int)(short)RoundCountPicker.SelectedItem;
             string division = DivisionPicker.SelectedItem as string;
             string environment = EnvironmentPicker.SelectedItem as string;

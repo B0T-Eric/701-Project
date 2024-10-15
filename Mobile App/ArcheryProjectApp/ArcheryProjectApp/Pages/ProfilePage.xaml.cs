@@ -19,9 +19,10 @@ public partial class ProfilePage : ContentPage
         BindingContext = this;
         if (UserInstance != null)
         {
-            if(UserInstance.isGuest)
+            ProfileNameLabel.Text = UserInstance.ArcherName;
+            if (UserInstance.isGuest)
             {
-                ProfileNameLabel.Text = "Guest";
+                
                 ProfileNZFAALabel.Text = "To Get Access";
                 ProfileClubLabel.Text = "Sign Up";
                 ModifyButtonText();
@@ -41,7 +42,7 @@ public partial class ProfilePage : ContentPage
     private void FetchEventsFromAPI()
     {
         //Do API call for this users 
-        Event newEvent = new Event("Test", "Test", "Practice", new DateOnly(2024, 12, 2), 3, "Outdoor", "3km/h E", "JMHB");
+        Event newEvent = new Event("Test", "Test", "Practice", new DateTime(2024, 12, 2), 3, "Outdoor", "3km/h E", "JMHB");
         EventItemModel eventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent);
         eventItems.Add(eventItemModel);
 

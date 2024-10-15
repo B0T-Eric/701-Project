@@ -1,15 +1,13 @@
-using Android.Widget;
 using ArcheryLibrary;
 using CommunityToolkit.Maui.Markup;
 using Microsoft.Maui.Layouts;
-using System.Text.RegularExpressions;
 namespace ArcheryProjectApp.Pages;
 
 public partial class ScoresPage : ContentPage
 {
     Event currentEvent; //user event.
     private VerticalStackLayout mainLayout;
-    //scores page is passed reference to a user event which it then creates views to display each of the 
+    //scores page is passed reference to a user event which it then creates views to display each of the ends and rounds
     public ScoresPage(Event userEvent)
     {
         InitializeComponent();

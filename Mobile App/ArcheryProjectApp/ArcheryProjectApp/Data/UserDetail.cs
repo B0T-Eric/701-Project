@@ -22,7 +22,7 @@ namespace ArcheryProjectApp.Data
         [Column("club_name")]
         public string? ClubName { get; set; } = default!;
         [Column("DOB")]
-        public DateOnly? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         [Column("user_auth_id")]
         public int UserAuthId { get; set;}
 

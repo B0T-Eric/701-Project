@@ -25,7 +25,7 @@ namespace ArcheryProjectApp.Data
         [Column("type")]
         public string Type { get; set; } = default!;
         [Column("date")]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         [Column("round_count")]
         public int RoundCount { get; set; }
         [Column("environment")]

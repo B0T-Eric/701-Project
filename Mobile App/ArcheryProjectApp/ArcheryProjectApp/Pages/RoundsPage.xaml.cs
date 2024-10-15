@@ -50,8 +50,20 @@ public partial class RoundsPage : ContentPage
                         roundTarget = round.Ends[0].Target;
                     }
                 }
-                int eventAverage = roundTotals / _event.Rounds.Count;
-                completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
+                int eventAverage = 0;
+                if (roundTotals > 0 && _event.Rounds.Count > 0)
+                {
+                    eventAverage = roundTotals / _event.Rounds.Count;
+                }
+                if(roundTarget == null)
+                {
+                    completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, null));
+                }
+                else
+                {
+                    completeEvents.Add(new CompletedEventItemModel(_event.Name, _event.Date, _event.Type, _event.Environment, _event, _event.RoundCount, eventAverage, roundTarget));
+                }
+                
                 
             }
         }
@@ -114,11 +126,11 @@ public partial class RoundsPage : ContentPage
 public class EventItemModel
 {
     public string Name { get; set; }
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
     public string Type { get; set; }
     public string? Environment { get; set; }
     public Event UserEvent { get; set; }
-    public EventItemModel(string name, DateOnly date, string type, string environment, Event userEvent)
+    public EventItemModel(string name, DateTime date, string type, string environment, Event userEvent)
     {
         Name = name;
         Date = date;
@@ -126,7 +138,7 @@ public class EventItemModel
         Environment = environment;
         UserEvent = userEvent;
     }
-    public EventItemModel(string name, DateOnly date, string type, Event userEvent) 
+    public EventItemModel(string name, DateTime date, string type, Event userEvent) 
     {
         Name =name;
         Date = date;
@@ -139,11 +151,16 @@ public class CompletedEventItemModel : EventItemModel
     public int RoundCount { get; set; }
     public int RoundAverage { get; set; }
     public ImageSource? RoundTargetImage { get; set; }
-    public CompletedEventItemModel(string name, DateOnly date, string type, string environment, Event userEvent, int roundCount, int roundAverage, Target target) : base(name, date, type, environment, userEvent)
+    public CompletedEventItemModel(string name, DateTime date, string type, string environment, Event userEvent, int roundCount, int roundAverage, Target target) : base(name, date, type, environment, userEvent)
     {
         RoundCount = roundCount;
         RoundAverage = roundAverage;
-        RoundTargetImage = target.FaceImage.Source;
+        if(target != null) 
+        {
+            RoundTargetImage = target.FaceImage.Source; 
+        }
+
+       
     }
 }
 

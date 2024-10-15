@@ -11,23 +11,41 @@ namespace ArcheryProjectApp.Data
         public LocalDbService()
         {
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
-            _connection.ExecuteAsync("PRAGMA foreign_keys = ON");
-            _connection.CreateTableAsync<UserAuth>();
-            _connection.CreateTableAsync<UserDetail>();
-            _connection.CreateTableAsync<UserEvents>();
-            _connection.CreateTableAsync<RoundTable>();
-            _connection.CreateTableAsync<EndTable>();
-            _connection.CreateTableAsync<ScoreItem>();
+            InitializeDatabaseTablesAsync();
+        }
+        public async Task InitializeDatabaseTablesAsync()
+        {
+            await _connection.ExecuteAsync("PRAGMA foreign_keys = ON");
+            await _connection.CreateTableAsync<UserAuth>();
+            await _connection.CreateTableAsync<UserDetail>();
+            await _connection.CreateTableAsync<UserEvents>();
+            await _connection.CreateTableAsync<RoundTable>();
+            await _connection.CreateTableAsync<EndTable>();
+            await _connection.CreateTableAsync<ScoreItem>();
         }
         //retrieve the user credentials from the auth table.
         public async Task<UserAuth> GetUserById(int id)
         {
             return await _connection.Table<UserAuth>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
-        //Retrieve the user by name
-        public async Task<UserAuth> GetUserByName(string username)
+        //get detail id
+        public async Task<int> GetUserDetailId(int authId)
         {
-            return await _connection.Table<UserAuth>().Where(x => x.Username == username).FirstOrDefaultAsync();
+            var detail = await _connection.Table<UserDetail>().Where(x => x.UserAuthId == authId).FirstOrDefaultAsync();
+            return detail.Id;
+        }
+        //Retrieve the user by name
+        public async Task<UserAuth?> GetUserByName(string username)
+        {
+            var auth = await _connection.Table<UserAuth>().Where(x => x.Username == username).FirstOrDefaultAsync();
+            if (auth != null)
+            {
+                return auth;
+            }
+            else 
+            {
+                return null;
+            }
         }
         //Add new user authentication data to database.
         public async Task CreateUserAuth(UserAuth auth)
@@ -118,7 +136,7 @@ namespace ArcheryProjectApp.Data
                     EventId = eventId,
                 };
                 await _connection.InsertAsync(round);
-                await AddEndsToDatabase(r.Ends, r.Id);
+                await AddEndsToDatabase(r.Ends, round.Id);
             }
         }
         //Retrieve each round for user from events
@@ -146,15 +164,35 @@ namespace ArcheryProjectApp.Data
         {
             foreach (End e in ends)
             {
-                var end = new EndTable
+                if(e.Target == null)
                 {
-                    Distance = e.Distance,
-                    Number = e.EndNum,
-                    TargetName = e.Target.Face,
-                    Position = e.Position.ToString(),
-                    RoundTableId = roundId
-                };
-                await _connection.InsertAsync(end);
+                    var end = new EndTable
+                    {
+                        Distance = e.Distance,
+                        Number = e.EndNum,
+                        TargetName = null,
+                        Position = e.Position.ToString(),
+                        RoundTableId = roundId
+                    };
+                    await _connection.InsertAsync(end);
+                    int id = end.Id;
+                    await AddScoresToDatabase(id, e.Score);
+                }
+                else
+                {
+                    var end = new EndTable
+                    {
+                        Distance = e.Distance,
+                        Number = e.EndNum,
+                        TargetName = e.Target.Face,
+                        Position = e.Position.ToString(),
+                        RoundTableId = roundId
+                    };
+                    await _connection.InsertAsync(end);
+                    int id = end.Id;
+                    await AddScoresToDatabase(id, e.Score);
+                }
+                
             }
         }
 

@@ -44,7 +44,7 @@ public partial class StatisticsPage : ContentPage
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
             {
-                if (_event.RoundCount > 0)
+                if (_event.Rounds != null && _event.Rounds.Count > 0)
                 {
                     int low = _event.EventTotal;
                     lowest.Add(low);
@@ -77,7 +77,7 @@ public partial class StatisticsPage : ContentPage
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
             {
-                if (_event.RoundCount > 0 && _event.Rounds != null)
+                if ( _event.Rounds != null && _event.Rounds.Count > 0)
                 {
                     int high = _event.Rounds.Max(r => r.RoundTotal);
                     highest.Add(high);
@@ -102,7 +102,7 @@ public partial class StatisticsPage : ContentPage
         {
             foreach (Event e in ProfilePage.UserInstance.Events)
             {
-                if (e.RoundCount > 0 && e.Rounds != null)
+                if ( e.Rounds != null && e.Rounds.Count > 0)
                 {
                     int high = e.GetEventTotal();
                     highest.Add(high);
@@ -130,7 +130,7 @@ public partial class StatisticsPage : ContentPage
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
             {
-                if (_event.RoundCount > 0 && _event.Rounds != null)
+                if ( _event.Rounds != null && _event.Rounds.Count > 0)
                 {
                     int low = _event.Rounds.Min(r => r.RoundTotal);
                     lowest.Add(low);
@@ -157,8 +157,8 @@ public partial class StatisticsPage : ContentPage
     {
         int total = 0;
         int roundCount = 0;
-        DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-        DateOnly weekPrior = currentDate.AddYears(-1);
+        DateTime currentDate = DateTime.Now;
+        DateTime weekPrior = currentDate.AddYears(-1);
         if (ProfilePage.UserInstance.Events != null)
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
@@ -224,8 +224,8 @@ public partial class StatisticsPage : ContentPage
     {
         int total = 0;
         int roundCount = 0;
-        DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-        DateOnly weekPrior = currentDate.AddMonths(-1);
+        DateTime currentDate = DateTime.Now;
+        DateTime weekPrior = currentDate.AddMonths(-1);
         if (ProfilePage.UserInstance.Events != null)
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
@@ -256,8 +256,8 @@ public partial class StatisticsPage : ContentPage
     {
         int total = 0;
         int roundCount = 0;
-        DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-        DateOnly weekPrior = currentDate.AddDays(-7);
+        DateTime currentDate = DateTime.Now;
+        DateTime weekPrior = currentDate.AddDays(-7);
         if (ProfilePage.UserInstance.Events != null)
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)

@@ -7,7 +7,7 @@
         public string Name { get; set; } 
         public string? Description { get; set; }
         public string Type { get; set; }
-        public DateOnly Date {  get; set; }
+        public DateTime Date {  get; set; }
 
         //Round Count, This property determines how many rounds in this event. set on creation.
         public int RoundCount { get; set; }
@@ -22,7 +22,7 @@
         public int EventTotal { get; set; }
 
         //constructor for loading a registered event
-        public Event(int eventId, string eventName, string eventDescription, string eventType, DateOnly eventDate,
+        public Event(int eventId, string eventName, string eventDescription, string eventType, DateTime eventDate,
             int roundCount, string environment, string weather, string division, List<Round> rounds)
         {
             Date = eventDate;
@@ -37,7 +37,7 @@
             Rounds = rounds;
         }
         //constructor for in app making but with no scorecard info
-        public Event(int eventId, string eventName, string eventDescription, string eventType, DateOnly eventDate)
+        public Event(int eventId, string eventName, string eventDescription, string eventType, DateTime eventDate)
         {
             Date = eventDate;
             Id = eventId;
@@ -47,7 +47,7 @@
             Rounds = new List<Round>();
         }
         //constructor for creating a new Event in app
-        public Event(string eventName, string? eventDescription, string eventType, DateOnly eventDate, int roundCount, string environment, string weather, string division)
+        public Event(string eventName, string? eventDescription, string eventType, DateTime eventDate, int roundCount, string environment, string weather, string division)
         {
             Date = eventDate;
             Name = eventName;

@@ -1,11 +1,19 @@
 namespace ArcheryProjectApp;
 using ArcheryLibrary;
+using System.Threading.Tasks;
+
 public partial class SigninPage : ContentPage
 {
 	public SigninPage()
 	{
 		InitializeComponent();
+		if(App.dbService == null)
+		{
+            App.dbService = new Data.LocalDbService();
+        }
+		
 	}
+
 
     private async void OnSigninClick(object sender, EventArgs e)
     {
@@ -26,7 +34,7 @@ public partial class SigninPage : ContentPage
 	private async void GuestSignInClick(object sender, EventArgs e)
 	{
 		
-		if (!GuestInstanceExists("Guest")) //adds guest user to database if guest doesn't already exist
+		if (await GuestInstanceExistsAsync("Guest") == false) //adds guest user to database if guest doesn't already exist
 		{
             ProfilePage.UserInstance = new User();
             await App.dbService.CreateUserAuth(new Data.UserAuth
@@ -42,35 +50,56 @@ public partial class SigninPage : ContentPage
 		{
 			var userAuth = await App.dbService.GetUserByName("Guest");
 			var userDetail = await App.dbService.GetUserDetail(userAuth.Id);
-			ProfilePage.UserInstance = new User
+			if(userDetail != null)
 			{
-				AuthId = userAuth.Id,
-				DetailId = userDetail.Id,
-				isGuest = true,
-				ArcherName = userDetail.FirstName + " " + userDetail.LastName,
-				ClubName = userDetail.ClubName,
-				NZFAANumber = userDetail.NzfaaNumber,
-				AffiliationNumber = userDetail.ClubNumber,
-				DateOfBirth = userDetail.DateOfBirth,
-				division = userDetail.Division,
-			};
-
-			ProfilePage.UserInstance.Events = await App.dbService.GetUserEvents(ProfilePage.UserInstance.AuthId);
-			foreach (var _event in ProfilePage.UserInstance.Events)
+                ProfilePage.UserInstance = new User
+                {
+                    AuthId = userAuth.Id,
+                    DetailId = userDetail.Id,
+                    isGuest = true,
+                    ArcherName = userDetail.FirstName + " " + userDetail.LastName,
+                    ClubName = userDetail.ClubName,
+                    NZFAANumber = userDetail.NzfaaNumber,
+                    AffiliationNumber = userDetail.ClubNumber,
+                    DateOfBirth = userDetail.DateOfBirth,
+                    division = userDetail.Division,
+                };
+            }
+            else
+            {
+                ProfilePage.UserInstance = new User
+                {
+                    AuthId = userAuth.Id,
+                    ArcherName = "Guest User",
+                    ClubName = null,
+                    NZFAANumber = null,
+                    AffiliationNumber = null,
+                    DateOfBirth = null,
+                    division = null,
+                };
+                await App.dbService.AddUserDetailsToDatabase(ProfilePage.UserInstance, await App.dbService.GetUserAuthId("Guest"));
+                ProfilePage.UserInstance.DetailId = await App.dbService.GetUserDetailId(ProfilePage.UserInstance.AuthId);
+            }
+			List<Event> events = await App.dbService.GetUserEvents(ProfilePage.UserInstance.AuthId);
+			if(events != null)
 			{
-				_event.Rounds = await App.dbService.GetRoundsFromDatabase(_event.Id);
-				foreach(var round in _event.Rounds)
-				{
-					round.Ends = await App.dbService.RetrieveEndsFromDatabase(round.Id);
-				}
-			}
+                ProfilePage.UserInstance.Events = events;
+                foreach (var _event in ProfilePage.UserInstance.Events)
+                {
+                    _event.Rounds = await App.dbService.GetRoundsFromDatabase(_event.Id);
+                    foreach (var round in _event.Rounds)
+                    {
+                        round.Ends = await App.dbService.RetrieveEndsFromDatabase(round.Id);
+                    }
+                }
+            }
 		}
 		
         await Shell.Current.GoToAsync($"///Main");
     }
-	private bool GuestInstanceExists(string username)
+	private async Task<bool> GuestInstanceExistsAsync(string username)
 	{
-		if (App.dbService.GetUserByName(username) != null)
+		if ( await App.dbService.GetUserByName(username) != null)
 		{
             return true;
         }

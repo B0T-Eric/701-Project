@@ -7,6 +7,7 @@
         <ToolbarItem Text="Help" Clicked="ToolbarHelp_Clicked" IconImageSource="help.png"/>
         <ToolbarItem Text="Add Round" Clicked="ToolbarItem_Clicked" IconImageSource="save_icon.png"/>
     </ContentPage.ToolbarItems>
+    <ScrollView>
     <StackLayout>
         <Label x:Name="Rounds" Text="Saved Events Templates:"/>
         <CollectionView x:Name="RoundsCollectionView" EmptyView="No Saved Events" Header="Click or Tap to Add Rounds">
@@ -98,4 +99,5 @@
 
         </CollectionView>
     </StackLayout>
+    </ScrollView>
 </ContentPage>
