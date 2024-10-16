@@ -65,17 +65,6 @@
         public Event() 
         {
         }
-        
-        public int GetEventAverage()
-        {
-            int average = 0;
-            foreach( Round round in Rounds )
-            {
-                average += round.RoundTotal;
-            }
-            average /= RoundCount;
-            return average;
-        }
         public int GetEventTotal()
         {
             EventTotal = 0;
