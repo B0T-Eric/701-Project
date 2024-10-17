@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ArcheryProjectApp.Pages.EventViewPopup">
+    <StackLayout Padding="16">
+        <Label Text="Event Details" FontSize="Large" HorizontalTextAlignment="Center"/>
+        <Grid ColumnSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+            <Label Text="Name:" FontSize="Medium" Grid.Column="0" Grid.Row="0" />
+            <Label Text="Description:" FontSize="Medium" Grid.Column="0" Grid.Row="1"/>
+            <Label Text="Date:" FontSize="Medium" Grid.Column="0" Grid.Row="2"/>
+            <Label Text="Round Count:" FontSize="Medium" Grid.Column="0" Grid.Row="3"/>
+            <Label Text="Environment:" FontSize="Medium" Grid.Column="0" Grid.Row="4"/>
+            <Label x:Name="WeatherLabel" Text="Weather:" FontSize="Medium" Grid.Column="0" Grid.Row="5"/>
+            <Label x:Name="EventNameText" FontSize="Medium" Grid.Column="1" Grid.Row="0" />
+            <Label x:Name="EventDescriptionText" FontSize="Medium" Grid.Column="1" Grid.Row="1"/>
+            <Label x:Name="EventDateText" FontSize="Medium" Grid.Column="1" Grid.Row="2"/>
+            <Label x:Name="EventRoundCountText" FontSize="Medium" Grid.Column="1" Grid.Row="3"/>
+            <Label x:Name="EventEnvironmentText" FontSize="Medium" Grid.Column="1" Grid.Row="4"/>
+            <Label x:Name="EventWeatherText" FontSize="Medium" Grid.Column="1" Grid.Row="5"/>
+    </Grid>
+        <Button x:Name="DeleteEventButton" Text="Delete Event" Clicked="OnDeleteClicked" Margin="4"/>
+        <Button x:Name="CancelEventButton" Text="Close Window" Clicked="OnCancelClick" Margin="4"/>
+    </StackLayout>
+</toolkit:Popup>
