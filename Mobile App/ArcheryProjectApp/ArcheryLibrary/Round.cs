@@ -59,11 +59,6 @@ namespace ArcheryLibrary
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public int GetRoundAverage()
-        {
-            return RoundTotal / Ends.Count;
-        }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
