@@ -127,16 +127,34 @@ namespace ArcheryProjectApp.Data
         {
             foreach (Round r in rounds)
             {
-                var round = new RoundTable
+                if(r.Type == "Standard")
                 {
-                    Distance = r.Distance,
-                    EndCount = r.EndCount,
-                    Type = r.Type,
-                    TargetName = r.Target.Face,
-                    EventId = eventId,
-                };
-                await _connection.InsertAsync(round);
-                await AddEndsToDatabase(r.Ends, round.Id);
+                    var round = new RoundTable
+                    {
+                        Distance = r.Distance,
+                        EndCount = r.EndCount,
+                        Type = r.Type,
+                        TargetName = r.Target.Face,
+                        EventId = eventId,
+                    };
+                    await _connection.InsertAsync(round);
+                    await AddEndsToDatabase(r.Ends, round.Id);
+                }
+                else
+                {
+                    var round = new RoundTable()
+                    {
+                        Distance = null,
+                        TargetName = null,
+                        EventId = eventId,
+                        Type = r.Type,
+                        EndCount = r.EndCount,
+                    };
+                    await _connection.InsertAsync(round);
+                    await AddEndsToDatabase(r.Ends, round.Id);
+                }
+                
+                
             }
         }
         //Retrieve each round for user from events
