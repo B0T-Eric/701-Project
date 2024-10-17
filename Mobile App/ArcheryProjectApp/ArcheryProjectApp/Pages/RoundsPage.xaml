@@ -44,8 +44,8 @@
 
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnItemTapped"/>
-                        </Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnItemTapped"/>
+                            </Frame.GestureRecognizers>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -8,6 +8,7 @@
         <Label Padding="6" Margin="6" Text="How To:" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Center" />
         <Label Margin="6" Text="To create an event to hold scoring press the button on the top right of the screen."/>
         <Label Margin="6" Text="To edit a created Event, simply tap or click on the saved event item (it will be blue)."/>
+        <Label Margin="6" Text="To view full event details or delete an event double-tap the event item."/>
         <Label Margin="6" Text="When creating rounds in an event, add information to each field and press continue."/>
         <Label Margin="6" Text="Once all rounds parameters are completed you will be redirected to the scores page."/>
         <Label Margin="6" Text="In the scores page, you must complete filling out of all fields to be able to save the score data with the button on the top right."/>

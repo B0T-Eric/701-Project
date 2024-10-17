@@ -163,14 +163,16 @@ public partial class StatisticsPage : ContentPage
         {
             foreach (Event _event in ProfilePage.UserInstance.Events)
             {
-
-                if (_event.Date >= weekPrior && _event.Date <= currentDate)
+                if (_event.Rounds != null)
                 {
-                    foreach (Round round in _event.Rounds)
+                    if (_event.Date >= weekPrior && _event.Date <= currentDate)
                     {
-                        total += round.RoundTotal;
+                        foreach (Round round in _event.Rounds)
+                        {
+                            total += round.RoundTotal;
+                        }
+                        roundCount += _event.RoundCount;
                     }
-                    roundCount += _event.RoundCount;
                 }
             }
         }
@@ -232,11 +234,14 @@ public partial class StatisticsPage : ContentPage
             {
                 if (_event.Date >= weekPrior && _event.Date <= currentDate)
                 {
-                    foreach (Round round in _event.Rounds)
+                    if (_event.Rounds != null)
                     {
-                        total += round.RoundTotal;
+                        foreach (Round round in _event.Rounds)
+                        {
+                            total += round.RoundTotal;
+                        }
+                        roundCount += _event.RoundCount;
                     }
-                    roundCount += _event.RoundCount;
                 }
             }
         }
@@ -264,11 +269,14 @@ public partial class StatisticsPage : ContentPage
             {
                 if (_event.Date >= weekPrior && _event.Date <= currentDate)
                 {
-                    foreach (Round round in _event.Rounds)
+                    if (_event.Rounds != null)
                     {
-                        total += round.RoundTotal;
+                        foreach (Round round in _event.Rounds)
+                        {
+                            total += round.RoundTotal;
+                        }
+                        roundCount += _event.RoundCount;
                     }
-                    roundCount += _event.RoundCount;
                 }
             }
         }

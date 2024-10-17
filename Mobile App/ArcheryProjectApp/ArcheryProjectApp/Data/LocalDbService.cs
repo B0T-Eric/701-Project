@@ -96,6 +96,7 @@ namespace ArcheryProjectApp.Data
                 Division = _event.Division,
             };
             await _connection.InsertAsync(e);
+            _event.Id = e.Id;
             await AddRoundsToDatabase(_event.Rounds, userDetailId);
         }
         //retrieve each event from database for the user
@@ -136,6 +137,7 @@ namespace ArcheryProjectApp.Data
                     EventId = eventId,
                 };
                 await _connection.InsertAsync(round);
+                r.Id = round.Id;
                 await AddEndsToDatabase(r.Ends, round.Id);
             }
         }
@@ -169,12 +171,14 @@ namespace ArcheryProjectApp.Data
                     var end = new EndTable
                     {
                         Distance = e.Distance,
+                        ArrowCount = e.ArrowCount,
                         Number = e.EndNum,
                         TargetName = null,
                         Position = e.Position.ToString(),
                         RoundTableId = roundId
                     };
                     await _connection.InsertAsync(end);
+                    e.EndId = end.Id;
                     int id = end.Id;
                     await AddScoresToDatabase(id, e.Score);
                 }
@@ -189,6 +193,7 @@ namespace ArcheryProjectApp.Data
                         RoundTableId = roundId
                     };
                     await _connection.InsertAsync(end);
+                    e.EndId = end.Id;
                     int id = end.Id;
                     await AddScoresToDatabase(id, e.Score);
                 }
@@ -227,6 +232,30 @@ namespace ArcheryProjectApp.Data
             {
                 var scoreItem = new ScoreItem { EndId = endId, Score = score };
                 await _connection.InsertAsync(scoreItem);
+            }
+        }
+
+        public async Task RemoveEventFromDatabase(int eventId)
+        {
+            var rounds = await _connection.Table<RoundTable>().Where(r => r.EventId == eventId).ToListAsync();
+            foreach(var round in rounds)
+            {
+                var ends = await _connection.Table<EndTable>().Where(e => e.RoundTableId == round.Id).ToListAsync();
+                foreach(var end in ends)
+                {
+                    var scores = await _connection.Table<ScoreItem>().Where(s => s.EndId == eventId).ToListAsync();
+                    foreach(var score in scores)
+                    {
+                        await _connection.DeleteAsync(score);
+                    }
+                    await _connection.DeleteAsync(end);
+                }
+                await _connection.DeleteAsync(round);
+            }
+            var eventToRemove = await _connection.Table<UserEvents>().Where(e => e.Id == eventId).FirstOrDefaultAsync();
+            if(eventToRemove != null)
+            {
+                await _connection.DeleteAsync(eventToRemove);
             }
         }
     }

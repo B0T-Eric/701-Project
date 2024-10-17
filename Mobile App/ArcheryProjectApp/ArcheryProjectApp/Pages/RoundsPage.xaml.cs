@@ -10,25 +10,31 @@ public partial class RoundsPage : ContentPage
 {
     public ObservableCollection<CompletedEventItemModel> CompletedEvents {  get; set; }
     public ObservableCollection<EventItemModel> EventItems { get; set; }
+    public static RoundsPage instance;
+    private int _tapCount;
+    private const int DoubleTapTime = 300;
 	public RoundsPage()
 	{
 
         InitializeComponent();
-        EventItems = GetDisplayItems();
-        CompletedEvents = GetCompletedItems();
-        RoundsCollectionView.ItemsSource = EventItems;
-        CompleteCollectionView.ItemsSource = CompletedEvents;
+        DisplayItems();
         BindingContext = this;
-        
+        instance = this;
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        DisplayItems();
+    }
+
+    public void DisplayItems()
+    {
         EventItems = GetDisplayItems();
         CompletedEvents = GetCompletedItems();
         RoundsCollectionView.ItemsSource = EventItems;
         CompleteCollectionView.ItemsSource = CompletedEvents;
     }
+
     private ObservableCollection<CompletedEventItemModel>? GetCompletedItems()
     {
         ObservableCollection<CompletedEventItemModel> completeEvents = new ObservableCollection<CompletedEventItemModel>();
@@ -98,16 +104,29 @@ public partial class RoundsPage : ContentPage
     }
     private async void OnItemTapped(object sender, EventArgs e)
     {
+        _tapCount++;
+        await Task.Delay(DoubleTapTime);
+        if(_tapCount == 1)
+        {
+            SingleTapStandardItem(sender);
+        }
+        else
+        {
+            DoubleTapItem(sender);
+        }
+        _tapCount = 0;  
+    }
+    private async void SingleTapStandardItem(object sender)
+    {
         var frame = (Frame)sender;
         var tappedItem = frame.BindingContext as EventItemModel;
-        if(tappedItem != null && tappedItem.UserEvent != null)
+        if (tappedItem != null && tappedItem.UserEvent != null)
         {
             var popup = new RoundPopup(tappedItem.UserEvent, this.Navigation);
             await this.ShowPopupAsync(popup);
         }
-        
     }
-    private async void OnCompletedItemTapped(object sender, EventArgs e)
+    private async void SingleTapCompleteItem(object sender)
     {
         var frame = (Frame)sender;
         var tappedItem = frame?.BindingContext as EventItemModel;
@@ -116,6 +135,30 @@ public partial class RoundsPage : ContentPage
             //if rounds have been set and created before open the scores page with this event.
             await Navigation.PushAsync(new ScoresPage(tappedItem.UserEvent));
         }
+    }
+    private async void DoubleTapItem(object sender)
+    {
+        var frame = (Frame)sender;
+        var tappedItem = frame.BindingContext as EventItemModel;
+        if (tappedItem != null && tappedItem.UserEvent != null)
+        {
+            var popup = new EventViewPopup(tappedItem.UserEvent, instance);
+            await this.ShowPopupAsync(popup);
+        }
+    }
+    private async void OnCompletedItemTapped(object sender, EventArgs e)
+    {
+        _tapCount++;
+        await Task.Delay(DoubleTapTime);
+        if (_tapCount == 1)
+        {
+            SingleTapCompleteItem(sender);
+        }
+        else
+        {
+            DoubleTapItem(sender);
+        }
+        _tapCount = 0;
     }
     private async void ToolbarHelp_Clicked(object sender, EventArgs e)
     {
@@ -126,14 +169,14 @@ public partial class RoundsPage : ContentPage
 public class EventItemModel
 {
     public string Name { get; set; }
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
     public string Type { get; set; }
     public string? Environment { get; set; }
     public Event UserEvent { get; set; }
     public EventItemModel(string name, DateTime date, string type, string environment, Event userEvent)
     {
         Name = name;
-        Date = date;
+        Date = DateOnly.FromDateTime(date);
         Type = type;
         Environment = environment;
         UserEvent = userEvent;
@@ -141,7 +184,7 @@ public class EventItemModel
     public EventItemModel(string name, DateTime date, string type, Event userEvent) 
     {
         Name =name;
-        Date = date;
+        Date = DateOnly.FromDateTime(date);
         Type = type;
         UserEvent=userEvent;
     }

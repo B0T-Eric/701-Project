@@ -328,8 +328,8 @@ public partial class RoundPopup : Popup
             }
         }
 		else
-		{ 
-			
+		{
+			await Application.Current.MainPage.DisplayAlert("Incomplete fields", "Please fill out all fields", "Resume");
 		}
     }
 	private bool CheckFields()
