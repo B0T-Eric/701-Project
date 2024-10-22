@@ -14,7 +14,7 @@ namespace ArcheryProjectApp.Data
         [Column("id")]
         public int Id { get; set; }
         [Column("type")]
-        public string Type { get; set; } = default!;
+        public string Type { get; set; }
         [Column("end_count")]
         public int EndCount {  get; set; }
         [Column("distance")]
@@ -23,7 +23,5 @@ namespace ArcheryProjectApp.Data
         public string? TargetName { get; set; }
         [Column("event_id")]
         public int EventId {  get; set; }
-        [Ignore]
-        public List<EndTable> Ends { get; set; }
     }
 }

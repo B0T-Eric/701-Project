@@ -10,25 +10,20 @@ namespace ArcheryProjectApp.Data
         [Column("id")]
         public int Id { get; set; }
         [Column("first_name")]
-        public string? FirstName { get; set; } = default!;
+        public string? FirstName { get; set; }
         [Column("last_name")]
-        public string? LastName { get; set; } = default!;
+        public string? LastName { get; set; }
         [Column("division")]
-        public string? Division { get; set; } = default!;
+        public string? Division { get; set; }
         [Column("nzfaa_num")]
         public int? NzfaaNumber { get; set; }
         [Column("club_number")]
         public int? ClubNumber {  get; set; }
         [Column("club_name")]
-        public string? ClubName { get; set; } = default!;
+        public string? ClubName { get; set; }
         [Column("DOB")]
         public DateTime? DateOfBirth { get; set; }
         [Column("user_auth_id")]
         public int UserAuthId { get; set;}
-
-        [Ignore]
-        public UserAuth? UserAuth { get; set; }
-        [Ignore]
-        public List<UserEvents>? UserEvents { get; set; }
     }
 }

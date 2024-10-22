@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 
 namespace ArcheryProjectApp.Data
 {
@@ -19,23 +14,21 @@ namespace ArcheryProjectApp.Data
         [Column("user_id")]
         public int UserId { get; set; }
         [Column("name")]
-        public string Name { get; set; } = default!;
+        public string Name { get; set; }
         [Column("description")]
-        public string Description { get; set; } = default!;
+        public string? Description { get; set; }
         [Column("type")]
-        public string Type { get; set; } = default!;
+        public string Type { get; set; }
         [Column("date")]
         public DateTime Date { get; set; }
         [Column("round_count")]
         public int RoundCount { get; set; }
         [Column("environment")]
-        public string Environment { get; set; } = default!;
+        public string Environment { get; set; } 
         [Column("weather")]
         public string? Weather { get; set; }
         [Column("division")]
         public string Division { get; set; }
-        [Ignore]
-        public List<RoundTable> Rounds { get; set; }
 
     }
 }

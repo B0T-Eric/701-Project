@@ -97,7 +97,7 @@ namespace ArcheryProjectApp.Data
             };
             await _connection.InsertAsync(e);
             _event.Id = e.Id;
-            await AddRoundsToDatabase(_event.Rounds, userDetailId);
+            await AddRoundsToDatabase(_event.Rounds, e.Id);
         }
         //retrieve each event from database for the user
         public async Task<List<Event>>GetUserEvents(int userId)

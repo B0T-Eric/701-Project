@@ -22,7 +22,7 @@ namespace ArcheryProjectApp.Data
         [Column("distance")]
         public string? Distance { get; set; }
         [Column("position")]
-        public string Position { get; set; } = default!;
+        public string Position { get; set; }
         [Column("round_table_id")]
         public int RoundTableId {  get; set; }
     }
