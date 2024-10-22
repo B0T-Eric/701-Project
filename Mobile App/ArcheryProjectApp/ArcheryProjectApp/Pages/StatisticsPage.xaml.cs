@@ -178,8 +178,8 @@ public partial class StatisticsPage : ContentPage
         }
         if(total > 0 && roundCount > 0)
         {
-            int average = total / roundCount;
-            return $"{total} across {roundCount} rounds = {average}";
+            float average = (float)total / roundCount;
+            return $"{total} /  {roundCount}  = {average:0.00}";
         }
         else
         {
@@ -247,8 +247,8 @@ public partial class StatisticsPage : ContentPage
         }
         if (total > 0 && roundCount > 0)
         {
-            int average = total / roundCount;
-            return $"{total} across {roundCount} rounds = {average}";
+            float average = (float)total / roundCount;
+            return $"{total} / {roundCount} = {average:0.00}";
         }
         else
         {
@@ -283,8 +283,8 @@ public partial class StatisticsPage : ContentPage
        
         if(total > 0 && roundCount > 0)
         {
-            int average = total / roundCount;
-            return $"{total} across {roundCount} rounds = {average}";
+            float average = (float)total / roundCount;
+            return $"{total} / {roundCount} = {average:0.00}";
         }
         else
         {

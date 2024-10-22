@@ -59,10 +59,10 @@ public partial class RoundsPage : ContentPage
                         }
                     }
                 }
-                int eventAverage = 0;
+                float eventAverage = 0;
                 if (roundTotals > 0 && _event.Rounds.Count > 0)
                 {
-                    eventAverage = roundTotals / _event.Rounds.Count;
+                    eventAverage = (float)roundTotals / _event.Rounds.Count;
                 }
                 if(roundTarget == null)
                 {
@@ -195,9 +195,9 @@ public class EventItemModel
 public class CompletedEventItemModel : EventItemModel
 {
     public int RoundCount { get; set; }
-    public int RoundAverage { get; set; }
+    public float RoundAverage { get; set; }
     public ImageSource? RoundTargetImage { get; set; }
-    public CompletedEventItemModel(string name, DateTime date, string type, string environment, Event userEvent, int roundCount, int roundAverage, Target target) : base(name, date, type, environment, userEvent)
+    public CompletedEventItemModel(string name, DateTime date, string type, string environment, Event userEvent, int roundCount, float roundAverage, Target target) : base(name, date, type, environment, userEvent)
     {
         RoundCount = roundCount;
         RoundAverage = roundAverage;
