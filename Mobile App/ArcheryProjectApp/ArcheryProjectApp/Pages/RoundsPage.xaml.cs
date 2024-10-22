@@ -46,14 +46,17 @@ public partial class RoundsPage : ContentPage
                 Target roundTarget = null;
                 foreach (Round round in _event.Rounds)
                 {
-                    roundTotals += round.RoundTotal;
-                    if(round.Target != null && round.Type == "Standard")
+                    if(round.RoundTotal != 0)
                     {
-                        roundTarget = round.Target;
-                    }
-                    else if(round.Type == "Flint")
-                    {
-                        roundTarget = round.Ends[0].Target;
+                        roundTotals += round.RoundTotal;
+                        if (round.Target != null && round.Type == "Standard")
+                        {
+                            roundTarget = round.Target;
+                        }
+                        else if (round.Type == "Flint")
+                        {
+                            roundTarget = round.Ends[0].Target;
+                        }
                     }
                 }
                 int eventAverage = 0;

@@ -63,5 +63,14 @@ namespace ArcheryLibrary
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void SetRoundTotals()
+        {
+            foreach (var end in Ends)
+            {
+                xTotal += end.XCount;
+                roundTotal += end.EndTotal;
+            }
+        }
     }
 }

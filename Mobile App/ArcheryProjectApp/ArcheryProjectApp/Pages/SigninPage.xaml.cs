@@ -90,6 +90,11 @@ public partial class SigninPage : ContentPage
                     foreach (var round in _event.Rounds)
                     {
                         round.Ends = await App.dbService.RetrieveEndsFromDatabase(round.Id);
+                        foreach(var end in round.Ends)
+                        {
+                            end.SetEndTotals(round.Target);
+                        }
+                        round.SetRoundTotals();
                     }
                 }
             }

@@ -85,5 +85,44 @@ namespace ArcheryLibrary
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void SetEndTotals(Target? target)
+        {
+            this._xCount = this.Score.Count(s => s.Equals("X",StringComparison.OrdinalIgnoreCase));
+            int total = 0;
+            if (this.Target == null) //if there is no target for the end use the round target which is param.
+            {
+                foreach (var score in this.Score)
+                {
+                    if (int.TryParse(score, out int parsedScore))
+                    {
+                        total += parsedScore;
+                    }
+                    else if (score.Equals("X", StringComparison.OrdinalIgnoreCase))
+                    {
+                        total += target.ZoneValues[^1];
+                    }
+                }
+            }
+            else //if the end has a target use it
+            {
+                foreach (var score in this.Score)
+                {
+                    if (int.TryParse(score, out int parsedScore))
+                    {
+                        total += parsedScore;
+                    }
+                    else if (score.Equals("X", StringComparison.OrdinalIgnoreCase))
+                    {
+                        total += this.Target.ZoneValues[^1];
+                    }
+                    else if (score.Equals("M", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+                }
+            }
+            this._endTotal = total;
+        }
     }
 }
