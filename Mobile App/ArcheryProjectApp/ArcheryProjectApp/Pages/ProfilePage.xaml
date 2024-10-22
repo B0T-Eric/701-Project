@@ -38,19 +38,28 @@
         <CollectionView x:Name="EventsCollectionView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="Black" Background="LightBlue" Margin="4">
-                        <VerticalStackLayout>
-                            <HorizontalStackLayout>
-                                <Label Text="Event Name: " TextColor="Black" Padding="3"/>
-                                <Label Text ="{Binding Name}" TextColor="Black" Padding="3"/>
-                                <Label Text="Event Date: " TextColor="Black" Padding="3"/>
-                                <Label Text ="{Binding Date}" TextColor="Black" Padding="3"/>
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout>
-                                <Label Text="Event Type: " TextColor="Black" Padding="3"/>
-                                <Label Text ="{Binding Type}" TextColor="Black" Padding="3"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
+                    <Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Event Name: " Grid.Column="0" Grid.Row="0"/>
+                            <Label Text ="{Binding Name}"  Grid.Column="1" Grid.Row="0"/>
+                            <Label Text="Event Date: "  Grid.Column="0" Grid.Row="1"/>
+                            <Label Text ="{Binding Date}" Grid.Column="1" Grid.Row="1"/>
+                            <Label Text="Event Type: " Grid.Column="0" Grid.Row="2"/>
+                            <Label Text ="{Binding Type}"   Grid.Column="1" Grid.Row="2"/>
+                            <Label Text="Environment: " Grid.Column="0" Grid.Row="3"/>
+                            <Label Text="{Binding Environment}" Grid.Column="1" Grid.Row="3"/>
+
+                        </Grid>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnEventItemTapped"/>
                         </Frame.GestureRecognizers>

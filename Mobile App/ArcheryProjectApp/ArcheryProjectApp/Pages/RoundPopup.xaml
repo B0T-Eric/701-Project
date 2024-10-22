@@ -4,39 +4,39 @@
              x:Class="ArcheryProjectApp.Pages.RoundPopup"
                 CanBeDismissedByTappingOutsideOfPopup="False"
              >
-    <ScrollView BackgroundColor="White" >
+    <ScrollView BackgroundColor="White" Padding="8" >
         <VerticalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Padding="6">
                 <Label x:Name="CurrentRoundLabel" Text="Round:" FontSize="20" FontAttributes="Bold" Padding="10"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="8">
                 <Label Text="Ends: " x:Name="EndsLabel"/>
-                <Picker x:Name="EndPicker" SelectedIndexChanged="EndPickerChanged" WidthRequest="160"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
+                <Picker x:Name="EndPicker" SelectedIndexChanged="EndPickerChanged" WidthRequest="80"/>
                 <Label Text="Arrows: " x:Name="ArrowsLabel"/>
-                <Picker x:Name="ArrowPicker" WidthRequest="160"/>
+                <Picker x:Name="ArrowPicker" WidthRequest="80"/>
             </HorizontalStackLayout>
+            
             <HorizontalStackLayout>
                 <StackLayout Padding="10">
                     <Label Text="Select Round Type"/>
-                    <RadioButton x:Name="FlintRadioButton" Content="Flint" CheckedChanged="OnFlintCheckedChanged"/>
-                    <RadioButton x:Name="StandardRadioButton" Content="Standard" CheckedChanged="OnStandardCheckedChanged"/>
+                    <RadioButton x:Name="FlintRadioButton" Content="Flint" CheckedChanged="OnFlintCheckedChanged" Margin="8"/>
+                    <RadioButton x:Name="StandardRadioButton" Content="Standard" CheckedChanged="OnStandardCheckedChanged" Margin="8"/>
                 </StackLayout>
             </HorizontalStackLayout>
             
-            <VerticalStackLayout x:Name="FlintDetailsLayout">
+            <VerticalStackLayout x:Name="FlintDetailsLayout" Margin="4">
                     <!-- Target Pickers Go Here (Made in c#)  -->
                     <!-- Distance Sliders Go Here (Made in c#) -->
             </VerticalStackLayout>
 
 
-            <VerticalStackLayout x:Name="StandardDetailsLayout">
-                <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value"/>
-                <Picker x:Name="StandardTargetPicker" Title="Select Target" />
+            <VerticalStackLayout x:Name="StandardDetailsLayout" Margin="4">
+                <Editor x:Name="StandardDistanceEditor" Placeholder="Enter Distance Value" Margin="8"/>
+                <Picker x:Name="StandardTargetPicker" Title="Select Target" Margin="8"/>
             </VerticalStackLayout>
 
-            <Button x:Name="ContinueButton" Text="Continue" Clicked="ContinueButton_Clicked"/>
+            <Button x:Name="ContinueButton" Text="Continue" Clicked="ContinueButton_Clicked" Margin="8"/>
+            <Button x:Name="CancelButton" Text="Cancel" Clicked="CancelButton_Clicked" Margin="8"/>
 
         </VerticalStackLayout>
     </ScrollView>

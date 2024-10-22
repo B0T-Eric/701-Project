@@ -43,7 +43,7 @@ public partial class ProfilePage : ContentPage
     {
         //Do API call for this users 
         Event newEvent = new Event("Test", "Test", "Practice", new DateTime(2024, 12, 2), 3, "Outdoor", "3km/h E", "JMHB");
-        EventItemModel eventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent);
+        EventItemModel eventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.Environment, newEvent);
         eventItems.Add(eventItemModel);
 
     }

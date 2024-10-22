@@ -103,24 +103,28 @@ namespace ArcheryProjectApp.Data
         public async Task<List<Event>>GetUserEvents(int userId)
         {
             var eventTableEntries = await _connection.Table<UserEvents>().Where(e => e.UserId == userId).ToListAsync();
-            var userEvents = new List<Event>();
-            foreach (var entry in eventTableEntries)
+            if(eventTableEntries != null)
             {
-                var _event = new Event
+                var userEvents = new List<Event>();
+                foreach (var entry in eventTableEntries)
                 {
-                    Id = entry.Id,
-                    Name = entry.Name,
-                    Description = entry.Description,
-                    Date = entry.Date,
-                    RoundCount = entry.RoundCount,
-                    Environment = entry.Environment,
-                    Weather = entry.Weather,
-                    Division = entry.Division,
-                    Type = entry.Type,
-                };
-                userEvents.Add( _event );
+                    var _event = new Event
+                    {
+                        Id = entry.Id,
+                        Name = entry.Name,
+                        Description = entry.Description,
+                        Date = entry.Date,
+                        RoundCount = entry.RoundCount,
+                        Environment = entry.Environment,
+                        Weather = entry.Weather,
+                        Division = entry.Division,
+                        Type = entry.Type,
+                    };
+                    userEvents.Add(_event);
+                }
+                return userEvents;
             }
-            return userEvents;
+            return new List<Event>();
         }
 
         //Add each round from app into database.
@@ -161,21 +165,26 @@ namespace ArcheryProjectApp.Data
         //Retrieve each round for user from events
         public async Task<List<Round>> GetRoundsFromDatabase(int eventId)
         {
-            var roundTableEntries = await _connection.Table<RoundTable>().Where(r => r.EventId == eventId).ToListAsync();
-            var rounds = new List<Round>();
-            foreach(var entry in roundTableEntries)
+            var roundTableEntries = await _connection.Table<RoundTable>().ToListAsync();
+            var filteredRounds = roundTableEntries.Where(r => r.EventId == eventId).ToList();
+            if(filteredRounds != null)
             {
-                var round = new Round
+                var rounds = new List<Round>();
+                foreach (var entry in filteredRounds)
                 {
-                    Distance = entry.Distance,
-                    EndCount = entry.EndCount,
-                    Type = entry.Type,
-                    Target = App.targets.FirstOrDefault(t => t.Face == entry.TargetName),
-                    Id = entry.Id,
-                };
-                rounds.Add( round );
+                    var round = new Round
+                    {
+                        Distance = entry.Distance,
+                        EndCount = entry.EndCount,
+                        Type = entry.Type,
+                        Target = App.targets.FirstOrDefault(t => t.Face == entry.TargetName),
+                        Id = entry.Id,
+                    };
+                    rounds.Add(round);
+                }
+                return rounds;
             }
-            return rounds;
+            return new List<Round>();
         }
 
         //Add each end from app into database.
@@ -205,6 +214,7 @@ namespace ArcheryProjectApp.Data
                     {
                         Distance = e.Distance,
                         Number = e.EndNum,
+                        ArrowCount = e.ArrowCount,
                         TargetName = e.Target.Face,
                         Position = e.Position.ToString(),
                         RoundTableId = roundId
@@ -221,9 +231,9 @@ namespace ArcheryProjectApp.Data
         //Get Ends from the database
         public async Task<List<End>> RetrieveEndsFromDatabase(int roundId)
         {
-            var endTableEntries = _connection.Table<EndTable>().Where(end => end.RoundTableId == roundId).ToListAsync();
+            var endTableEntries = await _connection.Table<EndTable>().Where(end => end.RoundTableId == roundId).ToListAsync();
             var ends = new List<End>();
-            foreach(var endTable in await endTableEntries) 
+            foreach(var endTable in endTableEntries) 
             {
                 var scoreItems = await _connection.Table<ScoreItem>().Where(scoreItem => scoreItem.EndId == endTable.Id).ToListAsync();
                 var scores = scoreItems.Select(si => si.Score).ToList();
@@ -260,7 +270,7 @@ namespace ArcheryProjectApp.Data
                 var ends = await _connection.Table<EndTable>().Where(e => e.RoundTableId == round.Id).ToListAsync();
                 foreach(var end in ends)
                 {
-                    var scores = await _connection.Table<ScoreItem>().Where(s => s.EndId == eventId).ToListAsync();
+                    var scores = await _connection.Table<ScoreItem>().Where(s => s.EndId == end.Id).ToListAsync();
                     foreach(var score in scores)
                     {
                         await _connection.DeleteAsync(score);

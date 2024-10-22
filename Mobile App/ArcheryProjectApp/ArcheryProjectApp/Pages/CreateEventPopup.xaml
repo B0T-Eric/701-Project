@@ -3,10 +3,11 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="ArcheryProjectApp.Pages.CreateEventPopup">
 
-    <VerticalStackLayout x:Name="TemplatePopupLayout" BackgroundColor="White">
-        <Label Text="Create An Event Template" />
+    <VerticalStackLayout x:Name="TemplatePopupLayout" BackgroundColor="White" Padding="12">
+        <Label Text="Create An Event Template" Margin="8" FontAttributes="Bold"/>
         <Picker x:Name="EventTypePicker"
-            Title="Select Event Type">
+                Title="Select Event Type"
+                Margin="8">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Practice</x:String>
@@ -14,13 +15,14 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
-        <Editor x:Name="EventNameEditor" Placeholder="Enter Event Name"/>
-        <Editor x:Name="EventDescriptionEditor" Placeholder="Enter Event Description"/>
-        <DatePicker x:Name="EventDatePicker"/>
+        <Editor x:Name="EventNameEditor" Placeholder="Enter Event Name" Margin="8"/>
+        <Editor x:Name="EventDescriptionEditor" Placeholder="Enter Event Description" Margin="8"/>
+        <DatePicker x:Name="EventDatePicker" Margin="8"/>
 
         <VerticalStackLayout x:Name="ScoreCardContainer">
             <Picker x:Name="RoundCountPicker"
                     Title="Select Amount of Rounds"
+                    Margin="8"
                     >
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:Int16}">
@@ -34,7 +36,8 @@
             </Picker>
             
             <Picker x:Name="DivisionPicker"
-                    Title="Select Division">
+                    Title="Select Division"
+                    Margin="8">
                 <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>CFBB-R</x:String>
@@ -175,7 +178,8 @@
             </Picker>
             <Picker x:Name="EnvironmentPicker"
                     Title="Select Environment"
-                    SelectedIndexChanged="OnEnvironmentPickerIndexChanged">
+                    SelectedIndexChanged="OnEnvironmentPickerIndexChanged"
+                    Margin="8">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Outdoor</x:String>
@@ -183,12 +187,12 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Editor x:Name="WeatherEditor" Placeholder="Enter Weather Conditions, If Applicable" />
+            <Editor x:Name="WeatherEditor" Placeholder="Enter Weather Conditions, If Applicable" Margin="8" />
         </VerticalStackLayout>
-        <HorizontalStackLayout>
-        <Button x:Name="SaveButton" Text="Save" Clicked="OnSaveButtonClicked"/>
-        <Button x:Name="CancelButton" Text="Cancel" Clicked="OnCancelButtonClicked"/>
-        </HorizontalStackLayout>
+        <VerticalStackLayout>
+        <Button x:Name="SaveButton" Text="Save" Clicked="OnSaveButtonClicked" Margin="6"/>
+        <Button x:Name="CancelButton" Text="Cancel" Clicked="OnCancelButtonClicked" Margin="6"/>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 
 </toolkit:Popup>

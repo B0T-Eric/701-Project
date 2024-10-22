@@ -18,18 +18,21 @@
         <Setter Property="TextColor" Value="{StaticResource LighterShade1}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Margin" Value="8"/>
     </Style>
     <Style TargetType="Entry">
         <Setter Property="BackgroundColor" Value="{StaticResource LighterShade2}" />
         <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource AccentColor}" />
         <Setter Property="FontSize" Value="Small" />
+        <Setter Property="Margin" Value="4"/>
     </Style> 
     <Style TargetType="Editor">
         <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
         <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource AccentColor}" />
         <Setter Property="FontSize" Value="Small" />
+        <Setter Property="Margin" Value="4"/>
     </Style>
     <Style TargetType="Frame">
         <Setter Property="BackgroundColor" Value="{StaticResource LighterShade1}" />

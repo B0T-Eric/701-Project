@@ -6,41 +6,59 @@
     <VerticalStackLayout>
         <Label Text="Scoring Statistics" TextColor="Black" FontSize="24" HorizontalTextAlignment="Center" FontAttributes="Bold" Padding="6"/>
         <Label Text="Total" TextColor="Black" FontSize="Large" HorizontalTextAlignment="Center"/>
-        <HorizontalStackLayout>
-            <Label Text="Total Scores:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="TotalScoresText"/>
-        </HorizontalStackLayout>
-        <Label Text="Averages Over Time" TextColor="Black" FontSize="Large" HorizontalTextAlignment="Center"/>
-        <HorizontalStackLayout>
-        <Label Text="Weekly:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="WeeklyAverageText"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-        <Label Text="Monthly:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="MonthlyAverageText"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Yearly:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="YearlyAverageText"/>
-        </HorizontalStackLayout>
-      
-        <Label Text="Round &amp; Event Records" TextColor="Black" FontSize="Large" HorizontalTextAlignment="Center"/>
-        <HorizontalStackLayout>
-            <Label Text="Highest Round:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="HighestRoundTotalText"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-        <Label Text="Lowest Round:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-        <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="LowestRoundTotalText"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Highest Event Score:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="HighestEventScoreText" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Lowest Event Score:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" />
-            <Label Text="100" Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="LowestEventScoreText" />
-        </HorizontalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Total Scores:" FontSize="Medium" Padding="16" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="0" />
+            <Label Padding="16" FontSize="Medium" HorizontalTextAlignment="Center" x:Name="TotalScoresText"  Grid.Column="1" Grid.Row="0"/>
+
+        </Grid>
+       
         
+            <Label Text="Averages Over Time" TextColor="Black" FontSize="Large" HorizontalTextAlignment="Center" Padding="6"/>
+        <Grid RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        
+            <Label Text="Weekly:" FontSize="Medium"  HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="0" />
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="WeeklyAverageText" Grid.Column="1" Grid.Row="0"/>
+            <Label Text="Monthly:" FontSize="Medium"  HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="1" />
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="MonthlyAverageText" Grid.Column="1" Grid.Row="1"/>
+            <Label Text="Yearly:" FontSize="Medium" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="2" />
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="YearlyAverageText" Grid.Column="1" Grid.Row="2"/>
+        </Grid>
+        <Label Text="Round &amp; Event Records" TextColor="Black" FontSize="Large" HorizontalTextAlignment="Center" Padding="6"/>
+        <Grid RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Highest Round:" FontSize="Medium" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="0" />
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="HighestRoundTotalText" Grid.Column="1" Grid.Row="0"/>
+            <Label Text="Lowest Round:" FontSize="Medium" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="LowestRoundTotalText" Grid.Column="1" Grid.Row="1"/>
+            <Label Text="Highest Event Score:" FontSize="Medium" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="HighestEventScoreText" Grid.Column="1" Grid.Row="2"/>
+            <Label Text="Lowest Event Score:" FontSize="Medium" HorizontalTextAlignment="Center" Grid.Column="0" Grid.Row="3" />
+            <Label FontSize="Medium" HorizontalTextAlignment="Center" x:Name="LowestEventScoreText" Grid.Column="1" Grid.Row="3" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

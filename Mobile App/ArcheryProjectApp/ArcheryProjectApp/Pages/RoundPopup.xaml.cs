@@ -367,4 +367,8 @@ public partial class RoundPopup : Popup
 		}
 		return true;
 	}
+	private async void CancelButton_Clicked(object sender, EventArgs e)
+	{
+		Close();
+	}
 }
