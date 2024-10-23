@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using ArcheryLibrary;
+using System.Text;
 
 namespace ArcheryProjectApp.Data
 {
@@ -283,6 +284,87 @@ namespace ArcheryProjectApp.Data
             if(eventToRemove != null)
             {
                 await _connection.DeleteAsync(eventToRemove);
+            }
+        }
+        public async Task<bool> CheckIfEventExists(Event _event)
+        {
+            var eventTableItem = await _connection.Table<UserEvents>().Where(e => e.Name == _event.Name).FirstOrDefaultAsync();
+            if (eventTableItem != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public async Task UpdateCompleteEvent(Event _event)
+        {
+            await UpdateEvent(_event);
+            await UpdateRounds(_event.Rounds);
+            foreach(Round _round in _event.Rounds)
+            {
+                await UpdateEnds(_round.Ends);
+            }
+        }
+        private async Task UpdateEvent(Event _event)
+        {
+            var eventToUpdate = await _connection.Table<UserEvents>().Where(e => e.Id == _event.Id).FirstOrDefaultAsync();
+
+            if (eventToUpdate != null)
+            {
+                eventToUpdate.Name = _event.Name;
+                eventToUpdate.Description = _event.Description;
+                eventToUpdate.Date = _event.Date;
+                eventToUpdate.RoundCount = _event.RoundCount;
+                eventToUpdate.Environment = _event.Environment;
+                eventToUpdate.Weather = _event.Weather;
+                eventToUpdate.Division = _event.Division;
+
+                await _connection.UpdateAsync(eventToUpdate);
+            }
+        }
+        private async Task UpdateRounds(List<Round> _rounds)
+        {
+            foreach(Round _round in _rounds)
+            {
+               await UpdateRound(_round);
+            }
+        }
+        private async Task UpdateEnds(List<End> _ends)
+        {
+            foreach(End _end in _ends)
+            {
+                await UpdateEnd(_end);
+            }
+        }
+        private async Task UpdateRound(Round _round)
+        {
+            var roundToUpdate = await _connection.Table<RoundTable>().Where(r => r.Id == _round.Id).FirstOrDefaultAsync();
+
+            if (roundToUpdate != null)
+            {
+                roundToUpdate.Distance = _round.Distance;
+                roundToUpdate.EndCount = _round.EndCount;
+                roundToUpdate.Type = _round.Type;
+                roundToUpdate.TargetName = _round.Target.Face;
+
+                await _connection.UpdateAsync(roundToUpdate);
+            }
+        }
+        private async Task UpdateEnd(End _end)
+        {
+            var endToUpdate = await _connection.Table<EndTable>().Where(e => e.Id == _end.EndId).FirstOrDefaultAsync();
+
+            if (endToUpdate != null)
+            {
+                endToUpdate.Distance = _end.Distance;
+                endToUpdate.ArrowCount = _end.ArrowCount;
+                endToUpdate.Number = _end.EndNum;
+                endToUpdate.TargetName = _end.Target?.Face;
+                endToUpdate.Position = _end.Position.ToString();
+
+                await _connection.UpdateAsync(endToUpdate);
             }
         }
     }

@@ -342,8 +342,18 @@ public partial class ScoresPage : ContentPage
             {
                 round.IsComplete = true;
             }
-            //save to db here.
-            await App.dbService.AddEventsToUserDatabase(currentEvent, ProfilePage.UserInstance.DetailId);
+            if (await App.dbService.CheckIfEventExists(currentEvent) == false) //if doesn't exist add event to database
+            {
+                await App.dbService.AddEventsToUserDatabase(currentEvent, ProfilePage.UserInstance.DetailId);
+            }
+            else //if it does exist ask for update
+            {
+                bool answer = await DisplayAlert("Update Database?", "Entry already exists, Would you like to Update it?", "Yes", "No");
+                if(answer == true)
+                {
+                    
+                }
+            }
             //send to API if not guest
             
             await Navigation.PopAsync();
