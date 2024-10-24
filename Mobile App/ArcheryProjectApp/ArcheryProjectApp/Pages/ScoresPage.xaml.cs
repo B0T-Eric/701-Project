@@ -351,7 +351,7 @@ public partial class ScoresPage : ContentPage
                 bool answer = await DisplayAlert("Update Database?", "Entry already exists, Would you like to Update it?", "Yes", "No");
                 if(answer == true)
                 {
-                    
+                    await App.dbService.UpdateCompleteEvent(currentEvent);
                 }
             }
             //send to API if not guest

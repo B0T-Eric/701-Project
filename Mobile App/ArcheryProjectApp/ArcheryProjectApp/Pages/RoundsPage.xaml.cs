@@ -11,8 +11,9 @@ public partial class RoundsPage : ContentPage
     public ObservableCollection<CompletedEventItemModel> CompletedEvents {  get; set; }
     public ObservableCollection<EventItemModel> EventItems { get; set; }
     public static RoundsPage instance;
-    private int _tapCount;
+    private int tapCount;
     private const int DoubleTapTime = 300;
+    private bool isDoubleTapHandled = false;
 	public RoundsPage()
 	{
 
@@ -107,17 +108,23 @@ public partial class RoundsPage : ContentPage
     }
     private async void OnItemTapped(object sender, EventArgs e)
     {
-        _tapCount++;
+        tapCount++;
+        if(isDoubleTapHandled)
+        {
+            return;
+        }
         await Task.Delay(DoubleTapTime);
-        if(_tapCount == 1)
+        if(tapCount == 1)
         {
             SingleTapStandardItem(sender);
         }
-        else
+        else if(tapCount == 2) 
         {
+            isDoubleTapHandled = true;
             DoubleTapItem(sender);
         }
-        _tapCount = 0;  
+        tapCount = 0;  
+        isDoubleTapHandled = false;
     }
     private async void SingleTapStandardItem(object sender)
     {
@@ -151,17 +158,23 @@ public partial class RoundsPage : ContentPage
     }
     private async void OnCompletedItemTapped(object sender, EventArgs e)
     {
-        _tapCount++;
+        tapCount++;
+        if (isDoubleTapHandled)
+        {
+            return;
+        }
         await Task.Delay(DoubleTapTime);
-        if (_tapCount == 1)
+        if (tapCount == 1)
         {
             SingleTapCompleteItem(sender);
         }
-        else
+        else if(tapCount == 2)
         {
+            isDoubleTapHandled = true;
             DoubleTapItem(sender);
         }
-        _tapCount = 0;
+        tapCount = 0;
+        isDoubleTapHandled = false;
     }
     private async void ToolbarHelp_Clicked(object sender, EventArgs e)
     {

@@ -336,6 +336,16 @@ namespace ArcheryProjectApp.Data
             foreach(End _end in _ends)
             {
                 await UpdateEnd(_end);
+                await UpdateScoreItemsForEnd(_end.EndId, _end.Score);
+            }
+        }
+        private async Task UpdateScoreItemsForEnd(int endId, List<string> updatedScore)
+        {
+            var scoreItems = await _connection.Table<ScoreItem>().Where(s => s.EndId == endId).ToListAsync();
+            for (int i = 0; i < scoreItems.Count; i++)
+            {
+                scoreItems[i].Score = updatedScore[i];
+                await _connection.UpdateAsync(scoreItems[i]);
             }
         }
         private async Task UpdateRound(Round _round)
@@ -347,8 +357,7 @@ namespace ArcheryProjectApp.Data
                 roundToUpdate.Distance = _round.Distance;
                 roundToUpdate.EndCount = _round.EndCount;
                 roundToUpdate.Type = _round.Type;
-                roundToUpdate.TargetName = _round.Target.Face;
-
+                roundToUpdate.TargetName = _round.Target?.Face;
                 await _connection.UpdateAsync(roundToUpdate);
             }
         }

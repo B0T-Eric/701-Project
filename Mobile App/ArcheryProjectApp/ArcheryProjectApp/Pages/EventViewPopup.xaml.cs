@@ -4,7 +4,7 @@ using CommunityToolkit.Maui.Views;
 
 public partial class EventViewPopup : Popup
 {
-	Event _event;
+	Event? _event;
 	RoundsPage instance;
 	public EventViewPopup(Event _event, RoundsPage instance)
 	{
@@ -32,17 +32,39 @@ public partial class EventViewPopup : Popup
 				EventWeatherText.IsVisible = false;
 			}
 		}
+		else
+		{
+            EventNameText.Text = "   ";
+            EventDescriptionText.Text = "    ";
+            EventDateText.Text = "   ";
+            EventRoundCountText.Text = "   ";
+            EventEnvironmentText.Text = "    ";
+			EventWeatherText.Text = "   ";
+			DeleteEventButton.IsVisible = false;
+			DeleteEventButton.IsEnabled = false;
+        }
 	}
 	public async void OnDeleteClicked(object sender, EventArgs e)
 	{
-		//remove event from database
-		if (_event != null)
+		if(_event != null)
 		{
-            ProfilePage.UserInstance.Events.Remove(_event);
-            await App.dbService.RemoveEventFromDatabase(_event.Id);
-            instance.DisplayItems();
-			//needs remove function for api
+            //notify check for delete
+            bool result = await Application.Current.MainPage.DisplayAlert("Delete Event", "Are you sure you want to delete this event?", "Yes", "No");
+            if (result)
+            {
+                //remove event from database
+                ProfilePage.UserInstance.Events.Remove(_event);
+                await App.dbService.RemoveEventFromDatabase(_event.Id);
+                _event = null;
+				DisplayDetails();
+				instance.DisplayItems();
+
+
+                //needs remove function for api
+
+            }
         }
+		
 	}
 	public void OnCancelClick(object sender, EventArgs e)
 	{
