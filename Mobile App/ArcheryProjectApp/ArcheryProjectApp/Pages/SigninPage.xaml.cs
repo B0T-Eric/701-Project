@@ -1,12 +1,18 @@
 namespace ArcheryProjectApp;
 using ArcheryLibrary;
+using ArcheryProjectApp.Data;
 using System.Threading.Tasks;
 
 public partial class SigninPage : ContentPage
 {
-	public SigninPage()
+    private readonly LoginService loginService;
+
+    public SigninPage()
 	{
 		InitializeComponent();
+
+        loginService = new LoginService();
+
 		if(App.dbService == null)
 		{
             App.dbService = new Data.LocalDbService();
@@ -17,14 +23,40 @@ public partial class SigninPage : ContentPage
 
     private async void OnSigninClick(object sender, EventArgs e)
     {
-		//process user information (check for validity and verification from local db (if online check api aswell))
-		ValidateUserCredentials();
-        await Shell.Current.GoToAsync($"///Main");
+        //process user information (check for validity and verification from local db (if online check api aswell))
+        string userName = usernameEditor.Text;
+        string password = passwordEditor.Text;
+
+        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+        {
+            await DisplayAlert("Input Error", "Please enter both username and password.", "OK");
+            return;
+        }
+
+        ValidateUserCredentials(userName, password);
+        //await Shell.Current.GoToAsync($"///Main");
     }
 
-    private void ValidateUserCredentials()
+    private async void ValidateUserCredentials(string username, string password)
     {
-		//If user details are valid go to profile page, if not alert user to try again or register with their club credentials
+        //If user details are valid go to profile page, if not alert user to try again or register with their club credentials
+        try
+        {
+            var token = await loginService.LoginAsync(username, password);
+            if (!string.IsNullOrEmpty(token))
+            {
+                ProfilePage.UserInstance = new User { ArcherName = username };
+                await Shell.Current.GoToAsync($"//Main");
+            }
+            else
+            {
+                await DisplayAlert("Login Failed", "Invalid Username or Password. Please try again", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro", ex.Message, "OK");
+        }
     }
 
     private async void OnClubSignUpClick(object sender, EventArgs e)
