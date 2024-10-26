@@ -3,19 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcheryProjectApp.SigninPage"
              Title="Sign In">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Apollo Archery Scoring App"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            FontSize="20"/>
-        <Label Text="Username" FontSize="16" HorizontalOptions="Center" Margin="4"/>
-        <Editor x:Name="usernameEditor" Placeholder="Enter Username" FontSize="14" />
-        <Label Text="Password" FontSize="16" HorizontalOptions="Center" Margin="4"/>
-        <Editor x:Name="passwordEditor" Placeholder="Enter Password" FontSize="14" />
-        <Button Margin="4" Text="Sign-in" VerticalOptions="Center" HorizontalOptions="Center" Padding="15" FontSize="14" Clicked="OnSigninClick"/>
-        <Button Margin="4" Text="Sign-up" VerticalOptions="Center" HorizontalOptions="Center" Padding="15" FontSize="14" Clicked="OnClubSignUpClick"/>
-        <Label Margin="4" Text="No account? Sign-in as guest!" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" />
-        <Button Text="Guest Sign-in" VerticalOptions="Center" HorizontalOptions="Center" Padding="15" FontSize="14" Clicked="GuestSignInClick" />
-    </VerticalStackLayout>
+    
+    <AbsoluteLayout>
+        
+        <Image Source="background_a.jpg"
+               Aspect="AspectFill"
+               Opacity="0.3"
+               AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All" />
+        
+        <ScrollView>
+            <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                 AbsoluteLayout.LayoutFlags="All" >
+                <Label 
+                    Text="Welcome to Apollo Archery Scoring App" 
+                    HorizontalOptions="CenterAndExpand"
+                    Padding="25"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="Black"/>
+
+                <Label Text="Username" Padding="35,0,0,5" FontSize="18" FontAttributes="Bold" TextColor="Black" />
+                <Frame CornerRadius="10" Padding="0" HasShadow="False" HeightRequest="50" WidthRequest="350">
+                    <Editor x:Name="usernameEditor" 
+                            Placeholder="Enter Username" 
+                            FontSize="17"
+                            PlaceholderColor="#95A5A6" 
+                            Background="Transparent" />
+                </Frame>
+                
+                <Label Text="Password" Padding="35,15,0,5" FontSize="18" FontAttributes="Bold" TextColor="Black" />
+                <Frame CornerRadius="10" Padding="0" HasShadow="False" HeightRequest="50" WidthRequest="350">
+                    <Entry x:Name="passwordEditor" 
+                            Placeholder="Enter Password" 
+                            FontSize="17"
+                            IsPassword="true"
+                            PlaceholderColor="#95A5A6" 
+                            Background="Transparent" />
+                </Frame>
+
+                <HorizontalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
+                    <Button Margin="4" 
+                            Text="Sign-in" 
+                            WidthRequest="145"
+                            Padding="15" 
+                            FontSize="16" 
+                            BackgroundColor="#3498DB" 
+                            TextColor="White" 
+                            Clicked="OnSigninClick"/>
+                
+                    <Button Margin="4" 
+                            Text="Sign-up" 
+                            WidthRequest="145"
+                            Padding="15" 
+                            FontSize="16" 
+                            BackgroundColor="#3498DB" 
+                            TextColor="White" 
+                            Clicked="OnClubSignUpClick"/>
+                </HorizontalStackLayout>
+                
+                <Label Margin="4" 
+                       Text="No account? Sign-in as guest!" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center" 
+                       FontSize="16"
+                       TextColor="Black" />
+
+                <Button Text="Guest Sign-in" 
+                        WidthRequest="145"
+                        Padding="15" 
+                        FontSize="16" 
+                        BackgroundColor="#E67E22" 
+                        TextColor="White" 
+                        Clicked="GuestSignInClick" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
 </ContentPage>
