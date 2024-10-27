@@ -1,6 +1,7 @@
 using ArcheryLibrary;
 using ArcheryProjectApp.Data;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using static ArcheryProjectApp.SigninPage;
 
 namespace ArcheryProjectApp;
@@ -73,5 +74,25 @@ public partial class ProfilePage : ContentPage
             DisplayAlert("Event Exists", "Event Already Exists", "Ok");
         }
 
+    }
+
+    private async void OnSignOutClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            await SecureStorage.SetAsync("token", string.Empty);
+            Debug.WriteLine("Token cleared successfully");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error clearing token: {ex.Message}");
+        }
+
+        await Shell.Current.GoToAsync("//SignIn");
+
+        if (Shell.Current.CurrentPage is SigninPage signinPage)
+        {
+            signinPage.ClearFields();
+        }
     }
 }
