@@ -20,6 +20,12 @@ public partial class SigninPage : ContentPage
 		
 	}
 
+    public void ClearFields()
+    {
+        usernameEditor.Text = string.Empty;
+        passwordEditor.Text = string.Empty;
+    }
+
 
     private async void OnSigninClick(object sender, EventArgs e)
     {

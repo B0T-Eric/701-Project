@@ -27,6 +27,11 @@ namespace ArcheryProjectApp.Data
 
         public async Task<string> LoginAsync(string username, string password)
         {
+            if (await IsLoggedInAsync())
+            {
+                Debug.WriteLine("User is already logged in.");
+                return await GetTokenAsync();
+            }
 
             var user = new { userName = username, password = password };
             var json = JsonConvert.SerializeObject(user);
@@ -36,17 +41,11 @@ namespace ArcheryProjectApp.Data
 
             if (response.IsSuccessStatusCode)
             {
-                var token = await response.Content.ReadAsStringAsync();
-                bool isTokenStored = await IsTokenStoredAsync();
-                if (isTokenStored)
-                {
-                    Debug.WriteLine($"Token is already stored: {token}");
-                }
-                else
-                {
-                    await SecureStorage.SetAsync("token", token);
-                    Debug.WriteLine("Token has been stored.");
-                }
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var token = jsonResponse.Trim('"');
+
+                await SecureStorage.SetAsync("token", token);
+                Debug.WriteLine($"Token stored successfully: {token}");
 
                 return token;
             }

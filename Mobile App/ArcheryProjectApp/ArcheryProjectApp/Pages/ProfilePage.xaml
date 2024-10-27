@@ -69,5 +69,11 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Button Text="Sign Out" 
+                VerticalOptions="End"
+                Clicked="OnSignOutClicked"
+                BackgroundColor="Red"
+                TextColor="White"/>
+        
     </VerticalStackLayout>
 </ContentPage>
