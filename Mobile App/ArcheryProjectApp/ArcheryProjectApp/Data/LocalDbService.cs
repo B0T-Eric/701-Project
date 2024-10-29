@@ -68,7 +68,7 @@ namespace ArcheryProjectApp.Data
                 LastName = user.ArcherName.Split(' ')[1],
                 Division = user.division,
                 NzfaaNumber = user.NZFAANumber,
-                ClubName = user.ClubName,
+                Name = user.ClubName,
                 ClubNumber = user.AffiliationNumber,
                 DateOfBirth = user.DateOfBirth,
                 UserAuthId = userAuthId
