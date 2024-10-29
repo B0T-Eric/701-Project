@@ -42,12 +42,17 @@ namespace ArcheryProjectApp.Data
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                var token = jsonResponse.Trim('"');
-
-                await SecureStorage.SetAsync("token", token);
-                Debug.WriteLine($"Token stored successfully: {token}");
-
-                return token;
+                var responseObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResponse);
+                if (responseObject != null && responseObject.TryGetValue("token", out var token))
+                {
+                    await SecureStorage.SetAsync("token", token);
+                    Debug.WriteLine($"Token stored succesfully: {token}");
+                    return token;
+                }
+                else
+                {
+                    Debug.WriteLine("Token not found in the response.");
+                }
             }
 
             return null;

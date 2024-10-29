@@ -10,11 +10,15 @@ namespace ArcheryProjectApp;
 public partial class ProfilePage : ContentPage
 { 
     public static User UserInstance;
+    private readonly LoginService loginService;
+    public ReposUser _userRepository;
 
     private ObservableCollection<EventItemModel> eventItems = new ObservableCollection<EventItemModel>();
     public ProfilePage()
     {
         InitializeComponent();
+
+        loginService = new LoginService();
 
         EventsCollectionView.ItemsSource = eventItems;
         BindingContext = this;
@@ -23,7 +27,8 @@ public partial class ProfilePage : ContentPage
             ProfileNameLabel.Text = UserInstance.ArcherName;
             if (UserInstance.isGuest)
             {
-                
+                _userRepository = new ReposUser();
+                LoadUserProfile();
                 ProfileNZFAALabel.Text = "To Get Access";
                 ProfileClubLabel.Text = "Sign Up";
                 ModifyButtonText();
@@ -38,6 +43,29 @@ public partial class ProfilePage : ContentPage
         }
 
         
+    }
+    private async void LoadUserProfile()
+    {
+        var token = await SecureStorage.GetAsync("token");
+        if (string.IsNullOrEmpty(token))
+        {
+            await DisplayAlert("Error", "User is not authenticated.", "OK");
+            return;
+        }
+
+        var userDetail = await _userRepository.GetUserProfileAsync(token);
+        if (userDetail != null)
+        {
+            ProfileNameLabel.Text = $"{userDetail.FirstName} {userDetail.LastName}";
+            ProfileNZFAALabel.Text = userDetail.NzfaaNumber.ToString();
+            ProfileClubLabel.Text = userDetail.Name;
+            ProfileDivisionLabel.Text = userDetail.Division;
+            ProfileDOBLabel.Text = userDetail.DateOfBirth.ToString();
+        }
+        else
+        {
+            await DisplayAlert("Error", "Failed to load user profile.", "OK");
+        }
     }
 
     private void FetchEventsFromAPI()

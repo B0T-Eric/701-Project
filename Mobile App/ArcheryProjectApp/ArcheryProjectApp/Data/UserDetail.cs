@@ -20,7 +20,7 @@ namespace ArcheryProjectApp.Data
         [Column("club_number")]
         public int? ClubNumber {  get; set; }
         [Column("club_name")]
-        public string? ClubName { get; set; }
+        public string? Name { get; set; }
         [Column("DOB")]
         public DateTime? DateOfBirth { get; set; }
         [Column("user_auth_id")]

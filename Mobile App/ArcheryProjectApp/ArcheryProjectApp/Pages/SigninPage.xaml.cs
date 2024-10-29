@@ -96,7 +96,7 @@ public partial class SigninPage : ContentPage
                     DetailId = userDetail.Id,
                     isGuest = true,
                     ArcherName = userDetail.FirstName + " " + userDetail.LastName,
-                    ClubName = userDetail.ClubName,
+                    ClubName = userDetail.Name,
                     NZFAANumber = userDetail.NzfaaNumber,
                     AffiliationNumber = userDetail.ClubNumber,
                     DateOfBirth = userDetail.DateOfBirth,
