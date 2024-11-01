@@ -26,7 +26,7 @@ public partial class ProfilePage : ContentPage
         {
             ProfileNameLabel.Text = UserInstance.ArcherName;
             if (UserInstance.isGuest)
-            {
+            { //gues users
                 ProfileNZFAALabel.Text = "To Get Access";
                 ProfileClubLabel.Text = "Sign Up";
                 ModifyButtonText();
@@ -35,7 +35,7 @@ public partial class ProfilePage : ContentPage
             }
             else
             {
-
+                //normal users
                 _userRepository = new ReposUser();
                 LoadUserProfile();
                 
@@ -99,6 +99,7 @@ public partial class ProfilePage : ContentPage
             {
                 var stream = await photo.OpenReadAsync();
                 UpdateImage(ImageSource.FromStream(() => stream));
+                UserInstance.ProfilePicture = ImageSource.FromStream(() => stream);
             }
         }
     }
