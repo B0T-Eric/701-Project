@@ -6,7 +6,7 @@
              Title="Profile">
     <VerticalStackLayout>
         <HorizontalStackLayout Padding="6">
-            <Image WidthRequest="200" HeightRequest="200" Source="pfp.png"/>
+            <Image WidthRequest="200" HeightRequest="200" Source="pfp.png" x:Name="ProfilePicture"/>
             <VerticalStackLayout>
                 <HorizontalStackLayout>
                 <Label Text="Name: "
@@ -61,14 +61,14 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="Event Name: " Grid.Column="0" Grid.Row="0"/>
-                            <Label Text ="{Binding Name}"  Grid.Column="1" Grid.Row="0"/>
-                            <Label Text="Event Date: "  Grid.Column="0" Grid.Row="1"/>
-                            <Label Text ="{Binding Date}" Grid.Column="1" Grid.Row="1"/>
-                            <Label Text="Event Type: " Grid.Column="0" Grid.Row="2"/>
-                            <Label Text ="{Binding Type}"   Grid.Column="1" Grid.Row="2"/>
-                            <Label Text="Environment: " Grid.Column="0" Grid.Row="3"/>
-                            <Label Text="{Binding Environment}" Grid.Column="1" Grid.Row="3"/>
+                            <Label Text="Event Name: " Grid.Column="0" Grid.Row="0" FontAutoScalingEnabled="True"/>
+                            <Label Text ="{Binding Name}"  Grid.Column="1" Grid.Row="0" FontAutoScalingEnabled="True"/>
+                            <Label Text="Event Date: "  Grid.Column="0" Grid.Row="1" FontAutoScalingEnabled="True"/>
+                            <Label Text ="{Binding Date}" Grid.Column="1" Grid.Row="1" FontAutoScalingEnabled="True"/>
+                            <Label Text="Event Type: " Grid.Column="0" Grid.Row="2" FontAutoScalingEnabled="True"/>
+                            <Label Text ="{Binding Type}"   Grid.Column="1" Grid.Row="2" FontAutoScalingEnabled="True"/>
+                            <Label Text="Environment: " Grid.Column="0" Grid.Row="3" FontAutoScalingEnabled="True"/>
+                            <Label Text="{Binding Environment}" Grid.Column="1" Grid.Row="3" FontAutoScalingEnabled="True"/>
 
                         </Grid>
                         <Frame.GestureRecognizers>

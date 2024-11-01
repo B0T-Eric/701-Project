@@ -71,7 +71,8 @@ namespace ArcheryProjectApp.Data
                 Name = user.ClubName,
                 ClubNumber = user.AffiliationNumber,
                 DateOfBirth = user.DateOfBirth,
-                UserAuthId = userAuthId
+                UserAuthId = userAuthId,
+                ProfilePic = user.ProfilePicture.ToString(),
             };
             await _connection.InsertAsync(u);
         }
@@ -262,7 +263,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.InsertAsync(scoreItem);
             }
         }
-
+        //Delete Event from database
         public async Task RemoveEventFromDatabase(int eventId)
         {
             var rounds = await _connection.Table<RoundTable>().Where(r => r.EventId == eventId).ToListAsync();
@@ -286,6 +287,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.DeleteAsync(eventToRemove);
             }
         }
+        //check for existing events
         public async Task<bool> CheckIfEventExists(Event _event)
         {
             var eventTableItem = await _connection.Table<UserEvents>().Where(e => e.Name == _event.Name).FirstOrDefaultAsync();
@@ -298,6 +300,7 @@ namespace ArcheryProjectApp.Data
                 return false;
             }
         }
+        //update all event information
         public async Task UpdateCompleteEvent(Event _event)
         {
             await UpdateEvent(_event);
@@ -307,6 +310,7 @@ namespace ArcheryProjectApp.Data
                 await UpdateEnds(_round.Ends);
             }
         }
+        //update an event
         private async Task UpdateEvent(Event _event)
         {
             var eventToUpdate = await _connection.Table<UserEvents>().Where(e => e.Id == _event.Id).FirstOrDefaultAsync();
@@ -324,6 +328,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.UpdateAsync(eventToUpdate);
             }
         }
+        //update events rounds
         private async Task UpdateRounds(List<Round> _rounds)
         {
             foreach(Round _round in _rounds)
@@ -331,6 +336,7 @@ namespace ArcheryProjectApp.Data
                await UpdateRound(_round);
             }
         }
+        //update rounds ends
         private async Task UpdateEnds(List<End> _ends)
         {
             foreach(End _end in _ends)
@@ -339,6 +345,7 @@ namespace ArcheryProjectApp.Data
                 await UpdateScoreItemsForEnd(_end.EndId, _end.Score);
             }
         }
+        //update end scores
         private async Task UpdateScoreItemsForEnd(int endId, List<string> updatedScore)
         {
             var scoreItems = await _connection.Table<ScoreItem>().Where(s => s.EndId == endId).ToListAsync();
@@ -348,6 +355,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.UpdateAsync(scoreItems[i]);
             }
         }
+        //update an individual round
         private async Task UpdateRound(Round _round)
         {
             var roundToUpdate = await _connection.Table<RoundTable>().Where(r => r.Id == _round.Id).FirstOrDefaultAsync();
@@ -361,6 +369,7 @@ namespace ArcheryProjectApp.Data
                 await _connection.UpdateAsync(roundToUpdate);
             }
         }
+        //update an individual end
         private async Task UpdateEnd(End _end)
         {
             var endToUpdate = await _connection.Table<EndTable>().Where(e => e.Id == _end.EndId).FirstOrDefaultAsync();

@@ -106,9 +106,10 @@ public partial class RoundsPage : ContentPage
         var newEventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.Environment, newEvent);
         EventItems.Add(newEventItemModel);
     }
+    //track how many taps, if 2 open description, if 1 do standard output
     private async void OnItemTapped(object sender, EventArgs e)
     {
-        tapCount++;
+        tapCount++; 
         if(isDoubleTapHandled)
         {
             return;

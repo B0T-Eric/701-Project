@@ -27,8 +27,6 @@ public partial class ProfilePage : ContentPage
             ProfileNameLabel.Text = UserInstance.ArcherName;
             if (UserInstance.isGuest)
             {
-                _userRepository = new ReposUser();
-                LoadUserProfile();
                 ProfileNZFAALabel.Text = "To Get Access";
                 ProfileClubLabel.Text = "Sign Up";
                 ModifyButtonText();
@@ -37,6 +35,10 @@ public partial class ProfilePage : ContentPage
             }
             else
             {
+
+                _userRepository = new ReposUser();
+                LoadUserProfile();
+                
                 FetchEventsFromAPI();
             }
             
@@ -70,7 +72,7 @@ public partial class ProfilePage : ContentPage
 
     private void FetchEventsFromAPI()
     {
-        //Do API call for this users 
+        //Do API call for this users upcoming events 
         Event newEvent = new Event("Test", "Test", "Practice", new DateTime(2024, 12, 2), 3, "Outdoor", "3km/h E", "JMHB");
         EventItemModel eventItemModel = new EventItemModel(newEvent.Name, newEvent.Date, newEvent.Type, newEvent.Environment, newEvent);
         eventItems.Add(eventItemModel);
@@ -87,6 +89,22 @@ public partial class ProfilePage : ContentPage
         {
             await Navigation.PushAsync(new SignUpPage());
         }
+        else if (!UserInstance.isGuest && UserInstance != null)
+        {
+            FileResult photo = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Select Profile Picture"
+            });
+            if(photo != null)
+            {
+                var stream = await photo.OpenReadAsync();
+                UpdateImage(ImageSource.FromStream(() => stream));
+            }
+        }
+    }
+    public void UpdateImage(ImageSource imageUrl)
+    {
+        ProfilePicture.Source = imageUrl;
     }
     private void OnEventItemTapped(object sender, EventArgs e)
     {

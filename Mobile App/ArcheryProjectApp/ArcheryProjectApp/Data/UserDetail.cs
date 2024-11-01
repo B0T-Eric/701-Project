@@ -25,5 +25,7 @@ namespace ArcheryProjectApp.Data
         public DateTime? DateOfBirth { get; set; }
         [Column("user_auth_id")]
         public int UserAuthId { get; set;}
+        [Column("profile_pic_source")]
+        public string? ProfilePic { get; set; }
     }
 }
