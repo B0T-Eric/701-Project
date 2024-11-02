@@ -51,7 +51,7 @@ public partial class SigninPage : ContentPage
             var token = await loginService.LoginAsync(username, password);
             if (!string.IsNullOrEmpty(token))
             {
-                ProfilePage.UserInstance = new User { ArcherName = username };
+                ProfilePage.UserInstance = new User(username);
                 await Shell.Current.GoToAsync($"//Main");
             }
             else
@@ -61,7 +61,7 @@ public partial class SigninPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 

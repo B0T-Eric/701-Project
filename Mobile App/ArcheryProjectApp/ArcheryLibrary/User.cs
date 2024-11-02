@@ -26,6 +26,7 @@ namespace ArcheryLibrary
 
         public string? division {  get; set; }
         //new users
+        public ImageSource ProfilePicture { get; set; }
         public User(string firstname, string lastname, string club, int nzfaa, int affilitaion, string division, DateTime DOB) 
         {
             ArcherName = firstname + " " + lastname;
@@ -47,6 +48,11 @@ namespace ArcheryLibrary
             Events = events;
             this.division = division;
             isGuest = false;
+        }
+        public User(string archerName)
+        {
+            isGuest = false;
+            ArcherName = archerName;
         }
         //guest loading
         public User( List<Event> events)
