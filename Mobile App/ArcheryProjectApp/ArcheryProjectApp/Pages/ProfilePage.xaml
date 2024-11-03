@@ -27,13 +27,13 @@
                     <Label x:Name="ProfileClubLabel" FontSize="16" Padding="8" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <Label Text="Division"
+                    <Label Text="Division:"
                             FontSize="16"
                             Padding="8"/>
                     <Label x:Name="ProfileDivisionLabel" FontSize="16" Padding="8" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <Label Text="DOB"
+                    <Label Text="DOB:"
                             FontSize="16"
                             Padding="8"/>
                     <Label x:Name="ProfileDOBLabel" FontSize="16" Padding="8" />

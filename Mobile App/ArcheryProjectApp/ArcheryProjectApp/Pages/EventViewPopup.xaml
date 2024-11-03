@@ -4,10 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ArcheryProjectApp.Pages.EventViewPopup">
-    <StackLayout Padding="16">
+    <StackLayout Padding="16" Margin="6">
         <Label Text="Event Details" FontSize="Large" HorizontalTextAlignment="Center"/>
-        <Grid ColumnSpacing="20">
+        <Grid ColumnSpacing="25" Margin="6" HorizontalOptions="FillAndExpand">
         <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -24,8 +26,8 @@
             <Label Text="Name:" FontSize="Medium" Grid.Column="0" Grid.Row="0" />
             <Label Text="Description:" FontSize="Medium" Grid.Column="0" Grid.Row="1"/>
             <Label Text="Date:" FontSize="Medium" Grid.Column="0" Grid.Row="2"/>
-            <Label Text="Round Count:" FontSize="Medium" Grid.Column="0" Grid.Row="3"/>
-            <Label Text="Environment:" FontSize="Medium" Grid.Column="0" Grid.Row="4"/>
+            <Label Text="Rounds:" FontSize="Medium" Grid.Column="0" Grid.Row="3"/>
+            <Label Text="Environment:" FontSize="Medium" Grid.Column="0" Grid.Row="4" MinimumWidthRequest="160"/>
             <Label x:Name="WeatherLabel" Text="Weather:" FontSize="Medium" Grid.Column="0" Grid.Row="5"/>
             <Label x:Name="EventNameText" FontSize="Medium" Grid.Column="1" Grid.Row="0" />
             <Label x:Name="EventDescriptionText" FontSize="Medium" Grid.Column="1" Grid.Row="1"/>

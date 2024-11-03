@@ -52,6 +52,7 @@ namespace ArcheryLibrary
         public User(string archerName)
         {
             isGuest = false;
+            Events = new List<Event>();
             ArcherName = archerName;
         }
         //guest loading
