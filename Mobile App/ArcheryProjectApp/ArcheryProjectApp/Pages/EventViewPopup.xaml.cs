@@ -58,7 +58,7 @@ public partial class EventViewPopup : Popup
                 _event = null;
 				DisplayDetails();
 				instance.DisplayItems();
-
+				Close();
 
                 //needs remove function for api
 
